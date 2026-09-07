@@ -1,0 +1,215 @@
+{
+  "Dongbu": [
+    {
+      "id": "Dongbu151abd13sa",
+      "version": "1.0",
+      "updateDate": "2026-09-05",
+      "detail": {
+        "text": "【2026-09-05 更新说明】\n1. 更新 metal 层设计规则：顶层金属厚度由 2.6um 调整为 3.0um；\n2. 修复了 poly 间距 DRC 规则编号 PD.3 的误报问题；\n3. 新增 Dummy metal 填充密度要求（详见附图 layout.png）。\n\n适配产品：LDO / LED 驱动。\n联系人：工艺组 - 张工",
+        "images": [
+          "images/Dongbu/Dongbu151abd13sa/layout.png"
+        ]
+      }
+    },
+    {
+      "id": "Dongbu1824hp18ba",
+      "version": "1.0",
+      "updateDate": "2026-09-05",
+      "detail": {
+        "text": "【2026-09-05 更新说明】\n1. HV 器件（40V BJT）模型参数更新，gm/Id 曲线已重新标定；\n2. Rule deck 版本升至 r1824_hp_v2。\n见附图对比更新前后的 Vt 分布。",
+        "images": [
+          "images/Dongbu/Dongbu1824hp18ba/vt_before.png",
+          "images/Dongbu/Dongbu1824hp18ba/vt_after.png"
+        ]
+      }
+    },
+    {
+      "id": "Dongbu3300ms18bd",
+      "version": "1.0",
+      "updateDate": "2026-09-05",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    }
+  ],
+  "SMIC": [
+    {
+      "id": "smic180nm",
+      "version": "3.0",
+      "updateDate": "2026-09-07",
+      "detail": {
+        "text": "【2026-09-07 更新说明】\n1. 0.18um Logic 工艺版本升至 3.0；\n2. 更新 IO 器件 ESD 防护单元（新增 ggNMOS 结构）；\n3. 修复寄生参数提取（PEX）中 MIM 电容值偏小问题。",
+        "images": []
+      }
+    }
+  ],
+  "TSMC": [
+    {
+      "id": "tsmc028nm",
+      "version": "1.5",
+      "updateDate": "2026-08-15",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    }
+  ],
+  "CSMC": [
+    {
+      "id": "C1813_0.18um_CMOS_EN",
+      "version": "1.0",
+      "updateDate": "2026-09-01",
+      "detail": {
+        "text": "【2026-09-01 更新说明】\n1. 0.18um CMOS EN 工艺 PDK 首次发布；\n2. 支持 1P6M，含 MIM 电容与 thick top metal 选项；\n3. 器件模型：BSIM4.8（tt/ff/ss/fs/sf 五 corner）。\n\n应用：电源管理、MCU。",
+        "images": [
+          "images/CSMC/C1813_0.18um_CMOS_EN/cross_section.png"
+        ]
+      }
+    },
+    {
+      "id": "B1F13X5B_018_g3_40V_DB_sBCD",
+      "version": "1.0",
+      "updateDate": "2026-09-01",
+      "detail": {
+        "text": "【2026-09-01 更新说明】\n1. 0.18um 40V BCD 工艺，g3 版本；\n2. 集成 DMOS（40V）/ CMOS / Bipolar，适合 LED 驱动与 motor driver；\n3. 本次更新 DB 层（Deep Buried layer）对齐规则。",
+        "images": []
+      }
+    },
+    {
+      "id": "B1F3X5B_018_g3s_40V_DB_sBCD",
+      "version": "1.0",
+      "updateDate": "2026-09-01",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "B5223MH",
+      "version": "1.0",
+      "updateDate": "2026-09-01",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "90T2_18G3BCD_12in",
+      "version": "1.0",
+      "updateDate": "2026-09-01",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "90T2_18G3BCD_8port12in",
+      "version": "1.0",
+      "updateDate": "2026-09-01",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    }
+  ],
+  "SIEN": [
+    {
+      "id": "sien055nm",
+      "version": "1.2",
+      "updateDate": "2026-07-10",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    }
+  ],
+  "UNT": [
+    {
+      "id": "unt065nm",
+      "version": "2.0",
+      "updateDate": "2026-06-25",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    }
+  ],
+  "SKhynix": [
+    {
+      "id": "skhynix01dram",
+      "version": "4.1",
+      "updateDate": "2026-09-01",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    }
+  ],
+  "iFoundry": [
+    {
+      "id": "ifoundry040nm",
+      "version": "1.0",
+      "updateDate": "2026-05-20",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    }
+  ],
+  "NexChip": [
+    {
+      "id": "nexchip110nm",
+      "version": "1.3",
+      "updateDate": "2026-08-05",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    }
+  ],
+  "ZseMi": [
+    {
+      "id": "zsemi090nm",
+      "version": "1.1",
+      "updateDate": "2026-04-18",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    }
+  ],
+  "PSMC": [
+    {
+      "id": "psmc065nm",
+      "version": "2.2",
+      "updateDate": "2026-03-30",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    }
+  ],
+  "GTA": [
+    {
+      "id": "gta130nm",
+      "version": "1.0",
+      "updateDate": "2026-02-14",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    }
+  ],
+  "HH": [
+    {
+      "id": "hh180nm",
+      "version": "1.4",
+      "updateDate": "2026-01-22",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    }
+  ]
+}
