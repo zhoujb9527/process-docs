@@ -17,7 +17,7 @@
   .process-item { display: flex; align-items: center; padding: 12px 15px; background: #fff5f5; border-radius: 6px; margin-bottom: 8px; border: 1px solid #fee2e2; cursor: pointer; transition: 0.2s; gap: 20px; }
   .process-item:hover { background: #fef2f2; }
   
-  /* 【改动点】列表布局往中间调 */
+  /* 列表信息往中间调 */
   .process-name { font-weight: 600; font-size: 16px; min-width: 250px; }
   .process-meta { display: flex; align-items: center; gap: 15px; font-size: 14px; color: var(--text-light); margin-left: 20px; }
   .badge { background: #fee2e2; color: var(--danger); padding: 2px 8px; border-radius: 12px; font-size: 12px; display: flex; align-items: center; gap: 4px; }
@@ -25,7 +25,7 @@
   /* 模态框样式 */
   .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
   .modal.open { display: flex; }
-  .modal-content { background: #fff; width: 90%; max-width: 600px; border-radius: 8px; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+  .modal-content { background: #fff; width: 90%; max-width: 600px; border-radius: 8px; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto; }
   .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
   .modal-header h2 { margin: 0; font-size: 20px; display: flex; align-items: center; gap: 8px;}
   .close-btn { background: none; border: none; font-size: 24px; cursor: pointer; color: #999; }
@@ -48,7 +48,7 @@
   .detail-view { background: var(--card); padding: 20px; border-radius: 8px; }
   .detail-header { margin-bottom: 20px; }
   .detail-header h2 { margin: 0 0 10px 0; }
-  .detail-meta { font-size: 14px; color: var(--text-light); display: flex; gap: 15px; align-items: center;}
+  .detail-meta { font-size: 14px; color: var(--text-light); display: flex; gap: 15px; align-items: center; flex-wrap: wrap;}
 </style>
 </head>
 <body>
@@ -75,7 +75,6 @@
       <button class="close-btn" onclick="closeDetailEdit()">&times;</button>
     </div>
     
-    <!-- 【改动点】新增工艺名、版本、日期输入框 -->
     <div class="form-group">
       <label>工艺名</label>
       <input type="text" id="editProcessName">
@@ -139,29 +138,38 @@
 </div>
 
 <script>
-// 默认示例数据
-const DEFAULT_DATA = {
-  "ZenSEMI": [
-    { id: "12in_150nm_5V_BCDE", version: "1.0", updateDate: "2026-09-05", detail: { text: "1. 本次更新了 xxx 层\n2. 修复了 xxx 问题", images: [] } },
-    { id: "150BCD_Zen1-Model_PDK", version: "1.0", updateDate: "2026-09-05", detail: { text: "", images: [] } },
-    { id: "150BCD_nonEpi_ZenSM", version: "1.0", updateDate: "2026-09-05", detail: { text: "", images: [] } }
-  ],
-  "HHGRACE": [
-    { id: "BD090GHFH7", version: "1.0", updateDate: "2026-09-05", detail: { text: "", images: [] } },
-    { id: "BD090L2FF7", version: "1.0", updateDate: "2026-09-05", detail: { text: "", images: [] } },
-    { id: "BD090LPFD7", version: "1.0", updateDate: "2026-09-05", detail: { text: "", images: [] } }
-  ]
-};
+// ========== 配置 ==========
+const ADMIN_PASSWORD = "admin123";
+const MAX_IMG_SIZE = 2 * 1024 * 1024;
 
-let DATA = JSON.parse(JSON.stringify(DEFAULT_DATA));
+// ========== 数据 ==========
+let DATA = {};
 let currentFactory = '';
 let currentProcessKw = '';
 let editingDetail = null;
 let editingImages = [];
-const MAX_IMG_SIZE = 2 * 1024 * 1024;
-const ADMIN_PASSWORD = "admin123"; // 默认密码
 
-// 渲染列表
+// ========== 排序函数 ==========
+function sortFactories(factories) {
+  return factories.sort((a, b) => a.localeCompare(b, 'zh-CN', { numeric: true, sensitivity: 'base' }));
+}
+function sortProcesses(processes) {
+  return [...processes].sort((a, b) => a.id.localeCompare(b.id, 'zh-CN', { numeric: true, sensitivity: 'base' }));
+}
+
+// ========== 加载数据 ==========
+async function loadData() {
+  try {
+    const res = await fetch('data.json');
+    DATA = await res.json();
+    render();
+  } catch (e) {
+    console.error('加载 data.json 失败:', e);
+    alert('加载 data.json 失败，请确认文件存在且格式正确。');
+  }
+}
+
+// ========== 渲染列表 ==========
 function render() {
   const listView = document.getElementById('listView');
   const searchBox = document.getElementById('searchBox');
@@ -175,10 +183,17 @@ function render() {
   const pi = document.getElementById('processInput').value.toLowerCase();
   
   let html = '';
-  Object.keys(DATA).forEach(factory => {
-    if (fi && !factory.toLowerCase().includes(fi)) return;
-    const processes = DATA[factory].filter(p => !pi || p.id.toLowerCase().includes(pi));
+  // 获取并排序工厂
+  let factories = Object.keys(DATA).filter(f => !fi || f.toLowerCase().includes(fi));
+  factories = sortFactories(factories);
+  
+  factories.forEach(factory => {
+    let processes = DATA[factory];
+    if (pi) processes = processes.filter(p => p.id.toLowerCase().includes(pi));
     if (processes.length === 0) return;
+    
+    // 排序工艺
+    processes = sortProcesses(processes);
     
     html += `<div class="factory-group"><div class="factory-title"><span>${factory}</span><span style="font-size:12px; color:#666; font-weight:normal;">${processes.length} 项工艺</span></div>`;
     processes.forEach(p => {
@@ -197,7 +212,7 @@ function render() {
   listView.innerHTML = html || '<p style="text-align:center; color:#666;">无匹配数据</p>';
 }
 
-// 查看详情
+// ========== 查看详情 ==========
 function viewDetail(factory, processId) {
   const p = DATA[factory].find(x => x.id === processId);
   if (!p) return;
@@ -216,7 +231,7 @@ function viewDetail(factory, processId) {
           <span>工艺厂：${factory}</span>
           <span>版本：${p.version}</span>
           <span>更新日期：${p.updateDate}</span>
-          ${isRecent ? '<span class="badge">🔴 7日内有更新，更新日期 '+p.updateDate+'</span>' : ''}
+          ${isRecent ? '<span class="badge">🔴 7日内有更新</span>' : ''}
         </div>
       </div>
       <div style="margin-bottom:20px;">
@@ -229,14 +244,13 @@ function viewDetail(factory, processId) {
   `;
 }
 
-// 编辑详情
+// ========== 编辑详情 ==========
 function openDetailEdit(factory, processId) {
   const p = DATA[factory].find(x => x.id === processId);
   if (!p) return;
   editingDetail = { factory, processId };
   editingImages = (p.detail?.images || []).map(src => ({ src, published: true }));
   
-  // 【改动点】填充输入框
   document.getElementById('editProcessName').value = p.id;
   document.getElementById('editVersion').value = p.version;
   document.getElementById('editDate').value = p.updateDate;
@@ -275,14 +289,12 @@ async function handleFiles(fileList) {
   renderImgPreview();
 }
 
-// 【改动点】保存逻辑包含名称、版本、日期
 function saveDetailEdit() {
   if (!editingDetail) return;
   const { factory, processId } = editingDetail;
   const p = DATA[factory].find(x => x.id === processId);
   if (!p) return;
   
-  // 更新基础信息
   const newName = document.getElementById('editProcessName').value.trim();
   const newVersion = document.getElementById('editVersion').value.trim();
   const newDate = document.getElementById('editDate').value;
@@ -299,23 +311,29 @@ function saveDetailEdit() {
   alert('✅ 详情已暂存！\n\n若包含新图片，记得点「⬇️ 导出 data.json」后，把图片文件也一并上传到 images/ 目录。');
 }
 
-// 后台管理基础逻辑
+// ========== 后台管理 ==========
 function openAdmin() { document.getElementById('adminModal').classList.add('open'); }
 function closeAdmin() { document.getElementById('adminModal').classList.remove('open'); document.getElementById('loginView').style.display='block'; document.getElementById('manageView').style.display='none'; }
 function doLogin() { if (document.getElementById('pwdInput').value === ADMIN_PASSWORD) { document.getElementById('loginView').style.display='none'; document.getElementById('manageView').style.display='block'; refreshManageSelects(); } else alert('密码错误！'); }
 
 function refreshManageSelects() {
   const fs = document.getElementById('factorySelect');
-  fs.innerHTML = Object.keys(DATA).map(f => `<option value="${f}">${f}</option>`).join('');
+  let factories = Object.keys(DATA);
+  factories = sortFactories(factories);
+  fs.innerHTML = factories.map(f => `<option value="${f}">${f}</option>`).join('');
   fs.onchange = () => refreshProcessOptions(fs.value);
   refreshProcessOptions(fs.value);
 }
+
 function refreshProcessOptions(factory) {
   const ps = document.getElementById('processSelect');
-  ps.innerHTML = (DATA[factory] || []).map((p, i) => `<option value="${i}">${p.id}</option>`).join('') || '<option value="">（无工艺）</option>';
+  let processes = DATA[factory] || [];
+  processes = sortProcesses(processes);
+  ps.innerHTML = processes.map((p, i) => `<option value="${i}">${p.id}</option>`).join('') || '<option value="">（无工艺）</option>';
   ps.onchange = () => { const p = DATA[factory][ps.value]; if(p){document.getElementById('editVersion').value = p.version; document.getElementById('editDate').value = p.updateDate;} };
   const p = DATA[factory][ps.value]; if(p){document.getElementById('editVersion').value = p.version; document.getElementById('editDate').value = p.updateDate;}
 }
+
 function saveEdit() {
   const factory = document.getElementById('factorySelect').value;
   const idx = document.getElementById('processSelect').value;
@@ -326,6 +344,7 @@ function saveEdit() {
   DATA[factory][idx].updateDate = nd;
   render(); alert('已保存（本地）。记得导出 data.json！');
 }
+
 function addProcess() {
   const factory = document.getElementById('factorySelect').value;
   const id = prompt('新工艺名：');
@@ -333,11 +352,13 @@ function addProcess() {
   DATA[factory].push({ id: id.trim(), version: '1.0', updateDate: new Date().toISOString().slice(0,10), detail: { text: '', images: [] } });
   refreshManageSelects(); render();
 }
+
 function deleteProcess() {
   const factory = document.getElementById('factorySelect').value;
   const idx = document.getElementById('processSelect').value;
   if(confirm('确定删除？')) { DATA[factory].splice(idx, 1); refreshManageSelects(); render(); }
 }
+
 function renameProcess() {
   const factory = document.getElementById('factorySelect').value;
   const idx = document.getElementById('processSelect').value;
@@ -345,6 +366,7 @@ function renameProcess() {
   const newId = prompt('新工艺名：', oldId);
   if (newId && newId.trim()) { DATA[factory][idx].id = newId.trim(); refreshManageSelects(); render(); }
 }
+
 function renameFactory() {
   const oldFactory = document.getElementById('factorySelect').value;
   const newFactory = prompt('新工艺厂名：', oldFactory);
@@ -354,15 +376,21 @@ function renameFactory() {
     refreshManageSelects(); render();
   }
 }
+
+function deleteFactory() {
+  const factory = document.getElementById('factorySelect').value;
+  if(confirm(`确定删除厂 "${factory}"？其下所有工艺也会被删除！`)) { delete DATA[factory]; refreshManageSelects(); render(); }
+}
+
 function exportDataJson() {
   const blob = new Blob([JSON.stringify(DATA, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a'); a.href = url; a.download = 'data.json';
   document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
-  alert('✅ 已导出 data.json！请上传覆盖到仓库。');
+  alert('✅ 已导出 data.json！\n\n请上传覆盖到 GitHub 仓库根目录，EdgeOne Pages 会自动部署更新。');
 }
 
-// 拖拽上传
+// ========== 拖拽上传 ==========
 const fileInput = document.getElementById('fileInput');
 const fileDrop = document.getElementById('fileDrop');
 fileDrop.addEventListener('click', () => fileInput.click());
@@ -371,12 +399,13 @@ fileDrop.addEventListener('dragover', e => { e.preventDefault(); fileDrop.classL
 fileDrop.addEventListener('dragleave', () => fileDrop.classList.remove('dragover'));
 fileDrop.addEventListener('drop', e => { e.preventDefault(); fileDrop.classList.remove('dragover'); handleFiles(e.dataTransfer.files); });
 
-// 搜索监听
+// ========== 搜索监听 ==========
 document.getElementById('factoryInput').addEventListener('input', render);
 document.getElementById('processInput').addEventListener('input', render);
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeDetailEdit(); closeAdmin(); } });
 
-render();
+// ========== 页面加载 ==========
+loadData();
 </script>
 </body>
 </html>
