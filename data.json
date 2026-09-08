@@ -1,193 +1,1537 @@
 {
   "ZenSEMI": [
-    {"id":"12in_150nm_5V_BCDE","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"150BCD_Zen1-Model_PDK","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"150BCD_nonEpi_ZenSM","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}}
+    {
+      "id": "12in_150nm_5V_BCDE",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "150BCD_Zen1-Model_PDK",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "150BCD_nonEpi_ZenSM",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    }
   ],
   "HHGRACE": [
-    {"id":"BD090GHFH7","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"BD090L2FF7","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"BD090LPFD7","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"BD090L2FJ7","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"BD090LHF47","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"BD090GNF37","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"BD090LPFD7_辰芯","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"BF090LAFF7","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"FAB3_COMMON","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"BD090NEFD7","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"BD090L3FC7","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"BD090L3FB7","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"F011Q7P6_110nm_1.5+3.3+5V","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"L018S6P0","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"F018Q6D6","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"F018Q6D3","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"F018Q6P2","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"F018Q6D0","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"A018S4G8","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"F018Q6E2","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"F018Q6P0","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"F018Q6E0","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"L018S4G9","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"A018S6P0","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"A018S6D0","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"F018Q6D2","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"L020S5G4S","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"L018S6P6","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"L018S6D0S","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"R018S6D0","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"BD180GE0S","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"BD180GE0EG","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"C018S6G0","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"C1UM-40V","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"F018Q6P6","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"BCS180G","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"BC180HPC0","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"CV800EH-40V","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"BCD350","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"PMU350","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"BCD350GE","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"HHNEC工艺介绍","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"BD500HC1C","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"CD350G","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"EF130G","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"CZ6S_PLUS","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}}
+    {
+      "id": "BD090GHFH7",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "BD090L2FF7",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "BD090LPFD7",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "BD090L2FJ7",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "BD090LHF47",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "BD090GNF37",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "BD090LPFD7_辰芯",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "BF090LAFF7",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "FAB3_COMMON",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "BD090NEFD7",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "BD090L3FC7",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "BD090L3FB7",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "F011Q7P6_110nm_1.5+3.3+5V",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "L018S6P0",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "F018Q6D6",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "F018Q6D3",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "F018Q6P2",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "F018Q6D0",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "A018S4G8",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "F018Q6E2",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "F018Q6P0",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "F018Q6E0",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "L018S4G9",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "A018S6P0",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "A018S6D0",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "F018Q6D2",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "L020S5G4S",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "L018S6P6",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "L018S6D0S",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "R018S6D0",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "BD180GE0S",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "BD180GE0EG",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "C018S6G0",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "C1UM-40V",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "F018Q6P6",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "BCS180G",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "BC180HPC0",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "CV800EH-40V",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "BCD350",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "PMU350",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "BCD350GE",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "HHNEC工艺介绍",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "BD500HC1C",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "CD350G",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "EF130G",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "CZ6S_PLUS",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    }
   ],
   "CSMC": [
-    {"id":"C1513XF0_0.153um_CMOS_EN_G2","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"90T2_18G3BCD_12in","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"B5223MH","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"RP_90nm_1V5V5_45V_BCD","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"C1513X50_0.153um_CMOS_EN","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"90T1_C1513enG1_12in","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"M1816M33","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"U1F16X51","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"D5321M81_-0.5FE_0.35BE_7V_LDO_with_12V_device","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"90T1_C1513enG1_8port12in","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"M5324MA2_-_0.5um_FEOL_0.35um_BEOL_DPTM","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"B1516X5C_015_g3s_40V_DB_sBCD","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"90T2_18G3BCD_8port12in","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"U1F16X50_0.153um_HP_CMOS","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"C1813_0.18um_CMOS_EN","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"605DPTM-ADXXXX(Temporary)","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"605SPTM-ATXXXX(Temporary)","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"B1F13X5B_018_g3_40V_DB_sBCD","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"CA113X91_0.153um_9V_CMOS","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"H5012M08","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"L5313M00XXXX_05FE_035BE_5V_LG_wi_plug_verAP","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"C1F1XX70_0.153um_7V_CMOS","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"L5313MN0XXXX_05FE_035BE_5V_LG_wo_plug_verAF","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"M3524_0.35um_DPQM_3.3V_5V","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"B1816X5A_018_g2s_120V_DB_sBCD","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"6S10PDM-ST60M0_Special","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"B1F16XHD_0.153um_HD_BCD","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"M5213_-_0.25um_5V_Salicide","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"H8312_0.8FE_0.35BE_40V_HVCMOS","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}}
+    {
+      "id": "C1513XF0_0.153um_CMOS_EN_G2",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "90T2_18G3BCD_12in",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "B5223MH",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "RP_90nm_1V5V5_45V_BCD",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "C1513X50_0.153um_CMOS_EN",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "90T1_C1513enG1_12in",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "M1816M33",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "U1F16X51",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "D5321M81_-0.5FE_0.35BE_7V_LDO_with_12V_device",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "90T1_C1513enG1_8port12in",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "M5324MA2_-_0.5um_FEOL_0.35um_BEOL_DPTM",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "B1516X5C_015_g3s_40V_DB_sBCD",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "90T2_18G3BCD_8port12in",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "U1F16X50_0.153um_HP_CMOS",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "C1813_0.18um_CMOS_EN",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "605DPTM-ADXXXX(Temporary)",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "605SPTM-ATXXXX(Temporary)",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "B1F13X5B_018_g3_40V_DB_sBCD",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "CA113X91_0.153um_9V_CMOS",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "H5012M08",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "L5313M00XXXX_05FE_035BE_5V_LG_wi_plug_verAP",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "C1F1XX70_0.153um_7V_CMOS",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "L5313MN0XXXX_05FE_035BE_5V_LG_wo_plug_verAF",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "M3524_0.35um_DPQM_3.3V_5V",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "B1816X5A_018_g2s_120V_DB_sBCD",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "6S10PDM-ST60M0_Special",
+      "version": "1.0",
+      "updateDate": "2026-09-07",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "B1F16XHD_0.153um_HD_BCD",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "M5213_-_0.25um_5V_Salicide",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "H8312_0.8FE_0.35BE_40V_HVCMOS",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    }
   ],
   "Dongbu": [
-    {"id":"Dongbu151abd13sa","version":"1.0","updateDate":"2026-09-05","detail":{"text":"示例：本次更新了 metal 层规则。\\n（这是示例内容，管理员登录后可编辑）","images":[]}},
-    {"id":"Dongbu181abd18ba","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"Dongbu1233ii09sa","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"Dongbu1233ts09sa","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"Dongbu1250ts09sa","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"Dongbu1250ts11sb","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"Dongbu1530bd13sa","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"Dongbu1540bd13sa","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"Dongbu1807an18ba","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"Dongbu1824hp18ba","version":"1.0","updateDate":"2026-09-05","detail":{"text":"【示例】HV 器件模型参数更新","images":[]}},
-    {"id":"Dongbu1830an18ba","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"Dongbu1830bd15ba","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"Dongbu1830bd18ba","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"Dongbu1840an15ba","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"Dongbu1840bd15ba","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"Dongbu1850ms18sa","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"Dongbu1860bd18bb","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"Dongbu1860bd18bd","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"Dongbu3300ms18bd","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"Dongbu3360bd35ba","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"Dongbu5030bh18ba","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"Dongbu5040wd18ba","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"Dongbu5045bd18ba","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}}
+    {
+      "id": "Dongbu151abd13sa",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "示例：本次更新了 metal 层规则。\\n（这是示例内容，管理员登录后可编辑）",
+        "images": []
+      }
+    },
+    {
+      "id": "Dongbu181abd18ba",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "Dongbu1233ii09sa",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "Dongbu1233ts09sa",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "Dongbu1250ts09sa",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "Dongbu1250ts11sb",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "Dongbu1530bd13sa",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "Dongbu1540bd13sa",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "Dongbu1807an18ba",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "Dongbu1824hp18ba",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "【示例】HV 器件模型参数更新",
+        "images": []
+      }
+    },
+    {
+      "id": "Dongbu1830an18ba",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "Dongbu1830bd15ba",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "Dongbu1830bd18ba",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "Dongbu1840an15ba",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "Dongbu1840bd15ba",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "Dongbu1850ms18sa",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "Dongbu1860bd18bb",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "Dongbu1860bd18bd",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "Dongbu3300ms18bd",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "Dongbu3360bd35ba",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "Dongbu5030bh18ba",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "Dongbu5040wd18ba",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "Dongbu5045bd18ba",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    }
   ],
   "SMIC": [
-    {"id":"BCDF_0.18um","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"MSGL-GE-1.8-3.3","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"BCDE_0.18um_V3E","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"BCDE_0.18um_V3E_LC","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"BCD90nm_BCDE_EP","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"BCDA_0.18um_Auto","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"SMIC_0.35mm_(enhance)_MSGL-GE-3.3-5","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"SMIC_0.13um_EEPROM","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"SMIC_0.18um_MSGL-PM-1.8-5","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"SMIC_0.18um_MSGL-PM-1.8-5-20170322","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"SMIC_Scribe_lane_GDS","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"MSGL_0.13um-GE-1.2-3.3","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"MSGL_0.11um-GE-1.2-3.3","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"MSGL_0.15um-GE-1.8-3.3","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"MSGL_GE-2.5-3.3","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"MSGL_0.18um-LC-3.3-3.3","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"MSGL_0.13um_LL-1.5-3.3","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"0.11um_LCMO_GE_1.2_3.3","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"BCDM_0.18um_V2.1","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"SMIC_0.18um_LCMO-GE-1.8-3.3","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"BCDE_0.18um_V3E_Huada","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"E2PM_GE_1.8_3.3_5","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"BC15_0.15um_5V_CE","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}}
+    {
+      "id": "BCDF_0.18um",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "MSGL-GE-1.8-3.3",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "BCDE_0.18um_V3E",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "BCDE_0.18um_V3E_LC",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "BCD90nm_BCDE_EP",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "BCDA_0.18um_Auto",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "SMIC_0.35mm_(enhance)_MSGL-GE-3.3-5",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "SMIC_0.13um_EEPROM",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "SMIC_0.18um_MSGL-PM-1.8-5",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "SMIC_0.18um_MSGL-PM-1.8-5-20170322",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "SMIC_Scribe_lane_GDS",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "MSGL_0.13um-GE-1.2-3.3",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "MSGL_0.11um-GE-1.2-3.3",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "MSGL_0.15um-GE-1.8-3.3",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "MSGL_GE-2.5-3.3",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "MSGL_0.18um-LC-3.3-3.3",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "MSGL_0.13um_LL-1.5-3.3",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "0.11um_LCMO_GE_1.2_3.3",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "BCDM_0.18um_V2.1",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "SMIC_0.18um_LCMO-GE-1.8-3.3",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "BCDE_0.18um_V3E_Huada",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "E2PM_GE_1.8_3.3_5",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "BC15_0.15um_5V_CE",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    }
   ],
   "SKHYNIX": [
-    {"id":"HB180EJL2","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"HB180ENH3","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"HB180EPH","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"HB180ESH","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"HB180ENH3L","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"HB180ENH4","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"HB180ELL","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"HB180ENH","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"HB180EN","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"HB180EPN","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}}
+    {
+      "id": "HB180EJL2",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "HB180ENH3",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "HB180EPH",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "HB180ESH",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "HB180ENH3L",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "HB180ENH4",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "HB180ELL",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "HB180ENH",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "HB180EN",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "HB180EPN",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    }
   ],
   "UNT": [
-    {"id":"90nm_90V50HP","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"150nm_BCD45V","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"55nm_BCD20V","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"350nm_BCDV_IPS40V","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"150nm_BCD40V","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"180nm_BCD","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}}
+    {
+      "id": "90nm_90V50HP",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "150nm_BCD45V",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "55nm_BCD20V",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "350nm_BCDV_IPS40V",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "150nm_BCD40V",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "180nm_BCD",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    }
   ],
   "SIEN": [
-    {"id":"BD015LV^g1_1.8v+5v+hs30v","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"BD015LV^g2_1.8v+5v+hs40v","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}}
+    {
+      "id": "BD015LV^g1_1.8v+5v+hs30v",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "BD015LV^g2_1.8v+5v+hs40v",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    }
   ],
   "IFOUNDRY": [
-    {"id":"AP18EP200","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"GPG","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"HL13W","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"HL18P06","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"HL18GFL","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"HM13EW","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"HM13EWP","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"HM18EW","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"HP13M40GEN2","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"HP18E40GEN3","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"HP18E40GEN4","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"HP18E80","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"HP18EP100","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"HP18O200","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}}
+    {
+      "id": "AP18EP200",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "GPG",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "HL13W",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "HL18P06",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "HL18GFL",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "HM13EW",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "HM13EWP",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "HM18EW",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "HP13M40GEN2",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "HP18E40GEN3",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "HP18E40GEN4",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "HP18E80",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "HP18EP100",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "HP18O200",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    }
   ],
   "NEXCHIP": [
-    {"id":"150nm_BDES3_5V_40V_v0.5_LINING01(password)","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}}
+    {
+      "id": "150nm_BDES3_5V_40V_v0.5_LINING01(password)",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    }
   ],
   "PSMC": [
-    {"id":"(Al)P12in_80nm_EpiBCD_G2_1.2v_1.8v_5v_100v_PDK_ETE01(password)","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"(Epi)P12_POWER_80nm-EpiBCD_G1_1.2V_1.8V_5V_100V_ETE01(password)","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}}
+    {
+      "id": "(Al)P12in_80nm_EpiBCD_G2_1.2v_1.8v_5v_100v_PDK_ETE01(password)",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "(Epi)P12_POWER_80nm-EpiBCD_G1_1.2V_1.8V_5V_100V_ETE01(password)",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    }
   ],
   "GTA": [
-    {"id":"GTA(30V)_PDK","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"A0X440A20230620","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"A20XXX36XX20230620","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"CD18_1.8V_5V_HV85V","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"CD18_1.8V_5V_HV120V","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"12in_LD090E40_1v5_5v_40v","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"CD18_1.8V_5V_HV30V","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}},
-    {"id":"CD15_1.8V_5V_HV40V","version":"1.0","updateDate":"2026-09-05","detail":{"text":"","images":[]}}
+    {
+      "id": "GTA(30V)_PDK",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "A0X440A20230620",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "A20XXX36XX20230620",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "CD18_1.8V_5V_HV85V",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "CD18_1.8V_5V_HV120V",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "12in_LD090E40_1v5_5v_40v",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "CD18_1.8V_5V_HV30V",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "CD15_1.8V_5V_HV40V",
+      "version": "1.0",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    }
+  ],
+  "_admin_pwd": "123456",
+  "_logs": [
+    {
+      "time": "2026-09-08 16:33:37",
+      "process": "6S10PDM-ST60M0_Special",
+      "factory": "CSMC"
+    }
   ]
 }
