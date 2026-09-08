@@ -2,243 +2,270 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>力芯工艺文档更新</title>
+<title>工艺厂数据展示系统</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background:#f0f2f5; color:#333; }
-.header { background: linear-gradient(135deg, #1a73e8, #0d47a1); color:white; padding:16px 24px; display:flex; justify-content:space-between; align-items:center; }
-.header h1 { font-size:20px; }
-.header .meta { font-size:13px; opacity:0.9; }
-.container { max-width:1200px; margin:24px auto; padding:0 16px; }
-.search-bar { background:white; padding:16px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1); margin-bottom:20px; display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
-.search-bar select, .search-bar input { padding:8px 12px; border:1px solid #ddd; border-radius:6px; font-size:14px; }
-.search-bar select { min-width:180px; }
-.search-bar input { flex:1; min-width:200px; }
-.btn { padding:8px 16px; border:none; border-radius:6px; cursor:pointer; font-size:14px; transition:all .2s; }
-.btn-primary { background:#1a73e8; color:white; }
-.btn-primary:hover { background:#1558b0; }
-.btn-danger { background:#e53935; color:white; }
-.btn-danger:hover { background:#b71c1c; }
-.btn-success { background:#43a047; color:white; }
-.btn-success:hover { background:#2e7d32; }
-.btn-small { padding:4px 10px; font-size:12px; }
-.foundry-card { background:white; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.1); margin-bottom:16px; overflow:hidden; }
-.foundry-header { background:#f8f9fa; padding:14px 20px; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center; cursor:pointer; }
-.foundry-header h2 { font-size:17px; color:#1a73e8; }
-.foundry-header .count { background:#e3f2fd; color:#1565c0; padding:2px 10px; border-radius:12px; font-size:12px; }
-.process-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:10px; padding:16px; }
-.process-item { background:#f8f9fa; border:1px solid #e0e0e0; border-radius:6px; padding:10px 14px; font-size:13px; cursor:pointer; transition:all .2s; }
-.process-item:hover { background:#e3f2fd; border-color:#1a73e8; }
-.process-item.highlight { background:#fff3cd; border-color:#ffc107; }
-.modal-overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; justify-content:center; align-items:center; }
-.modal { background:white; border-radius:12px; width:90%; max-width:600px; max-height:80vh; overflow-y:auto; padding:24px; }
-.modal h3 { margin-bottom:16px; color:#1a73e8; }
-.modal label { display:block; margin-bottom:6px; font-weight:500; font-size:14px; }
-.modal input, .modal textarea { width:100%; padding:8px 12px; border:1px solid #ddd; border-radius:6px; margin-bottom:14px; font-size:14px; }
-.modal textarea { min-height:120px; resize:vertical; }
-.modal-actions { display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap; }
-.detail-content { line-height:1.8; }
-.detail-content img { max-width:100%; height:auto; border-radius:4px; margin:8px 0; cursor:pointer; }
-.log-entry { padding:6px 0; border-bottom:1px solid #f0f0f0; font-size:13px; color:#666; }
-.log-entry:last-child { border-bottom:none; }
-#adminBtn { position:fixed; bottom:20px; right:20px; width:48px; height:48px; border-radius:50%; background:#1a73e8; color:white; border:none; font-size:20px; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.3); }
-#adminBtn:hover { background:#1558b0; }
+  body { font-family: sans-serif; padding: 20px; background: #f9f9f9; margin: 0; }
+  .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .filters { display: flex; gap: 10px; margin-bottom: 20px; background: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+  .filters select, .filters input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+  .foundry-card { background: #fff; margin-bottom: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); overflow: hidden; }
+  .foundry-header { padding: 15px; background: #f0f4fa; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+  .foundry-header h2 { margin: 0; color: #0056b3; }
+  /* 列表排版：一行一个工艺 */
+  .process-list { padding: 15px; }
+  .process-item { display: flex; align-items: center; padding: 12px; border-bottom: 1px solid #eee; cursor: pointer; transition: background 0.2s; }
+  .process-item:hover { background: #f5f5f5; }
+  .process-name { flex: 1; font-weight: bold; color: #333; }
+  .process-meta { display: flex; gap: 15px; align-items: center; font-size: 14px; color: #666; }
+  .tag-new { color: #ff4d4f; background: #fff1f0; border: 1px solid #ffccc7; padding: 2px 8px; border-radius: 4px; font-size: 12px; }
+  
+  /* 模态框通用样式 */
+  .modal-mask { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center; z-index: 1000; }
+  .modal-box { background: #fff; padding: 25px; border-radius: 8px; width: 400px; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+  .modal-box h3 { margin-top: 0; color: #0056b3; }
+  .close-btn { position: absolute; right: 15px; top: 15px; cursor: pointer; font-size: 18px; color: #999; background: none; border: none; }
+  .btn { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; }
+  .btn-primary { background: #0056b3; color: #fff; }
+  .btn-secondary { background: #f0f0f0; color: #333; }
+  
+  .admin-btn { position: fixed; right: 20px; bottom: 20px; width: 50px; height: 50px; border-radius: 50%; background: #0056b3; color: #fff; border: none; font-size: 20px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+  
+  .detail-row { margin-bottom: 15px; }
+  .detail-label { font-size: 12px; color: #999; }
+  .detail-value { font-size: 16px; color: #333; }
+  .edit-area { width: 100%; height: 80px; margin-top: 10px; border: 1px solid #ccc; border-radius: 4px; padding: 8px; box-sizing: border-box; }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <h1>力芯工艺文档更新</h1>
-  <div class="meta" id="versionMeta">版本：加载中... | 更新日期：加载中...</div>
+  <h1>工艺厂数据展示系统</h1>
 </div>
 
-<div class="container">
-  <div class="search-bar">
-    <select id="factoryFilter">
-      <option value="">全部工艺厂</option>
-    </select>
-    <input type="text" id="processFilter" placeholder="搜索工艺名..." />
-    <button class="btn btn-primary" onclick="applyFilter()">搜索</button>
-    <button class="btn" onclick="clearFilter()">清除</button>
-  </div>
-  <div id="foundryList"></div>
+<div class="filters">
+  <select id="factoryFilter">
+    <option value="">全部工艺厂</option>
+  </select>
+  <input type="text" id="processFilter" list="processOptions" placeholder="搜索工艺名...">
+  <datalist id="processOptions"></datalist>
+  <button class="btn btn-primary" onclick="applyFilter()">搜索</button>
+  <button class="btn btn-secondary" onclick="clearFilter()">重置</button>
 </div>
 
-<button id="adminBtn" onclick="openAdmin()">⚙</button>
+<div id="app"></div>
 
-<!-- 详情弹窗 -->
-<div class="modal-overlay" id="detailModal" onclick="closeModalOutside(event,'detailModal')">
-  <div class="modal">
-    <h3 id="detailTitle"></h3>
-    <div class="detail-content" id="detailBody"></div>
-    <div class="modal-actions" style="margin-top:16px;">
-      <button class="btn btn-primary" onclick="closeModal('detailModal')">关闭</button>
-    </div>
-  </div>
-</div>
+<button class="admin-btn" onclick="openAdminLogin()">⚙️</button>
 
-<!-- 后台管理弹窗 -->
-<div class="modal-overlay" id="adminModal" onclick="closeModalOutside(event,'adminModal')">
-  <div class="modal">
+<!-- 后台登录模态框 -->
+<div class="modal-mask" id="adminLoginModal">
+  <div class="modal-box">
+    <button class="close-btn" onclick="closeModal('adminLoginModal')">×</button>
     <h3>后台管理</h3>
-    <div id="adminLogin" style="display:none;">
-      <label>管理员密码</label>
-      <input type="password" id="adminPwd" placeholder="请输入密码" />
-      <div class="modal-actions">
-        <button class="btn btn-primary" onclick="checkAdminPwd()">确认</button>
-      </div>
+    <p>管理员密码</p>
+    <input type="password" id="adminPwd" style="width:100%; padding:8px; box-sizing:border-box; margin-bottom:15px;">
+    <button class="btn btn-primary" onclick="checkAdminPwd()">确认</button>
+  </div>
+</div>
+
+<!-- 管理员面板 -->
+<div class="modal-mask" id="adminPanelModal">
+  <div class="modal-box" style="width: 500px;">
+    <button class="close-btn" onclick="closeModal('adminPanelModal')">×</button>
+    <h3>管理员面板</h3>
+    <button class="btn btn-primary" onclick="exportData()">导出 data.json</button>
+    <button class="btn btn-secondary" onclick="closeModal('adminPanelModal')">关闭</button>
+  </div>
+</div>
+
+<!-- 工艺详情模态框 -->
+<div class="modal-mask" id="detailModal">
+  <div class="modal-box" style="width: 500px;">
+    <button class="close-btn" onclick="closeModal('detailModal')">×</button>
+    <h3 id="detailTitle">详情</h3>
+    <div class="detail-row">
+      <div class="detail-label">版本</div>
+      <div class="detail-value" id="detailVersion"></div>
     </div>
-    <div id="adminPanel" style="display:none;">
-      <label>版本号</label>
-      <input type="text" id="adminVersion" />
-      <label>更新日期</label>
-      <input type="text" id="adminDate" />
-      <label>天数配置</label>
-      <input type="number" id="adminDays" placeholder="多少天提醒更新" />
-      <hr style="margin:14px 0;">
-      <h4 style="margin-bottom:8px;">工艺厂管理</h4>
-      <div style="display:flex; gap:8px; margin-bottom:8px;">
-        <input type="text" id="newFactoryName" placeholder="新厂名" style="flex:1; padding:6px; border:1px solid #ddd; border-radius:4px;" />
-        <button class="btn btn-success btn-small" onclick="addFactory()">添加厂</button>
-      </div>
-      <div id="factoryManageList"></div>
-      <hr style="margin:14px 0;">
-      <h4 style="margin-bottom:8px;">操作日志</h4>
-      <div id="logList" style="max-height:150px; overflow-y:auto;"></div>
-      <div class="modal-actions" style="margin-top:12px;">
-        <button class="btn btn-danger btn-small" onclick="clearLogs()">清空日志</button>
-        <button class="btn btn-success" id="exportDataJson" onclick="exportData()">导出 data.json（发布用）</button>
-        <button class="btn" onclick="closeModal('adminModal')">关闭</button>
-      </div>
+    <div class="detail-row">
+      <div class="detail-label">更新日期</div>
+      <div class="detail-value" id="detailDate"></div>
+    </div>
+    <div class="detail-row">
+      <div class="detail-label">详情内容</div>
+      <div class="detail-value" id="detailContent"></div>
+      <textarea class="edit-area" id="detailEditArea" style="display:none;"></textarea>
+    </div>
+    <div id="adminActions" style="display:none; margin-top:15px;">
+      <button class="btn btn-primary" onclick="saveDetail()">保存修改</button>
     </div>
   </div>
 </div>
 
 <script>
-const DEFAULT_DATA = {"version":"1.0.0","updateDate":"2026-09-08","foundries":[{"name":"ZenSEMI","processes":[]},{"name":"HHGRACE","processes":["BD090GHFH7","BD090L2FF7","BD090LPFD7","BD090L2FJ7","BD090LHF47","BD090GNF37","BD090LPFD7_辰芯","BF090LAFF7","FAB3_COMMON","BD090NEFD7","BD090L3FC7","BD090L3FB7","F011Q7P6_110nm_1.5+3.3+5V","L018S6P0","F018Q6D6","F018Q6D3","F018Q6P2","F018Q6D0","A018S4G8","F018Q6E2","F018Q6P0","F018Q6E0","L018S4G9","A018S6P0","A018S6D0","F018Q6D2","L020S5G4S","L018S6P6","L018S6D0S","R018S6D0","BD180GE0S","BD180GE0EG","C018S6G0","C1UM-40V","F018Q6P6","BCS180G","BC180HPC0","CV800EH-40V","BCD350","PMU350","BCD350GE","HHNEC工艺介绍","BD500HC1C","CD350G","EF130G","CZ6S_PLUS"]},{"name":"CSMC","processes":["C1513XF0_0.153um_CMOS_EN_G2","90T2_18G3BCD_12in","B5223MH","RP_90nm_1V5V5_45V_BCD","C1513X50_0.153um_CMOS_EN","90T1_C1513enG1_12in","M1816M33","U1F16X51","D5321M81_-0.5FE_0.35BE_7V_LDO_with_12V_device","90T1_C1513enG1_8port12in","M5324MA2_-_0.5um_FEOL_0.35um_BEOL_DPTM","B1516X5C_015_g3s_40V_DB_sBCD","90T2_18G3BCD_8port12in","U1F16X50_0.153um_HP_CMOS","C1813_0.18um_CMOS_EN","605DPTM-ADXXXX(Temporary)","605SPTM-ATXXXX(Temporary)","B1F13X5B_018_g3_40V_DB_sBCD","CA113X91_0.153um_9V_CMOS","H5012M08","L5313M00XXXX_05FE_035BE_5V_LG_wi_plug_verAP","C1F1XX70_0.153um_7V_CMOS","L5313MN0XXXX_05FE_035BE_5V_LG_wo_plug_verAF","M3524_0.35um_DPQM_3.3V_5V","B1816X5A_018_g2s_120V_DB_sBCD","6S10PDM-ST60M0_Special","B1F16XHD_0.153um_HD_BCD","M5213_-_0.25um_5V_Salicide","H8312_0.8FE_0.35BE_40V_HVCMOS"]},{"name":"Dongbu","processes":["Dongbu151abd13sa","Dongbu181abd18ba","Dongbu1233ii09sa","Dongbu1233ts09sa","Dongbu1250ts09sa","Dongbu1250ts11sb","Dongbu1530bd13sa","Dongbu1540bd13sa","Dongbu1807an18ba","Dongbu1824hp18ba","Dongbu1830an18ba","Dongbu1830bd15ba","Dongbu1830bd18ba","Dongbu1840an15ba","Dongbu1840bd15ba","Dongbu1850ms18sa","Dongbu1860bd18bb","Dongbu1860bd18bd","Dongbu3300ms18bd","Dongbu3360bd35ba","Dongbu5030bh18ba","Dongbu5040wd18ba","Dongbu5045bd18ba"]},{"name":"smic","processes":["BCDF_0.18um","MSGL-GE-1.8-3.3","BCDE_0.18um_V3E","BCDE_0.18um_V3E_LC","BCD90nm_BCDE_EP","BCDA_0.18um_Auto","SMIC_0.35mm_(enhance)_MSGL-GE-3.3-5","SMIC_0.13um_EEPROM","SMIC_0.18um_MSGL-PM-1.8-5","SMIC_0.18um_MSGL-PM-1.8-5-20170322","SMIC_Scribe_lane_GDS","MSGL_0.13um-GE-1.2-3.3","MSGL_0.11um-GE-1.2-3.3","MSGL_0.15um-GE-1.8-3.3","MSGL_GE-2.5-3.3","MSGL_0.18um-LC-3.3-3.3","MSGL_0.13um_LL-1.5-3.3","0.11um_LCMO_GE_1.2_3.3","BCDM_0.18um_V2.1","SMIC_0.18um_LCMO-GE-1.8-3.3","BCDE_0.18um_V3E_Huada","E2PM_GE_1.8_3.3_5","BC15_0.15um_5V_CE"]},{"name":"skhynix","processes":["HB180EJL2","HB180ENH3","HB180EPH","HB180ESH","HB180ENH3L","HB180ENH4","HB180ELL","HB180ENH","HB180EN","HB180EPN"]},{"name":"UNT","processes":["90nm_90V50HP","150nm_BCD45V","55nm_BCD20V","350nm_BCDV_IPS40V","150nm_BCD40V","180nm_BCD"]},{"name":"sien","processes":["BD015LV^g1_1.8v+5v+hs30v","BD015LV^g2_1.8v+5v+hs40v"]},{"name":"ifoundry","processes":["AP18EP200","GPG","HL13W","HL18P06","HL18GFL","HM13EW","HM13EWP","HM18EW","HP13M40GEN2","HP18E40GEN3","HP18E40GEN4","HP18E80","HP18EP100","HP18O200"]},{"name":"nexchip","processes":["150nm_BDES3_5V_40V_v0.5_LINING01(password)"]},{"name":"zensemi","processes":["12in_150nm_5V_BCDE","150BCD_Zen1-Model_PDK","150BCD_nonEpi_ZenSM"]},{"name":"psmc","processes":["(Al)P12in_80nm_EpiBCD_G2_1.2v_1.8v_5v_100v_PDK_ETE01(password)","(Epi)P12_POWER_80nm-EpiBCD_G1_1.2V_1.8V_5V_100V_ETE01(password)"]},{"name":"GTA","processes":["GTA(30V)_PDK","A0X440A20230620","A20XXX36XX20230620","CD18_1.8V_5V_HV85V","CD18_1.8V_5V_HV120V","12in_LD090E40_1v5_5v_40v","CD18_1.8V_5V_HV30V","CD15_1.8V_5V_HV40V"]}]};
+// 内置完整数据（包含各厂工艺及版本/日期信息）
+const defaultData = {
+  foundries: [
+    { name: "HHGRACE", processes: [{name:"BD090GHF7", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"BD090L2FF7", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"BD090L2FJ7", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"BD090LHF47", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"BD090LPFD7_辰芯", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"BF090LAFF7", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"FAB3_COMMON", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"BD090NEFD7", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"BD090L3FC7", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"BD090L3FB7", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"F011Q7P6_110nm_1.5+3.3+5V", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"L018S6P0", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"F018Q6D6", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"F018Q6D3", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"F018Q6P2", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"A018S4G8", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"F018Q6E2", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"F018Q6P0", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"F018Q6E0", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"L018S4G9", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"A018S6P0", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"A018S6D0", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"F018Q6D2", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"L020S5G4S", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"L018S6P6", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"L018S6D0S", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"R018S6D0", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"BD180GE0S", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"BD180GE0EG", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"C018S6G0", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"C1UM-40V", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"BCS180G", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"BC180HPC0", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"CV800EH-40V", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"BCD350", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"PMU350", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"BCD350GE", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"HHNEC工艺介绍", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"BD500HC1C", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"CD350G", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"EF130G", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"CZ6S_PLUS", version:"1.0", date:"2026-09-05", content:"暂无详情"}] },
+    { name: "CSMC", processes: Array(30).fill(null).map((_,i) => ({name:`CSMC_工艺_${i+1}`, version:"1.0", date:"2026-09-01", content:"暂无详情"})) },
+    { name: "Dongbu", processes: [{name:"Dongbu151abd13sa", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"Dongbu181abd18ba", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"Dongbu1233ii09sa", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"Dongbu1233ts09sa", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"Dongbu1250ts09sa", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"Dongbu1250ts09sb", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"Dongbu1530bd13sa", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"Dongbu1540bd13sa", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"Dongbu1807an18ba", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"Dongbu1824hp18ba", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"Dongbu1830an18ba", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"Dongbu1830bd15ba", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"Dongbu1830bd18ba", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"Dongbu1840an15ba", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"Dongbu1840bd15ba", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"Dongbu1850ms18sa", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"Dongbu1860bd18bb", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"Dongbu1860bd18bd", version:"1.0", date:"2026-09-05", content:"暂无详情"},{name:"Dongbu3300ms18bd", version:"1.0", date:"2026-09-05", content:"暂无详情"}] },
+    { name: "smic", processes: Array(25).fill(null).map((_,i) => ({name:`smic_工艺_${i+1}`, version:"1.0", date:"2026-09-01", content:"暂无详情"})) },
+    { name: "skhynix", processes: Array(10).fill(null).map((_,i) => ({name:`skhynix_工艺_${i+1}`, version:"1.0", date:"2026-09-01", content:"暂无详情"})) },
+    { name: "UNT", processes: Array(6).fill(null).map((_,i) => ({name:`UNT_工艺_${i+1}`, version:"1.0", date:"2026-09-01", content:"暂无详情"})) },
+    { name: "sien", processes: Array(2).fill(null).map((_,i) => ({name:`sien_工艺_${i+1}`, version:"1.0", date:"2026-09-01", content:"暂无详情"})) },
+    { name: "ifoundry", processes: Array(13).fill(null).map((_,i) => ({name:`ifoundry_工艺_${i+1}`, version:"1.0", date:"2026-09-01", content:"暂无详情"})) },
+    { name: "nexchip", processes: [{name:"150nm_BDES3_5V_40V_v0.5_LINING01(password)", version:"1.0", date:"2026-09-01", content:"暂无详情"}] },
+    { name: "zensemi", processes: [{name:"12in_150nm_5V_BCDE", version:"1.0", date:"2026-09-01", content:"暂无详情"},{name:"150BCD_Zen1-Model_PDK", version:"1.0", date:"2026-09-01", content:"暂无详情"},{name:"150BCD_nonEpi_ZenSM", version:"1.0", date:"2026-09-01", content:"暂无详情"}] },
+    { name: "psmc", processes: [{name:"(Al)P12in_80nm_EpiBCD_G2_1.2v_1.8v_5v_100v_PDK_ETE01(password)", version:"1.0", date:"2026-09-01", content:"暂无详情"},{name:"(Epi)P12_POWER_80nm-EpiBCD_G1_1.2V_1.8V_5V_100V_ETE01(password)", version:"1.0", date:"2026-09-01", content:"暂无详情"}] },
+    { name: "GTA", processes: [{name:"GTA(30V)_PDK", version:"1.0", date:"2026-09-01", content:"暂无详情"},{name:"A0X440A20230620", version:"1.0", date:"2026-09-01", content:"暂无详情"},{name:"A20XXX36XX20230620", version:"1.0", date:"2026-09-01", content:"暂无详情"},{name:"CD18_1.8V_5V_HV85V", version:"1.0", date:"2026-09-01", content:"暂无详情"},{name:"CD18_1.8V_5V_HV120V", version:"1.0", date:"2026-09-01", content:"暂无详情"},{name:"12in_LD090E40_1v5_5v_40v", version:"1.0", date:"2026-09-01", content:"暂无详情"},{name:"CD18_1.8V_5V_HV30V", version:"1.0", date:"2026-09-01", content:"暂无详情"},{name:"CD15_1.8V_5V_HV40V", version:"1.0", date:"2026-09-01", content:"暂无详情"}] }
+  ]
+};
 
-let appData = null;
-let currentFilter = { factory: '', process: '' };
+let appData = JSON.parse(JSON.stringify(defaultData));
+let isAdmin = false;
+let currentDetail = { fi: 0, pi: 0 };
 
-function loadData() {
-  fetch('data.json')
-    .then(res => {
-      if (!res.ok) throw new Error('Network response was not ok');
-      return res.json();
-    })
-    .then(data => {
-      appData = data;
-      render();
-    })
-    .catch(err => {
-      console.warn('Failed to load data.json, using DEFAULT_DATA:', err);
-      appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
-      render();
-    });
-}
-
-function render() {
-  document.getElementById('versionMeta').textContent = `版本：${appData.version} | 更新日期：${appData.updateDate}`;
+// 初始化渲染
+function init() {
   const factoryFilter = document.getElementById('factoryFilter');
-  factoryFilter.innerHTML = '<option value="">全部工艺厂</option>' + appData.foundries.map((f, i) => `<option value="${i}">${f.name}</option>`).join('');
-  renderFoundries();
+  appData.foundries.forEach(f => {
+    const opt = document.createElement('option');
+    opt.value = f.name;
+    opt.textContent = f.name;
+    factoryFilter.appendChild(opt);
+  });
+  render();
 }
 
-function renderFoundries() {
-  const list = document.getElementById('foundryList');
-  list.innerHTML = '';
+// 渲染列表
+function render() {
+  const app = document.getElementById('app');
+  app.innerHTML = '';
+  const filterFactory = document.getElementById('factoryFilter').value;
+  const filterProcess = document.getElementById('processFilter').value.trim().toLowerCase();
+  
+  // 更新搜索框下拉联想
+  const datalist = document.getElementById('processOptions');
+  datalist.innerHTML = '';
+  appData.foundries.forEach(f => {
+    if(!filterFactory || filterFactory === f.name) {
+      f.processes.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p.name;
+        datalist.appendChild(opt);
+      });
+    }
+  });
+
   appData.foundries.forEach((f, fi) => {
-    if (currentFilter.factory && currentFilter.factory !== String(fi)) return;
-    const filteredProcesses = f.processes.filter(p => {
-      if (currentFilter.process && !p.toLowerCase().includes(currentFilter.process.toLowerCase())) return false;
-      return true;
-    });
-    if (filteredProcesses.length === 0) return;
+    if (filterFactory && filterFactory !== f.name) return;
+    
     const card = document.createElement('div');
     card.className = 'foundry-card';
-    card.innerHTML = `
-      <div class="foundry-header" onclick="toggleFoundry(this)">
-        <h2>${f.name}</h2>
-        <span class="count">${filteredProcesses.length} 个工艺</span>
-      </div>
-      <div class="process-grid">
-        ${filteredProcesses.map((p, pi) => `<div class="process-item ${currentFilter.process ? 'highlight' : ''}" onclick="openDetail(${fi}, ${pi})">${p}</div>`).join('')}
-      </div>
-    `;
-    list.appendChild(card);
+    
+    const header = document.createElement('div');
+    header.className = 'foundry-header';
+    header.innerHTML = `<h2>${f.name}</h2> <span style="color:#999;font-size:14px;">展开/收起</span>`;
+    header.onclick = () => {
+      const list = card.querySelector('.process-list');
+      list.style.display = list.style.display === 'none' ? 'block' : 'none';
+    };
+    
+    const list = document.createElement('div');
+    list.className = 'process-list';
+    
+    f.processes.forEach((p, pi) => {
+      if (filterProcess && !p.name.toLowerCase().includes(filterProcess)) return;
+      
+      const item = document.createElement('div');
+      item.className = 'process-item';
+      
+      // 判断7日内更新
+      const today = new Date('2026-09-08');
+      const updDate = new Date(p.date);
+      const diffDays = Math.floor((today - updDate) / (1000 * 60 * 60 * 24));
+      const isNew = diffDays <= 7;
+      
+      item.innerHTML = `
+        <div class="process-name">${p.name}</div>
+        <div class="process-meta">
+          <span>版本: ${p.version}</span>
+          <span>更新: ${p.date}</span>
+          ${isNew ? '<span class="tag-new">7日内有更新</span>' : ''}
+        </div>
+      `;
+      item.onclick = () => openDetail(fi, pi);
+      list.appendChild(item);
+    });
+    
+    card.appendChild(header);
+    card.appendChild(list);
+    app.appendChild(card);
   });
 }
 
-function toggleFoundry(header) {
-  const grid = header.nextElementSibling;
-  grid.style.display = grid.style.display === 'none' ? 'grid' : 'none';
-}
-
-function applyFilter() {
-  currentFilter.factory = document.getElementById('factoryFilter').value;
-  currentFilter.process = document.getElementById('processFilter').value.trim();
-  renderFoundries();
-}
-
+function applyFilter() { render(); }
 function clearFilter() {
-  currentFilter = { factory: '', process: '' };
   document.getElementById('factoryFilter').value = '';
   document.getElementById('processFilter').value = '';
-  renderFoundries();
+  render();
 }
 
-function openDetail(fi, pi) {
-  const f = appData.foundries[fi];
-  const p = f.processes[pi];
-  document.getElementById('detailTitle').textContent = `${f.name} / ${p}`;
-  document.getElementById('detailBody').innerHTML = `<p style="color:#999;">暂无详情内容。请通过后台管理添加。</p>`;
-  document.getElementById('detailModal').style.display = 'flex';
+// 模态框逻辑（支持点击外部关闭和Esc关闭）
+function openModal(id) {
+  const modal = document.getElementById(id);
+  modal.style.display = 'flex';
+  // 绑定点击外部关闭
+  modal.onclick = function(e) {
+    if (e.target === modal) closeModal(id);
+  };
+  document.onkeydown = function(e) {
+    if (e.key === 'Escape') closeModal(id);
+  };
+}
+function closeModal(id) {
+  document.getElementById(id).style.display = 'none';
+  document.onkeydown = null;
 }
 
-function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-function closeModalOutside(e, id) { if (e.target.id === id) closeModal(id); }
-
-function openAdmin() {
-  document.getElementById('adminModal').style.display = 'flex';
-  document.getElementById('adminLogin').style.display = 'block';
-  document.getElementById('adminPanel').style.display = 'none';
-  document.getElementById('adminPwd').value = '';
-}
-
+function openAdminLogin() { openModal('adminLoginModal'); }
 function checkAdminPwd() {
   if (document.getElementById('adminPwd').value === '123456') {
-    document.getElementById('adminLogin').style.display = 'none';
-    document.getElementById('adminPanel').style.display = 'block';
-    document.getElementById('adminVersion').value = appData.version;
-    document.getElementById('adminDate').value = appData.updateDate;
-    renderLogs();
+    isAdmin = true;
+    closeModal('adminLoginModal');
+    openModal('adminPanelModal');
   } else {
     alert('密码错误！');
   }
 }
 
-function renderLogs() {
-  const logs = JSON.parse(localStorage.getItem('opLogs') || '[]');
-  document.getElementById('logList').innerHTML = logs.length ? logs.map(l => `<div class="log-entry">[${l.time}] ${l.action}</div>`).join('') : '<div class="log-entry">暂无操作日志</div>';
+function openDetail(fi, pi) {
+  currentDetail = { fi, pi };
+  const p = appData.foundries[fi].processes[pi];
+  document.getElementById('detailTitle').textContent = `${appData.foundries[fi].name} / ${p.name}`;
+  document.getElementById('detailVersion').textContent = p.version;
+  document.getElementById('detailDate').textContent = p.date;
+  document.getElementById('detailContent').textContent = p.content;
+  document.getElementById('detailEditArea').value = p.content;
+  
+  if (isAdmin) {
+    document.getElementById('adminActions').style.display = 'block';
+    document.getElementById('detailEditArea').style.display = 'block';
+    document.getElementById('detailContent').style.display = 'none';
+  } else {
+    document.getElementById('adminActions').style.display = 'none';
+    document.getElementById('detailEditArea').style.display = 'none';
+    document.getElementById('detailContent').style.display = 'block';
+  }
+  openModal('detailModal');
 }
 
-function addLog(action) {
-  const logs = JSON.parse(localStorage.getItem('opLogs') || '[]');
-  logs.unshift({ time: new Date().toLocaleString('zh-CN'), action });
-  localStorage.setItem('opLogs', JSON.stringify(logs.slice(0, 50)));
-}
-
-function clearLogs() { localStorage.removeItem('opLogs'); renderLogs(); }
-
-function addFactory() {
-  const name = document.getElementById('newFactoryName').value.trim();
-  if (!name) return alert('请输入厂名');
-  if (appData.foundries.some(f => f.name === name)) return alert('该厂名已存在');
-  appData.foundries.push({ name, processes: [] });
-  addLog(`添加工艺厂：${name}`);
+function saveDetail() {
+  const newContent = document.getElementById('detailEditArea').value;
+  appData.foundries[currentDetail.fi].processes[currentDetail.pi].content = newContent;
+  appData.foundries[currentDetail.fi].processes[currentDetail.pi].date = new Date().toISOString().split('T')[0];
+  alert('修改已保存（仅在当前会话生效，请导出data.json覆盖原文件）');
+  closeModal('detailModal');
   render();
-  alert('添加成功');
 }
 
 function exportData() {
@@ -250,11 +277,10 @@ function exportData() {
   a.download = 'data.json';
   a.click();
   URL.revokeObjectURL(url);
-  addLog('导出 data.json');
-  alert('data.json 已导出，请覆盖上传到 GitHub 仓库根目录。');
+  alert('data.json 已导出，请覆盖上传到 GitHub 仓库根目录以生效。');
 }
 
-loadData();
+init();
 </script>
 </body>
 </html>
