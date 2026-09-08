@@ -35,7 +35,7 @@
   .modal-content { background: #fff; padding: 20px; border-radius: 8px; width: 500px; max-width: 90%; }
   .modal-content h2 { margin-top: 0; }
   .modal-content label { display: block; margin: 10px 0 5px; }
-  .modal-content input[type="text"], .modal-content input[type="date"], .modal-content textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+  .modal-content input[type="text"], .modal-content input[type="date"], .modal-content input[type="password"], .modal-content textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
   .modal-content textarea { min-height: 100px; }
   .modal-actions { margin-top: 20px; display: flex; gap: 10px; }
   .btn { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; color: #fff; }
@@ -88,6 +88,8 @@
   <button onclick="openManageModal()">🛠 管理工艺/厂</button>
   <button onclick="openChangePwd()">🔒 修改密码</button>
   <button onclick="openLogModal()">📝 更新日志</button>
+  <button onclick="openGithubConfig()">⚙️ GitHub 配置</button>
+  <button onclick="pushToGithub()">☁️ 保存到云端</button>
   <button onclick="exportDataJson()">📦 导出 data.json</button>
 </div>
 
@@ -171,6 +173,21 @@
     <div id="logList" style="max-height: 300px; overflow-y: auto;"></div>
     <div class="modal-actions">
       <button class="btn btn-gray" onclick="document.getElementById('logModal').style.display='none'">关闭</button>
+    </div>
+  </div>
+</div>
+
+<!-- GitHub 配置弹窗 -->
+<div class="modal" id="githubConfigModal">
+  <div class="modal-content">
+    <h2>⚙️ GitHub 配置</h2>
+    <label>Personal Access Token</label>
+    <input type="password" id="githubToken" placeholder="ghp_... 或 github_pat_...">
+    <label>仓库分支</label>
+    <input type="text" id="githubBranch" value="main">
+    <div class="modal-actions">
+      <button class="btn btn-blue" onclick="saveGithubConfig()">保存</button>
+      <button class="btn btn-gray" onclick="document.getElementById('githubConfigModal').style.display='none'">取消</button>
     </div>
   </div>
 </div>
@@ -384,6 +401,66 @@ function exportDataJson() {
   alert('✅ 已导出 data.json！请上传覆盖到 GitHub 仓库。');
 }
 
+// GitHub 配置与推送
+function openGithubConfig() {
+  document.getElementById('githubToken').value = localStorage.getItem('github_token') || '';
+  document.getElementById('githubBranch').value = localStorage.getItem('github_branch') || 'main';
+  document.getElementById('githubConfigModal').style.display = 'flex';
+  document.getElementById('adminDropdown').style.display = 'none';
+}
+
+function saveGithubConfig() {
+  const token = document.getElementById('githubToken').value.trim();
+  const branch = document.getElementById('githubBranch').value.trim();
+  if(!token) { alert('Token 不能为空！'); return; }
+  localStorage.setItem('github_token', token);
+  localStorage.setItem('github_branch', branch || 'main');
+  document.getElementById('githubConfigModal').style.display = 'none';
+  alert('✅ GitHub 配置已保存（仅存于本浏览器）。');
+}
+
+async function pushToGithub() {
+  if(!isAdmin) { alert('请先登录管理员！'); return; }
+  const token = localStorage.getItem('github_token');
+  if(!token) { alert('请先在管理员菜单中配置 GitHub Token！'); return; }
+  const branch = localStorage.getItem('github_branch') || 'main';
+  const path = 'data.json';
+  const apiUrl = `https://api.github.com/repos/zhoujb9527/process-docs/contents/${path}`;
+  
+  try {
+    const res = await fetch(apiUrl, {
+      headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+    });
+    if(!res.ok) throw new Error('无法读取仓库文件，请检查 Token 权限或仓库名');
+    const fileData = await res.json();
+    const sha = fileData.sha;
+    
+    const exportData = { ...DATA, _admin_pwd: adminPwd, _logs: UPDATE_LOGS };
+    const content = JSON.stringify(exportData, null, 2);
+    const base64Content = btoa(unescape(encodeURIComponent(content)));
+    
+    const updateRes = await fetch(apiUrl, {
+      method: 'PUT',
+      headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: '更新 data.json (via 网页管理员)',
+        content: base64Content,
+        sha: sha,
+        branch: branch
+      })
+    });
+    
+    if(updateRes.ok) {
+      alert('✅ 已成功推送到 GitHub！稍等片刻 EdgeOne 会自动重新部署，其他人刷新即可看到更新。');
+    } else {
+      const err = await updateRes.json();
+      throw new Error(err.message || '推送失败');
+    }
+  } catch(e) {
+    alert('❌ 推送失败：' + e.message);
+  }
+}
+
 // 更新日志功能
 function openLogModal() {
   document.getElementById('adminDropdown').style.display = 'none';
@@ -459,7 +536,7 @@ function saveEdit() {
   render();
   closeDetailEdit();
   goDetail(currentFactory, p.id);
-  alert('已保存。请点击管理员下拉菜单中的"导出 data.json"更新数据！');
+  alert('已保存。可点击"☁️ 保存到云端"同步到 GitHub！');
 }
 
 // 图片上传
@@ -494,6 +571,7 @@ document.addEventListener('keydown', e => {
     document.getElementById('changePwdModal').style.display = 'none';
     document.getElementById('manageModal').style.display = 'none';
     document.getElementById('logModal').style.display = 'none';
+    document.getElementById('githubConfigModal').style.display = 'none';
     document.getElementById('adminDropdown').style.display = 'none';
   } 
 });
