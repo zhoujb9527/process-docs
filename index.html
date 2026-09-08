@@ -5,79 +5,94 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>力芯工艺文档更新</title>
 <style>
-  :root { --primary: #1a56db; --danger: #e02424; --bg: #f3f4f6; --card: #ffffff; --border: #e5e7eb; --text: #111827; --text-light: #6b7280; }
-  body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
+  :root { --primary: #1a56db; --danger: #e53e3e; --bg: #f3f4f6; --card-bg: #fff; --border: #e5e7eb; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #333; }
   .container { max-width: 1100px; margin: 0 auto; }
-  header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-  h1 { font-size: 24px; margin: 0; }
-  .search-box { display: flex; gap: 10px; margin-bottom: 20px; }
-  .search-box input { flex: 1; padding: 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; }
-  .factory-group { background: var(--card); border-radius: 8px; padding: 15px; margin-bottom: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-  .factory-title { font-size: 18px; font-weight: bold; margin-bottom: 10px; color: var(--primary); display: flex; justify-content: space-between; align-items: center;}
-  .process-item { display: flex; align-items: center; padding: 12px 15px; background: #fff5f5; border-radius: 6px; margin-bottom: 8px; border: 1px solid #fee2e2; cursor: pointer; transition: 0.2s; gap: 20px; }
-  .process-item:hover { background: #fef2f2; }
+  .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+  .header h1 { margin: 0; font-size: 28px; color: #111; }
+  .search-bar { display: flex; gap: 12px; margin-bottom: 24px; }
+  .search-bar input { flex: 1; padding: 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; }
+  .factory-card { background: var(--card-bg); border-radius: 8px; padding: 20px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .factory-title { font-size: 20px; font-weight: bold; color: var(--primary); margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+  .process-count { font-size: 13px; color: #666; font-weight: normal; }
+  .process-item { background: #fff5f5; padding: 14px 18px; border-radius: 6px; margin-bottom: 10px; display: flex; align-items: center; cursor: pointer; transition: transform 0.1s; border: 1px solid transparent; }
+  .process-item:hover { transform: translateX(4px); border-color: #feb2b2; }
+  .process-name { font-weight: bold; font-size: 16px; width: 35%; }
+  .process-meta { color: #666; font-size: 14px; flex: 1; text-align: center; }
+  .badge { background: #fff5f5; color: var(--danger); padding: 4px 10px; border-radius: 20px; font-size: 12px; margin-left: 12px; border: 1px solid #feb2b2; display: inline-flex; align-items: center; gap: 4px; }
+  .badge::before { content: ''; display: inline-block; width: 8px; height: 8px; background: var(--danger); border-radius: 50%; }
   
-  /* 列表信息往中间调 */
-  .process-name { font-weight: 600; font-size: 16px; min-width: 250px; }
-  .process-meta { display: flex; align-items: center; gap: 15px; font-size: 14px; color: var(--text-light); margin-left: 20px; }
-  .badge { background: #fee2e2; color: var(--danger); padding: 2px 8px; border-radius: 12px; font-size: 12px; display: flex; align-items: center; gap: 4px; }
+  .detail-view { background: var(--card-bg); padding: 24px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .back-btn { color: var(--primary); text-decoration: none; font-size: 14px; display: inline-flex; align-items: center; gap: 4px; margin-bottom: 20px; background: none; border: none; cursor: pointer; padding: 0; }
+  .detail-header { margin-bottom: 24px; }
+  .detail-header h2 { margin: 0 0 12px 0; font-size: 24px; }
+  .detail-meta { color: #666; font-size: 14px; display: flex; align-items: center; gap: 12px; }
+  .section-title { font-size: 16px; font-weight: bold; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .content-box { background: #f9fafb; padding: 16px; border-radius: 6px; border: 1px solid var(--border); min-height: 60px; white-space: pre-wrap; margin-bottom: 24px; color: #444; }
   
-  /* 模态框样式 */
-  .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; }
-  .modal.open { display: flex; }
-  .modal-content { background: #fff; width: 90%; max-width: 600px; border-radius: 8px; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto; }
+  .btn { padding: 10px 18px; border-radius: 6px; border: none; cursor: pointer; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; transition: opacity 0.2s; }
+  .btn-primary { background: var(--primary); color: white; }
+  .btn-green { background: #05a34a; color: white; width: 100%; justify-content: center; padding: 14px; font-size: 16px; margin-top: 16px; }
+  .btn:hover { opacity: 0.9; }
+  
+  .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 1000; }
+  .modal { background: white; padding: 28px; border-radius: 8px; width: 500px; max-width: 90%; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
   .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-  .modal-header h2 { margin: 0; font-size: 20px; display: flex; align-items: center; gap: 8px;}
-  .close-btn { background: none; border: none; font-size: 24px; cursor: pointer; color: #999; }
-  .form-group { margin-bottom: 15px; }
-  .form-group label { display: block; margin-bottom: 5px; font-size: 14px; font-weight: 500; }
-  .form-group input[type="text"], .form-group input[type="date"] { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; box-sizing: border-box; }
-  textarea { width: 100%; padding: 10px; border: 1px solid var(--border); border-radius: 6px; min-height: 120px; box-sizing: border-box; resize: vertical; }
-  .drop-zone { border: 2px dashed #ccc; border-radius: 6px; padding: 20px; text-align: center; color: #666; font-size: 14px; cursor: pointer; margin-bottom: 10px; }
+  .modal-header h3 { margin: 0; font-size: 18px; display: flex; align-items: center; gap: 8px; }
+  .close-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: #666; }
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; margin-bottom: 6px; font-size: 14px; color: #444; }
+  .form-group input[type="text"], .form-group input[type="date"], .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-family: inherit; }
+  .form-group textarea { min-height: 120px; resize: vertical; }
+  .drop-zone { border: 2px dashed #ccc; padding: 24px; text-align: center; border-radius: 6px; color: #666; font-size: 14px; cursor: pointer; background: #f9fafb; }
   .drop-zone.dragover { border-color: var(--primary); background: #eff6ff; }
-  .img-preview { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
-  .img-preview div { position: relative; width: 80px; height: 80px; }
-  .img-preview img { width: 100%; height: 100%; object-fit: cover; border-radius: 4px; }
-  .img-preview button { position: absolute; top: -5px; right: -5px; background: red; color: #fff; border: none; border-radius: 50%; width: 20px; height: 20px; cursor: pointer; font-size: 12px; line-height: 1; }
-  .save-btn { background: #10b981; color: #fff; border: none; padding: 12px; width: 100%; border-radius: 6px; font-size: 16px; cursor: pointer; margin-top: 10px; }
-  .save-btn:hover { background: #059669; }
-  .hint { font-size: 12px; color: #666; margin-top: 5px; }
+  .img-preview { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .img-preview img { width: 80px; height: 80px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd; }
   
-  .admin-btn { background: var(--primary); color: #fff; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-size: 14px; }
-  .back-btn { background: none; border: none; color: var(--primary); font-size: 14px; cursor: pointer; margin-bottom: 15px; padding: 0; }
-  .detail-view { background: var(--card); padding: 20px; border-radius: 8px; }
-  .detail-header { margin-bottom: 20px; }
-  .detail-header h2 { margin: 0 0 10px 0; }
-  .detail-meta { font-size: 14px; color: var(--text-light); display: flex; gap: 15px; align-items: center; flex-wrap: wrap;}
+  .admin-panel { margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border); display: none; }
+  .admin-panel.active { display: block; }
+  .admin-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; }
+  .admin-select { padding: 8px; border-radius: 4px; border: 1px solid #ccc; min-width: 200px; }
 </style>
 </head>
 <body>
 <div class="container">
-  <header>
+  <div class="header">
     <h1>力芯工艺文档更新</h1>
-    <button class="admin-btn" onclick="openAdmin()">🔑 管理员登录</button>
-  </header>
-  
-  <div class="search-box" id="searchBox">
-    <input type="text" id="factoryInput" placeholder="搜索 / 选择 fab 厂，如 smic、dongbu...（留空显示全部）">
-    <input type="text" id="processInput" placeholder="在该厂内搜索工艺名（留空显示全部）">
+    <button class="btn btn-primary" onclick="openAdminLogin()">🔑 管理员登录</button>
   </div>
   
-  <div id="listView"></div>
-  <div id="detailView" style="display:none"></div>
+  <div class="search-bar">
+    <input type="text" id="factoryInput" placeholder="搜索 / 选择 fab 厂，如 smic、dongbu...（留空显示全部）" list="factoryList">
+    <datalist id="factoryList"></datalist>
+    <input type="text" id="processInput" placeholder="在该厂内搜索工艺名（留空显示全部）" list="processList">
+    <datalist id="processList"></datalist>
+  </div>
+  
+  <div id="mainView"></div>
+  
+  <div class="detail-view" id="detailView" style="display:none;">
+    <button class="back-btn" onclick="closeDetail()">← 返回工艺列表</button>
+    <div class="detail-header">
+      <h2 id="detailTitle"></h2>
+      <div class="detail-meta" id="detailMeta"></div>
+    </div>
+    <div class="section-title">📝 更新内容</div>
+    <div class="content-box" id="detailContent"></div>
+    <button class="btn btn-primary" onclick="openDetailEdit()">✏️ 编辑此详情（管理员）</button>
+  </div>
 </div>
 
-<!-- 编辑详情弹窗 -->
-<div class="modal" id="detailEditModal">
-  <div class="modal-content">
+<!-- 编辑弹窗 -->
+<div class="modal-overlay" id="editModal">
+  <div class="modal">
     <div class="modal-header">
-      <h2>✏️ 编辑工艺详情</h2>
-      <button class="close-btn" onclick="closeDetailEdit()">&times;</button>
+      <h3>✏️ 编辑工艺详情</h3>
+      <button class="close-btn" onclick="closeDetailEdit()">×</button>
     </div>
-    
     <div class="form-group">
       <label>工艺名</label>
-      <input type="text" id="editProcessName">
+      <input type="text" id="editName">
     </div>
     <div class="form-group">
       <label>版本号</label>
@@ -87,290 +102,285 @@
       <label>更新日期</label>
       <input type="date" id="editDate">
     </div>
-    
     <div class="form-group">
       <label>文字内容（支持换行，纯文本）</label>
-      <textarea id="detailText"></textarea>
+      <textarea id="editText"></textarea>
     </div>
     <div class="form-group">
       <label>图片（可上传多张，点击图片可删除）</label>
       <div class="drop-zone" id="fileDrop">
         📎 点击选择图片，或拖拽图片到这里<br>
-        <small>支持 jpg / png / gif / webp，单张建议 &lt; 2MB</small>
+        支持 jpg / png / gif / webp，单张建议 < 2MB
       </div>
-      <input type="file" id="fileInput" multiple accept="image/*" style="display:none">
-      <div class="img-preview" id="imgPreviewGrid"></div>
-      <div class="hint" id="imgHint"></div>
+      <input type="file" id="fileInput" multiple accept="image/*" style="display:none;">
+      <div class="img-preview" id="imgPreview"></div>
+      <div style="font-size:12px;color:#666;margin-top:4px;">所有图片均已通过路径引用（无需额外上传）。</div>
     </div>
-    <button class="save-btn" onclick="saveDetailEdit()">保存详情</button>
+    <button class="btn-green" onclick="saveDetailEdit()">保存详情</button>
   </div>
 </div>
 
-<!-- 后台管理弹窗 -->
-<div class="modal" id="adminModal">
-  <div class="modal-content" style="max-width: 500px;">
+<!-- 管理员登录弹窗 -->
+<div class="modal-overlay" id="adminLoginModal">
+  <div class="modal" style="width: 350px;">
     <div class="modal-header">
-      <h2>🔑 管理员后台</h2>
-      <button class="close-btn" onclick="closeAdmin()">&times;</button>
+      <h3>🔑 管理员后台</h3>
+      <button class="close-btn" onclick="closeAdmin()">×</button>
     </div>
-    <div id="loginView">
-      <input type="password" id="pwdInput" placeholder="请输入管理员密码" style="width:100%; padding:10px; margin-bottom:15px; border:1px solid #ccc; border-radius:6px;">
-      <button class="save-btn" onclick="doLogin()">登录</button>
+    <div class="form-group">
+      <input type="password" id="adminPwd" placeholder="请输入管理员密码" style="width:100%;padding:10px;border:1px solid #ccc;border-radius:6px;">
     </div>
-    <div id="manageView" style="display:none">
-      <select id="factorySelect" style="width:100%; padding:10px; margin-bottom:10px;"></select>
-      <select id="processSelect" style="width:100%; padding:10px; margin-bottom:10px;"></select>
-      <div style="display:flex; gap:10px; margin-bottom:15px;">
-        <button onclick="saveEdit()" style="flex:1; padding:10px; background:#3b82f6; color:#fff; border:none; border-radius:6px;">保存修改</button>
-      </div>
-      <div style="display:flex; gap:10px; margin-bottom:10px;">
-        <button onclick="renameProcess()" style="flex:1; padding:10px; background:#f59e0b; color:#fff; border:none; border-radius:6px;">重命名工艺</button>
-        <button onclick="deleteProcess()" style="flex:1; padding:10px; background:#ef4444; color:#fff; border:none; border-radius:6px;">删除工艺</button>
-      </div>
-      <div style="display:flex; gap:10px;">
-        <button onclick="addProcess()" style="flex:1; padding:10px; background:#10b981; color:#fff; border:none; border-radius:6px;">新增工艺</button>
-        <button onclick="renameFactory()" style="flex:1; padding:10px; background:#6366f1; color:#fff; border:none; border-radius:6px;">重命名厂</button>
-        <button onclick="deleteFactory()" style="flex:1; padding:10px; background:#ef4444; color:#fff; border:none; border-radius:6px;">删除厂</button>
-      </div>
-      <button onclick="exportDataJson()" style="width:100%; padding:10px; margin-top:15px; background:#111; color:#fff; border:none; border-radius:6px;">⬇️ 导出 data.json</button>
-    </div>
+    <button class="btn-green" onclick="checkAdminLogin()">登录</button>
+  </div>
+</div>
+
+<!-- 管理员面板 -->
+<div class="admin-panel" id="adminPanel">
+  <div class="section-title">🔧 管理员操作</div>
+  <div class="admin-actions">
+    <select id="factorySelect" class="admin-select" onchange="refreshManageSelects()"></select>
+    <select id="processSelect" class="admin-select"></select>
+    <button class="btn btn-primary" onclick="addProcess()">➕ 新增工艺</button>
+    <button class="btn btn-primary" onclick="deleteProcess()">🗑️ 删除工艺</button>
+    <button class="btn btn-primary" onclick="renameProcess()">✏️ 重命名工艺</button>
+    <button class="btn btn-primary" onclick="renameFactory()">🏭 重命名厂</button>
+    <button class="btn btn-primary" onclick="deleteFactory()">🏭🗑️ 删除厂</button>
+    <button class="btn btn-green" style="width:auto;" onclick="exportDataJson()">📥 导出 data.json</button>
   </div>
 </div>
 
 <script>
-// ========== 配置 ==========
-const ADMIN_PASSWORD = "admin123";
-const MAX_IMG_SIZE = 2 * 1024 * 1024;
-
-// ========== 数据 ==========
 let DATA = {};
+let isAdmin = false;
+const ADMIN_PWD = '123456'; // 已修复为 123456
 let currentFactory = '';
-let currentProcessKw = '';
-let editingDetail = null;
-let editingImages = [];
+let currentProcessId = '';
+let tempImages = [];
 
-// ========== 排序函数 ==========
-function sortFactories(factories) {
-  return factories.sort((a, b) => a.localeCompare(b, 'zh-CN', { numeric: true, sensitivity: 'base' }));
-}
-function sortProcesses(processes) {
-  return [...processes].sort((a, b) => a.id.localeCompare(b.id, 'zh-CN', { numeric: true, sensitivity: 'base' }));
-}
-
-// ========== 加载数据 ==========
-async function loadData() {
-  try {
-    const res = await fetch('data.json');
-    DATA = await res.json();
-    render();
-  } catch (e) {
-    console.error('加载 data.json 失败:', e);
-    alert('加载 data.json 失败，请确认文件存在且格式正确。');
-  }
+// 加载数据
+function loadData() {
+  fetch('data.json')
+    .then(res => res.json())
+    .then(data => {
+      DATA = data;
+      refreshManageSelects();
+      render();
+    })
+    .catch(err => console.error('加载 data.json 失败', err));
 }
 
-// ========== 渲染列表 ==========
+// 渲染列表（含搜索、排序、下拉提示）
 function render() {
-  const listView = document.getElementById('listView');
-  const searchBox = document.getElementById('searchBox');
-  const detailView = document.getElementById('detailView');
+  const fInput = document.getElementById('factoryInput').value.trim().toLowerCase();
+  const pInput = document.getElementById('processInput').value.trim().toLowerCase();
   
-  detailView.style.display = 'none';
-  searchBox.style.display = 'flex';
-  listView.style.display = 'block';
+  const mainView = document.getElementById('mainView');
+  const factoryListDatalist = document.getElementById('factoryList');
+  const processListDatalist = document.getElementById('processList');
   
-  const fi = document.getElementById('factoryInput').value.toLowerCase();
-  const pi = document.getElementById('processInput').value.toLowerCase();
+  mainView.innerHTML = '';
+  factoryListDatalist.innerHTML = '';
+  processListDatalist.innerHTML = '';
   
-  let html = '';
-  // 获取并排序工厂
-  let factories = Object.keys(DATA).filter(f => !fi || f.toLowerCase().includes(fi));
-  factories = sortFactories(factories);
+  let factories = Object.keys(DATA).sort();
+  if (fInput) factories = factories.filter(f => f.toLowerCase().includes(fInput));
   
   factories.forEach(factory => {
-    let processes = DATA[factory];
-    if (pi) processes = processes.filter(p => p.id.toLowerCase().includes(pi));
+    let processes = [...DATA[factory]].sort((a, b) => a.id.localeCompare(b.id, 'zh-CN', { numeric: true, sensitivity: 'base' }));
+    
+    // 填充工艺搜索下拉
+    processes.forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p.id;
+      processListDatalist.appendChild(opt);
+    });
+    
+    if (pInput) processes = processes.filter(p => p.id.toLowerCase().includes(pInput));
+    
     if (processes.length === 0) return;
     
-    // 排序工艺
-    processes = sortProcesses(processes);
+    const card = document.createElement('div');
+    card.className = 'factory-card';
+    card.innerHTML = `
+      <div class="factory-title">
+        ${factory}
+        <span class="process-count">${processes.length} 项工艺</span>
+      </div>
+    `;
     
-    html += `<div class="factory-group"><div class="factory-title"><span>${factory}</span><span style="font-size:12px; color:#666; font-weight:normal;">${processes.length} 项工艺</span></div>`;
     processes.forEach(p => {
+      const item = document.createElement('div');
+      item.className = 'process-item';
+      item.onclick = () => openDetail(factory, p.id);
+      
       const isRecent = (new Date() - new Date(p.updateDate)) / (1000 * 60 * 60 * 24) <= 7;
-      html += `<div class="process-item" onclick="viewDetail('${factory}','${p.id}')">
+      
+      item.innerHTML = `
         <div class="process-name">${p.id}</div>
-        <div class="process-meta">
-          <span>版本: ${p.version}</span>
-          <span>更新: ${p.updateDate}</span>
-          ${isRecent ? '<span class="badge">🔴 7日内有更新</span>' : ''}
-        </div>
-      </div>`;
+        <div class="process-meta">版本: ${p.version} &nbsp;&nbsp; 更新: ${p.updateDate}</div>
+        ${isRecent ? '<div class="badge">7日内有更新</div>' : ''}
+      `;
+      card.appendChild(item);
     });
-    html += `</div>`;
+    
+    mainView.appendChild(card);
   });
-  listView.innerHTML = html || '<p style="text-align:center; color:#666;">无匹配数据</p>';
+  
+  // 填充工厂搜索下拉
+  Object.keys(DATA).forEach(f => {
+    const opt = document.createElement('option');
+    opt.value = f;
+    factoryListDatalist.appendChild(opt);
+  });
 }
 
-// ========== 查看详情 ==========
-function viewDetail(factory, processId) {
-  const p = DATA[factory].find(x => x.id === processId);
-  if (!p) return;
+// 打开详情
+function openDetail(factory, pid) {
   currentFactory = factory;
-  document.getElementById('listView').style.display = 'none';
-  document.getElementById('searchBox').style.display = 'none';
-  document.getElementById('detailView').style.display = 'block';
+  currentProcessId = pid;
+  const p = DATA[factory].find(x => x.id === pid);
   
-  const isRecent = (new Date() - new Date(p.updateDate)) / (1000 * 60 * 60 * 24) <= 7;
-  document.getElementById('detailView').innerHTML = `
-    <button class="back-btn" onclick="render()">← 返回工艺列表</button>
-    <div class="detail-view">
-      <div class="detail-header">
-        <h2>${p.id}</h2>
-        <div class="detail-meta">
-          <span>工艺厂：${factory}</span>
-          <span>版本：${p.version}</span>
-          <span>更新日期：${p.updateDate}</span>
-          ${isRecent ? '<span class="badge">🔴 7日内有更新</span>' : ''}
-        </div>
-      </div>
-      <div style="margin-bottom:20px;">
-        <h3>📝 更新内容</h3>
-        <div style="white-space:pre-wrap; color:#333; background:#f9fafb; padding:15px; border-radius:6px; border:1px solid #e5e7eb;">${p.detail?.text || '暂无内容'}</div>
-      </div>
-      ${p.detail?.images?.length ? `<div><h3>🖼️ 图片</h3><div style="display:flex; gap:10px; flex-wrap:wrap;"><img src="${p.detail.images.join('" style="max-width:200px; border-radius:6px;"><img src="')}" style="max-width:200px; border-radius:6px;"></div></div>` : ''}
-      <button class="admin-btn" style="margin-top:20px;" onclick="openDetailEdit('${factory}','${p.id}')">✏️ 编辑此详情（管理员）</button>
-    </div>
-  `;
+  document.getElementById('detailTitle').innerText = p.id;
+  document.getElementById('detailMeta').innerHTML = `工艺厂：${factory} &nbsp;&nbsp; 版本：${p.version} &nbsp;&nbsp; 更新日期：${p.updateDate}`;
+  document.getElementById('detailContent').innerText = p.detail.text || '暂无内容';
+  
+  document.getElementById('mainView').style.display = 'none';
+  document.getElementById('detailView').style.display = 'block';
 }
 
-// ========== 编辑详情 ==========
-function openDetailEdit(factory, processId) {
-  const p = DATA[factory].find(x => x.id === processId);
-  if (!p) return;
-  editingDetail = { factory, processId };
-  editingImages = (p.detail?.images || []).map(src => ({ src, published: true }));
+function closeDetail() {
+  document.getElementById('detailView').style.display = 'none';
+  document.getElementById('mainView').style.display = 'block';
+}
+
+// 管理员权限校验拦截
+function checkAdmin() {
+  if (!isAdmin) {
+    alert('请先登录管理员账号！');
+    openAdminLogin();
+    return false;
+  }
+  return true;
+}
+
+// 打开编辑弹窗（增加权限校验）
+function openDetailEdit() {
+  if (!checkAdmin()) return; // 未登录直接拦截
   
-  document.getElementById('editProcessName').value = p.id;
+  const p = DATA[currentFactory].find(x => x.id === currentProcessId);
+  document.getElementById('editName').value = p.id;
   document.getElementById('editVersion').value = p.version;
   document.getElementById('editDate').value = p.updateDate;
-  document.getElementById('detailText').value = p.detail?.text || '';
-  
+  document.getElementById('editText').value = p.detail.text || '';
+  tempImages = [...(p.detail.images || [])];
   renderImgPreview();
-  document.getElementById('detailEditModal').classList.add('open');
+  document.getElementById('editModal').style.display = 'flex';
 }
 
-function closeDetailEdit() {
-  document.getElementById('detailEditModal').classList.remove('open');
-  editingDetail = null;
-  editingImages = [];
-}
-
-function renderImgPreview() {
-  const grid = document.getElementById('imgPreviewGrid');
-  if (editingImages.length === 0) { grid.innerHTML = '<span style="color:#bbb;font-size:12px">尚未添加图片</span>'; return; }
-  grid.innerHTML = editingImages.map((img, i) => `<div><img src="${img.src}"><button onclick="removeEditingImg(${i})">×</button></div>`).join('');
-}
-
-function removeEditingImg(i) { editingImages.splice(i, 1); renderImgPreview(); }
-
-async function handleFiles(fileList) {
-  const files = [...fileList].filter(f => f.type.startsWith('image/'));
-  for (const file of files) {
-    if (file.size > MAX_IMG_SIZE) { alert(`图片「${file.name}」超过 2MB，已跳过`); continue; }
-    const dataUrl = await new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result);
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-    editingImages.push({ src: dataUrl, published: false });
-  }
-  renderImgPreview();
-}
+function closeDetailEdit() { document.getElementById('editModal').style.display = 'none'; }
 
 function saveDetailEdit() {
-  if (!editingDetail) return;
-  const { factory, processId } = editingDetail;
-  const p = DATA[factory].find(x => x.id === processId);
-  if (!p) return;
-  
-  const newName = document.getElementById('editProcessName').value.trim();
+  const newName = document.getElementById('editName').value.trim();
   const newVersion = document.getElementById('editVersion').value.trim();
   const newDate = document.getElementById('editDate').value;
+  const newText = document.getElementById('editText').value;
   
-  if (!newName || !newVersion || !newDate) return alert('工艺名、版本号和日期不能为空！');
+  if(!newName || !newVersion || !newDate) return alert('工艺名、版本号和日期不能为空');
   
-  p.id = newName;
-  p.version = newVersion;
-  p.updateDate = newDate;
-  p.detail = { text: document.getElementById('detailText').value, images: editingImages.map(img => img.src) };
+  const idx = DATA[currentFactory].findIndex(x => x.id === currentProcessId);
+  DATA[currentFactory][idx].id = newName;
+  DATA[currentFactory][idx].version = newVersion;
+  DATA[currentFactory][idx].updateDate = newDate;
+  DATA[currentFactory][idx].detail.text = newText;
+  DATA[currentFactory][idx].detail.images = tempImages;
   
+  currentProcessId = newName;
   closeDetailEdit();
   render();
-  alert('✅ 详情已暂存！\n\n若包含新图片，记得点「⬇️ 导出 data.json」后，把图片文件也一并上传到 images/ 目录。');
+  openDetail(currentFactory, newName);
+  alert('已保存（本地）。请去管理员后台导出 data.json 并推送！');
 }
 
-// ========== 后台管理 ==========
-function openAdmin() { document.getElementById('adminModal').classList.add('open'); }
-function closeAdmin() { document.getElementById('adminModal').classList.remove('open'); document.getElementById('loginView').style.display='block'; document.getElementById('manageView').style.display='none'; }
-function doLogin() { if (document.getElementById('pwdInput').value === ADMIN_PASSWORD) { document.getElementById('loginView').style.display='none'; document.getElementById('manageView').style.display='block'; refreshManageSelects(); } else alert('密码错误！'); }
+// 管理员登录
+function openAdminLogin() { document.getElementById('adminLoginModal').style.display = 'flex'; }
+function closeAdmin() { document.getElementById('adminLoginModal').style.display = 'none'; }
 
+function checkAdminLogin() {
+  const pwd = document.getElementById('adminPwd').value;
+  if (pwd === ADMIN_PWD) {
+    isAdmin = true;
+    alert('✅ 登录成功');
+    closeAdmin();
+    document.getElementById('adminPanel').classList.add('active');
+  } else {
+    alert('❌ 密码错误');
+  }
+}
+
+// 管理员后台操作
 function refreshManageSelects() {
   const fs = document.getElementById('factorySelect');
-  let factories = Object.keys(DATA);
-  factories = sortFactories(factories);
-  fs.innerHTML = factories.map(f => `<option value="${f}">${f}</option>`).join('');
-  fs.onchange = () => refreshProcessOptions(fs.value);
-  refreshProcessOptions(fs.value);
-}
-
-function refreshProcessOptions(factory) {
+  fs.innerHTML = Object.keys(DATA).sort().map(f => `<option value="${f}">${f}</option>`).join('');
+  
   const ps = document.getElementById('processSelect');
-  let processes = DATA[factory] || [];
-  processes = sortProcesses(processes);
+  const factory = fs.value;
+  if(!factory) return;
+  
+  let processes = DATA[factory];
+  processes = [...processes].sort((a, b) => a.id.localeCompare(b.id, 'zh-CN', { numeric: true, sensitivity: 'base' }));
   ps.innerHTML = processes.map((p, i) => `<option value="${i}">${p.id}</option>`).join('') || '<option value="">（无工艺）</option>';
-  ps.onchange = () => { const p = DATA[factory][ps.value]; if(p){document.getElementById('editVersion').value = p.version; document.getElementById('editDate').value = p.updateDate;} };
-  const p = DATA[factory][ps.value]; if(p){document.getElementById('editVersion').value = p.version; document.getElementById('editDate').value = p.updateDate;}
-}
-
-function saveEdit() {
-  const factory = document.getElementById('factorySelect').value;
-  const idx = document.getElementById('processSelect').value;
-  const nv = document.getElementById('editVersion').value.trim();
-  const nd = document.getElementById('editDate').value;
-  if (!nv || !nd) return alert('版本号和日期不能为空');
-  DATA[factory][idx].version = nv;
-  DATA[factory][idx].updateDate = nd;
-  render(); alert('已保存（本地）。记得导出 data.json！');
+  
+  if(processes.length > 0) {
+    document.getElementById('editVersion').value = processes[0].version;
+    document.getElementById('editDate').value = processes[0].updateDate;
+  }
+  
+  fs.onchange = refreshManageSelects;
+  ps.onchange = () => {
+    const idx = ps.value;
+    const p = DATA[fs.value][idx];
+    if(p) {
+      document.getElementById('editVersion').value = p.version;
+      document.getElementById('editDate').value = p.updateDate;
+    }
+  };
 }
 
 function addProcess() {
+  if(!checkAdmin()) return;
   const factory = document.getElementById('factorySelect').value;
   const id = prompt('新工艺名：');
-  if (!id || !id.trim()) return;
+  if(!id || !id.trim()) return;
+  if(DATA[factory].some(p => p.id === id.trim())) { alert('该工艺已存在！'); return; }
   DATA[factory].push({ id: id.trim(), version: '1.0', updateDate: new Date().toISOString().slice(0,10), detail: { text: '', images: [] } });
-  refreshManageSelects(); render();
+  refreshManageSelects(); render(); alert('已添加。请导出 data.json！');
 }
 
 function deleteProcess() {
+  if(!checkAdmin()) return;
   const factory = document.getElementById('factorySelect').value;
   const idx = document.getElementById('processSelect').value;
   if(confirm('确定删除？')) { DATA[factory].splice(idx, 1); refreshManageSelects(); render(); }
 }
 
 function renameProcess() {
+  if(!checkAdmin()) return;
   const factory = document.getElementById('factorySelect').value;
   const idx = document.getElementById('processSelect').value;
   const oldId = DATA[factory][idx].id;
   const newId = prompt('新工艺名：', oldId);
-  if (newId && newId.trim()) { DATA[factory][idx].id = newId.trim(); refreshManageSelects(); render(); }
+  if(newId && newId.trim()) { 
+    if(DATA[factory].some((p,i) => i != idx && p.id === newId.trim())) { alert('该工艺名已存在！'); return; }
+    DATA[factory][idx].id = newId.trim(); 
+    refreshManageSelects(); render(); 
+  }
 }
 
 function renameFactory() {
+  if(!checkAdmin()) return;
   const oldFactory = document.getElementById('factorySelect').value;
   const newFactory = prompt('新工艺厂名：', oldFactory);
-  if (newFactory && newFactory.trim()) {
+  if(newFactory && newFactory.trim()) {
     DATA[newFactory.trim()] = DATA[oldFactory];
     delete DATA[oldFactory];
     refreshManageSelects(); render();
@@ -378,33 +388,50 @@ function renameFactory() {
 }
 
 function deleteFactory() {
+  if(!checkAdmin()) return;
   const factory = document.getElementById('factorySelect').value;
   if(confirm(`确定删除厂 "${factory}"？其下所有工艺也会被删除！`)) { delete DATA[factory]; refreshManageSelects(); render(); }
 }
 
 function exportDataJson() {
+  if(!checkAdmin()) return;
   const blob = new Blob([JSON.stringify(DATA, null, 2)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a'); a.href = url; a.download = 'data.json';
   document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
-  alert('✅ 已导出 data.json！\n\n请上传覆盖到 GitHub 仓库根目录，EdgeOne Pages 会自动部署更新。');
+  alert('✅ 已导出 data.json！请上传覆盖到 GitHub 仓库。');
 }
 
-// ========== 拖拽上传 ==========
+// 拖拽上传
 const fileInput = document.getElementById('fileInput');
 const fileDrop = document.getElementById('fileDrop');
 fileDrop.addEventListener('click', () => fileInput.click());
-fileInput.addEventListener('change', e => { handleFiles(e.target.files); fileInput.value = ''; });
+fileInput.addEventListener('change', e => { handleFiles(e.target.files); fileInput.value=''; });
 fileDrop.addEventListener('dragover', e => { e.preventDefault(); fileDrop.classList.add('dragover'); });
 fileDrop.addEventListener('dragleave', () => fileDrop.classList.remove('dragover'));
 fileDrop.addEventListener('drop', e => { e.preventDefault(); fileDrop.classList.remove('dragover'); handleFiles(e.dataTransfer.files); });
 
-// ========== 搜索监听 ==========
+function handleFiles(files) {
+  if(!checkAdmin()) return;
+  Array.from(files).forEach(file => {
+    if(!file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = e => { tempImages.push(e.target.result); renderImgPreview(); };
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderImgPreview() {
+  const preview = document.getElementById('imgPreview');
+  preview.innerHTML = tempImages.map((src, i) => `<img src="${src}" onclick="tempImages.splice(${i},1);renderImgPreview()" title="点击删除">`).join('');
+}
+
+// 搜索监听
 document.getElementById('factoryInput').addEventListener('input', render);
 document.getElementById('processInput').addEventListener('input', render);
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeDetailEdit(); closeAdmin(); } });
+document.addEventListener('keydown', e => { if(e.key === 'Escape') { closeDetailEdit(); closeAdmin(); } });
 
-// ========== 页面加载 ==========
+// 初始化加载
 loadData();
 </script>
 </body>
