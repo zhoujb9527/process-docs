@@ -675,7 +675,7 @@
       "version": "1.0",
       "updateDate": "2026-09-07",
       "detail": {
-        "text": "",
+        "text": "11111",
         "images": []
       }
     },
@@ -1528,6 +1528,16 @@
   ],
   "_admin_pwd": "123456",
   "_logs": [
+    {
+      "time": "2026-09-08 16:35:29",
+      "process": "6S10PDM-ST60M0_Special",
+      "factory": "CSMC"
+    },
+    {
+      "time": "2026-09-08 16:35:24",
+      "process": "6S10PDM-ST60M0_Special",
+      "factory": "CSMC"
+    },
     {
       "time": "2026-09-08 16:33:37",
       "process": "6S10PDM-ST60M0_Special",
