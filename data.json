@@ -529,9 +529,9 @@
     {
       "id": "90T1_C1513enG1_8port12in",
       "version": "1.0",
-      "updateDate": "2026-06-06",
+      "updateDate": "2026-09-07",
       "detail": {
-        "text": "",
+        "text": "测试",
         "images": []
       }
     },
@@ -1528,6 +1528,11 @@
   ],
   "_admin_pwd": "123456",
   "_logs": [
+    {
+      "time": "2026-09-08 16:49:27",
+      "process": "90T1_C1513enG1_8port12in",
+      "factory": "CSMC"
+    },
     {
       "time": "2026-09-08 16:35:29",
       "process": "6S10PDM-ST60M0_Special",
