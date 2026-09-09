@@ -23,27 +23,27 @@
     {
       "id": "AlignMode.il",
       "version": "1.0",
-      "updateDate": "2026-09-09",
+      "updateDate": "2026-08-06",
       "detail": {
-        "text": "",
+        "text": "绑定快捷键4 使用Align对齐时（快捷键a），可以切换offset的对齐距离(0或者你设置的space)，即使用快捷键4切换F3属性下的这两种模式（当前只能在VNC下的系统使用，老系统用不了）",
         "images": []
       }
     },
     {
       "id": "autoSwitchPathUPorDN.il",
       "version": "1.0",
-      "updateDate": "2026-09-09",
+      "updateDate": "2026-08-09",
       "detail": {
-        "text": "",
+        "text": "跳线（autoSwitchPathUporDn（））：绑定ctrl + ↑/↓ \n      具体作用主要是用来跳线，参照视频所示（视频地址：\\share\\设计\\资料共享\\0临时共享文件夹\\ZJB_menu.il使用汇总）\n目前只设置了M1和M2线，M3线因涉及顶铝名称不一样没弄，\n具体使用方式是：\n①选中线，path 、pathSeg、polygon都可以使用，不过最后全会被转换为path\n②”ctrl  + ↑ “或者 ”ctrl  + ↓ “ ，框选一段区域\n（一般情况下，”ctrl  + ↑ “是选中的M1需要用M2跳线，反之；但是CSMC里面PDK命名顺序不一样，所以会反过来，如果操作错了会有如下截图提示；并且如果同时选中了M1和M2，操作也会报错。取消掉重新操作即可",
         "images": []
       }
     },
     {
       "id": "changeLayer.il",
       "version": "1.0",
-      "updateDate": "2026-09-09",
+      "updateDate": "2026-08-09",
       "detail": {
-        "text": "",
+        "text": "绑定快捷键 “，”（逗号）\n\n②区域原本十diff层，我在左边框选区域选择MET1层次，之后在选中②，使用该脚本的快捷键“，”  就可以让②区域的diff变成MET1。",
         "images": []
       }
     },
@@ -158,6 +158,31 @@
   ],
   "_admin_pwd": "123456",
   "_logs": [
+    {
+      "time": "2026-09-09 15:53",
+      "process": "changeLayer.il",
+      "category": "layout"
+    },
+    {
+      "time": "2026-09-09 15:53",
+      "process": "changeLayer.il",
+      "category": "layout"
+    },
+    {
+      "time": "2026-09-09 15:53",
+      "process": "autoSwitchPathUPorDN.il",
+      "category": "layout"
+    },
+    {
+      "time": "2026-09-09 15:52",
+      "process": "autoSwitchPathUPorDN.il",
+      "category": "layout"
+    },
+    {
+      "time": "2026-09-09 15:48",
+      "process": "AlignMode.il",
+      "category": "layout"
+    },
     {
       "time": "2026-09-09 15:03",
       "process": "addMosM1.il",
