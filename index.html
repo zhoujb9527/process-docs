@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>力芯工艺文档更新</title>
+<title>力芯文档归档系统</title>
 <style>
   * { box-sizing: border-box; }
   body { font-family: system-ui, -apple-system, sans-serif; background: #f5f5f5; margin: 0; padding: 20px; color: #333; }
@@ -13,9 +13,26 @@
   header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
   header h1 { margin: 0; font-size: 24px; }
   
-  .search-row { display: flex; gap: 10px; margin-bottom: 20px; }
+  /* 首页 */
+  #homePage { text-align: center; padding: 60px 20px; }
+  #homePage h2 { font-size: 32px; margin-bottom: 50px; color: #0056b3; }
+  .home-cards { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; }
+  .home-card { 
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+    color: #fff; padding: 40px 30px; border-radius: 12px; 
+    width: 300px; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  .home-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+  .home-card.skill-card { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+  .home-card h3 { margin: 0 0 15px; font-size: 22px; }
+  .home-card p { margin: 0; opacity: 0.9; font-size: 14px; }
   
-  /* 自定义组合框 */
+  .back-btn { background: #6c757d; color: #fff; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; margin-bottom: 20px; }
+  .back-btn:hover { background: #5a6268; }
+  
+  /* 搜索行 */
+  .search-row { display: flex; gap: 10px; margin-bottom: 20px; }
   .combobox { flex: 1; position: relative; }
   .combobox input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
   .combobox-dropdown { 
@@ -29,20 +46,15 @@
   .combobox-dropdown .no-match { color: #999; cursor: default; }
   .combobox-dropdown .no-match:hover { background: #fff; }
   
-  .factory-section { margin-bottom: 20px; }
-  .factory-title { font-size: 20px; color: #0056b3; margin-bottom: 10px; display: flex; justify-content: space-between; }
-  
-  /* 图一格式：默认粉色背景 */
+  /* 列表 */
   .process-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #fff5f5; border-radius: 4px; margin-bottom: 5px; cursor: pointer; transition: background 0.2s; }
   .process-item:hover { background: #ffe5e5; }
-  /* 7日内更新标黄 */
   .recent-yellow { background: #fffbe6 !important; }
   .recent-yellow:hover { background: #fff2b3 !important; }
-  
   .process-info { display: flex; gap: 15px; align-items: center; }
   .badge { background: #ffcccc; color: #d00000; padding: 2px 8px; border-radius: 12px; font-size: 12px; display: flex; align-items: center; gap: 4px; }
   
-  /* 管理员下拉 */
+  /* 管理员 */
   .admin-dropdown { position: absolute; top: 60px; right: 20px; background: #fff; border: 1px solid #ccc; border-radius: 4px; padding: 10px; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.1); z-index: 100; min-width: 200px; }
   .admin-dropdown button { display: block; width: 100%; margin: 5px 0; padding: 8px; cursor: pointer; border: none; border-radius: 4px; color: #fff; text-align: left; }
   .btn-push { background: #0056b3; }
@@ -52,7 +64,7 @@
   
   /* 模态框 */
   .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 200; }
-  .modal-content { background: #fff; padding: 20px; border-radius: 8px; width: 500px; max-width: 90%; }
+  .modal-content { background: #fff; padding: 20px; border-radius: 8px; width: 500px; max-width: 90%; max-height: 90vh; overflow-y: auto; }
   .modal-content h2 { margin-top: 0; }
   .modal-content label { display: block; margin: 10px 0 5px; }
   .modal-content input[type="text"], .modal-content input[type="date"], .modal-content input[type="password"], .modal-content textarea, .modal-content select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
@@ -66,8 +78,6 @@
   .drop-zone { border: 2px dashed #ccc; padding: 20px; text-align: center; border-radius: 4px; margin-top: 10px; }
   .img-preview img { max-width: 100px; margin: 5px; cursor: pointer; }
   
-  /* 详情页 */
-  #detailPage { display: none; }
   .detail-meta { color: #666; margin-bottom: 20px; }
   
   .browser-warning { position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); color: #999; font-size: 12px; }
@@ -75,43 +85,76 @@
 </head>
 <body>
 
-<div class="container" id="mainPage">
+<!-- ==================== 首页 ==================== -->
+<div class="container" id="homePage">
+  <h2>📋 力芯文档归档系统</h2>
+  <div class="home-cards">
+    <div class="home-card" onclick="showPage('processPage')">
+      <h3>📁 力芯工艺文档更新</h3>
+      <p>工艺文档版本管理、更新归档与在线预览</p>
+    </div>
+    <div class="home-card skill-card" onclick="showPage('skillPage')">
+      <h3>📜 力芯Skill脚本更新</h3>
+      <p>Skill脚本版本管理、更新归档与在线预览</p>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 工艺文档页 ==================== -->
+<div class="container" id="processPage" style="display:none;">
+  <button class="back-btn" onclick="showPage('homePage')">← 返回首页</button>
   <header>
     <h1>力芯工艺文档更新</h1>
-    <button id="adminBtn" class="btn btn-blue" onclick="toggleAdminDropdown()">🔑 管理员</button>
+    <button id="processAdminBtn" class="btn btn-blue" onclick="toggleAdminDropdown('process')">🔑 管理员</button>
   </header>
   
   <div class="search-row">
-    <!-- 第一个搜索框：fab厂 -->
-    <div class="combobox" id="factoryCombobox">
+    <div class="combobox">
       <input type="text" id="factoryInput" placeholder="输入或选择 fab 厂（留空显示全部）" autocomplete="off">
       <div class="combobox-dropdown" id="factoryDropdown"></div>
     </div>
-    <!-- 第二个搜索框：工艺名 -->
-    <div class="combobox" id="processCombobox">
+    <div class="combobox">
       <input type="text" id="processInput" placeholder="输入或选择工艺名（留空显示全部）" autocomplete="off">
       <div class="combobox-dropdown" id="processDropdown"></div>
     </div>
   </div>
   
-  <div id="content"></div>
+  <div id="processContent"></div>
 </div>
 
-<!-- 详情页 -->
-<div class="container" id="detailPage">
+<!-- ==================== Skill脚本页 ==================== -->
+<div class="container" id="skillPage" style="display:none;">
+  <button class="back-btn" onclick="showPage('homePage')">← 返回首页</button>
   <header>
-    <h1 id="detailTitle">工艺详情</h1>
+    <h1>力芯Skill脚本更新</h1>
+    <button id="skillAdminBtn" class="btn btn-blue" onclick="toggleAdminDropdown('skill')">🔑 管理员</button>
+  </header>
+  
+  <div class="search-row">
+    <div class="combobox" style="flex: 0 0 300px;">
+      <input type="text" id="skillInput" placeholder="输入或选择脚本名（留空显示全部）" autocomplete="off">
+      <div class="combobox-dropdown" id="skillDropdown"></div>
+    </div>
+  </div>
+  
+  <div id="skillContent"></div>
+</div>
+
+<!-- ==================== 详情页（共用） ==================== -->
+<div class="container" id="detailPage" style="display:none;">
+  <header>
+    <h1 id="detailTitle">详情</h1>
     <button class="btn btn-gray" onclick="goBack()">← 返回</button>
   </header>
   <div class="detail-meta" id="detailMeta"></div>
   <div id="detailText" style="margin-bottom: 20px;"></div>
   <div id="detailImages" style="display: flex; flex-wrap: wrap; gap: 10px;"></div>
-  <button id="editBtn" class="btn btn-blue" style="margin-top: 20px;" onclick="openDetailEdit()">✏️ 编辑此详情（管理员）</button>
+  <button id="editBtn" class="btn btn-blue" style="margin-top: 20px; display:none;" onclick="openDetailEdit()">✏️ 编辑此详情（管理员）</button>
 </div>
 
-<!-- 管理员下拉菜单 -->
+<!-- ==================== 管理员下拉菜单 ==================== -->
 <div class="admin-dropdown" id="adminDropdown">
-  <button class="btn-normal" onclick="openManageModal()">🛠 管理工艺/厂</button>
+  <button class="btn-normal" id="manageBtn" onclick="openManageModal()">🛠 管理</button>
   <button class="btn-normal" onclick="openChangePwd()">🔒 修改密码</button>
   <button class="btn-normal" onclick="openLogModal()">📝 更新日志</button>
   <button class="btn-normal" onclick="openGithubConfig()">⚙️ GitHub 配置</button>
@@ -121,7 +164,7 @@
   <button class="btn-backup" onclick="exportDataJson()">📦 导出备份</button>
 </div>
 
-<!-- 登录弹窗 -->
+<!-- ==================== 模态框们 ==================== -->
 <div class="modal" id="adminLoginModal">
   <div class="modal-content">
     <h2>🔑 管理员后台</h2>
@@ -133,14 +176,11 @@
   </div>
 </div>
 
-<!-- 修改密码弹窗 -->
 <div class="modal" id="changePwdModal">
   <div class="modal-content">
     <h2>🔒 修改密码</h2>
-    <label>旧密码</label>
-    <input type="password" id="oldPwd">
-    <label>新密码</label>
-    <input type="password" id="newPwd">
+    <label>旧密码</label><input type="password" id="oldPwd">
+    <label>新密码</label><input type="password" id="newPwd">
     <div class="modal-actions">
       <button class="btn btn-blue" onclick="changePwd()">保存</button>
       <button class="btn btn-gray" onclick="document.getElementById('changePwdModal').style.display='none'">取消</button>
@@ -148,10 +188,10 @@
   </div>
 </div>
 
-<!-- 管理弹窗 -->
-<div class="modal" id="manageModal">
+<!-- 工艺管理弹窗 -->
+<div class="modal" id="processManageModal">
   <div class="modal-content" style="width: 800px;">
-    <h2>🛠 管理员操作</h2>
+    <h2>🛠 管理工艺/厂</h2>
     <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
       <select id="factorySelect" style="padding: 8px;"></select>
       <select id="processSelect" style="padding: 8px;"></select>
@@ -161,33 +201,41 @@
       <button class="btn btn-blue" onclick="renameFactory()">🏭 重命名厂</button>
       <button class="btn btn-blue" onclick="deleteFactory()">🏭🗑 删除厂</button>
     </div>
-    <div class="modal-actions">
-      <button class="btn btn-gray" onclick="document.getElementById('manageModal').style.display='none'">关闭</button>
+    <div class="modal-actions"><button class="btn btn-gray" onclick="document.getElementById('processManageModal').style.display='none'">关闭</button></div>
+  </div>
+</div>
+
+<!-- 脚本管理弹窗 -->
+<div class="modal" id="skillManageModal">
+  <div class="modal-content">
+    <h2>🛠 管理脚本</h2>
+    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+      <select id="skillSelect" style="padding: 8px; min-width: 200px;"></select>
+      <button class="btn btn-blue" onclick="addSkill()">✨ 新增脚本</button>
+      <button class="btn btn-blue" onclick="deleteSkill()">🗑 删除脚本</button>
+      <button class="btn btn-blue" onclick="renameSkill()">✏️ 重命名脚本</button>
     </div>
+    <div class="modal-actions"><button class="btn btn-gray" onclick="document.getElementById('skillManageModal').style.display='none'">关闭</button></div>
   </div>
 </div>
 
 <!-- 编辑详情弹窗 -->
 <div class="modal" id="detailEditModal">
   <div class="modal-content">
-    <h2>✏️ 编辑工艺详情</h2>
-    <label>工艺名</label>
-    <input type="text" id="editName">
-    <label>版本号</label>
-    <input type="text" id="editVersion">
-    <label>更新日期</label>
-    <input type="date" id="editDate">
-    <label>文字内容（支持换行，纯文本）</label>
-    <textarea id="editText"></textarea>
-    <label>图片（可上传多张，点击图片可删除）</label>
-    <div class="drop-zone" id="fileDrop">
-      📥 点击选择图片，或拖拽图片到这里<br>支持 jpg / png / gif / webp
+    <h2>✏️ 编辑详情</h2>
+    <label>名称</label><input type="text" id="editName">
+    <label>版本号</label><input type="text" id="editVersion">
+    <label>更新日期</label><input type="date" id="editDate">
+    <label>文字内容</label><textarea id="editText"></textarea>
+    <label>图片</label>
+    <div class="drop-zone">
+      📥 点击选择图片，或拖拽到这里<br>支持 jpg / png / gif / webp
       <input type="file" id="fileInput" multiple style="display:none">
     </div>
     <div class="img-preview" id="imgPreview"></div>
     <div class="modal-actions">
-      <button class="btn btn-green" onclick="saveEdit()">保存详情</button>
-      <button class="btn btn-gray" onclick="closeDetailEdit()">取消</button>
+      <button class="btn btn-green" onclick="saveEdit()">保存</button>
+      <button class="btn btn-gray" onclick="document.getElementById('detailEditModal').style.display='none'">取消</button>
     </div>
   </div>
 </div>
@@ -197,9 +245,7 @@
   <div class="modal-content">
     <h2>📝 更新日志</h2>
     <div id="logList" style="max-height: 300px; overflow-y: auto;"></div>
-    <div class="modal-actions">
-      <button class="btn btn-gray" onclick="document.getElementById('logModal').style.display='none'">关闭</button>
-    </div>
+    <div class="modal-actions"><button class="btn btn-gray" onclick="document.getElementById('logModal').style.display='none'">关闭</button></div>
   </div>
 </div>
 
@@ -218,175 +264,244 @@
   </div>
 </div>
 
-<div class="browser-warning">For demonstration and testing purposes only. Please do not enter any sensitive data.</div>
+<div class="browser-warning">For demonstration and testing purposes only.</div>
 
 <script>
-let DATA = {};
+// ==================== 全局状态 ====================
+let currentModule = ''; // 'process' 或 'skill'
 let isAdmin = false;
-let adminPwd = '123456';
-let currentFactory = '';
-let currentProcess = '';
 let tempImages = [];
-let UPDATE_LOGS = [];
 
-// 初始化加载
-async function loadData() {
+// 工艺文档数据
+let PROCESS_DATA = {};
+let processAdminPwd = '123456';
+let processLogs = [];
+
+// Skill脚本数据
+let SKILL_DATA = { scripts: [] };
+let skillAdminPwd = '123456';
+let skillLogs = [];
+
+// ==================== 页面切换 ====================
+function showPage(pageId) {
+  ['homePage', 'processPage', 'skillPage', 'detailPage'].forEach(id => {
+    document.getElementById(id).style.display = id === pageId ? 'block' : 'none';
+  });
+  if (pageId === 'processPage') { currentModule = 'process'; renderProcessPage(); }
+  if (pageId === 'skillPage') { currentModule = 'skill'; renderSkillPage(); }
+  // 关闭管理员菜单
+  document.getElementById('adminDropdown').style.display = 'none';
+}
+
+// ==================== 数据加载 ====================
+async function loadProcessData() {
   try {
     const res = await fetch('data.json');
     const data = await res.json();
-    if (data._admin_pwd) { adminPwd = data._admin_pwd; delete data._admin_pwd; }
-    if (data._logs) { UPDATE_LOGS = data._logs; delete data._logs; }
-    DATA = data;
-  } catch(e) {
-    DATA = {};
-    console.warn('无法加载 data.json，请检查网络或云端配置。');
-  }
-  render();
+    if (data._admin_pwd) { processAdminPwd = data._admin_pwd; delete data._admin_pwd; }
+    if (data._logs) { processLogs = data._logs; delete data._logs; }
+    PROCESS_DATA = data;
+  } catch(e) { PROCESS_DATA = {}; console.warn('无法加载 data.json'); }
 }
 
-// 更新下拉面板选项（核心联动逻辑）
-function updateDropdown(type) {
-  const factoryInput = document.getElementById('factoryInput').value.trim();
-  const processInput = document.getElementById('processInput').value.trim();
-  
-  if (type === 'factory') {
-    const dropdown = document.getElementById('factoryDropdown');
-    // 找到与输入匹配的实际厂名key（不区分大小写）
-    let matchedFactory = null;
-    if (factoryInput) {
-      matchedFactory = Object.keys(DATA).find(f => f.toLowerCase() === factoryInput.toLowerCase());
-    }
-    
-    let factories = Object.keys(DATA).sort();
-    // 按输入过滤
-    if (factoryInput) {
-      factories = factories.filter(f => f.toLowerCase().includes(factoryInput.toLowerCase()));
-    }
-    if (factories.length === 0) {
-      dropdown.innerHTML = '<div class="no-match">无匹配厂名</div>';
-    } else {
-      dropdown.innerHTML = factories.map(f => `<div data-value="${f}">${f}</div>`).join('');
-    }
-    dropdown.style.display = 'block';
-  }
-  
-  if (type === 'process') {
-    const dropdown = document.getElementById('processDropdown');
-    let processOptions = [];
-    
-    // 联动：根据左边厂名过滤工艺
-    if (factoryInput) {
-      // 找到匹配的厂名（不区分大小写）
-      const matchedFactory = Object.keys(DATA).find(f => f.toLowerCase() === factoryInput.toLowerCase());
-      if (matchedFactory && DATA[matchedFactory]) {
-        processOptions = DATA[matchedFactory].map(p => p.id);
-      }
-      // 如果左边输入了但没匹配到任何厂，右边显示为空（因为该厂不存在）
-    } else {
-      // 左边为空，显示所有工艺
-      processOptions = Object.values(DATA).flat().map(p => p.id);
-    }
-    
-    processOptions = [...new Set(processOptions)].sort((a, b) => a.localeCompare(b, 'zh-CN', { numeric: true }));
-    // 按右边输入框内容二次过滤
-    if (processInput) {
-      processOptions = processOptions.filter(p => p.toLowerCase().includes(processInput.toLowerCase()));
-    }
-    
-    if (processOptions.length === 0) {
-      dropdown.innerHTML = '<div class="no-match">无匹配工艺名</div>';
-    } else {
-      dropdown.innerHTML = processOptions.map(p => `<div data-value="${p}">${p}</div>`).join('');
-    }
-    dropdown.style.display = 'block';
-  }
+async function loadSkillData() {
+  try {
+    const res = await fetch('skill-data.json');
+    const data = await res.json();
+    if (data._admin_pwd) { skillAdminPwd = data._admin_pwd; delete data._admin_pwd; }
+    if (data._logs) { skillLogs = data._logs; delete data._logs; }
+    SKILL_DATA = data;
+  } catch(e) { SKILL_DATA = { scripts: [] }; console.warn('无法加载 skill-data.json'); }
 }
 
-// 渲染主页面列表
-function render() {
+// 初始化
+(async function() {
+  await Promise.all([loadProcessData(), loadSkillData()]);
+})();
+
+// ==================== 工艺文档页逻辑 ====================
+function renderProcessPage() {
   const fInput = document.getElementById('factoryInput').value.trim();
   const pInput = document.getElementById('processInput').value.trim();
   
-  const content = document.getElementById('content');
-  content.innerHTML = '';
+  // 厂名下拉
+  const factoryDropdown = document.getElementById('factoryDropdown');
+  let factories = Object.keys(PROCESS_DATA).sort();
+  if (fInput) factories = factories.filter(f => f.toLowerCase().includes(fInput.toLowerCase()));
+  factoryDropdown.innerHTML = factories.length ? factories.map(f => `<div data-value="${f}">${f}</div>`).join('') : '<div class="no-match">无匹配</div>';
   
-  Object.keys(DATA).sort().forEach(factory => {
-    // 如果左边有输入，只显示匹配的厂
-    if(fInput && !factory.toLowerCase().includes(fInput.toLowerCase())) return;
-    
-    let processes = DATA[factory].filter(p => !pInput || p.id.toLowerCase().includes(pInput.toLowerCase()));
-    if(processes.length === 0) return;
-    
-    processes = [...processes].sort((a, b) => a.id.localeCompare(b.id, 'zh-CN', { numeric: true }));
-    
-    let html = `<div class="factory-section">
-      <div class="factory-title"><span>${factory}</span> <span>${processes.length} 项工艺</span></div>`;
-    
+  // 工艺名下拉（联动）
+  const processDropdown = document.getElementById('processDropdown');
+  let processOptions = [];
+  if (fInput) {
+    const matched = Object.keys(PROCESS_DATA).find(f => f.toLowerCase() === fInput.toLowerCase());
+    if (matched) processOptions = PROCESS_DATA[matched].map(p => p.id);
+  } else {
+    processOptions = Object.values(PROCESS_DATA).flat().map(p => p.id);
+  }
+  processOptions = [...new Set(processOptions)].sort((a,b) => a.localeCompare(b, 'zh-CN', {numeric:true}));
+  if (pInput) processOptions = processOptions.filter(p => p.toLowerCase().includes(pInput.toLowerCase()));
+  processDropdown.innerHTML = processOptions.length ? processOptions.map(p => `<div data-value="${p}">${p}</div>`).join('') : '<div class="no-match">无匹配</div>';
+  
+  // 列表
+  const content = document.getElementById('processContent');
+  content.innerHTML = '';
+  Object.keys(PROCESS_DATA).sort().forEach(factory => {
+    if (fInput && !factory.toLowerCase().includes(fInput.toLowerCase())) return;
+    let processes = PROCESS_DATA[factory].filter(p => !pInput || p.id.toLowerCase().includes(pInput.toLowerCase()));
+    if (!processes.length) return;
+    processes.sort((a,b) => a.id.localeCompare(b.id, 'zh-CN', {numeric:true}));
+    let html = `<div style="margin-bottom:20px;"><div style="font-size:20px;color:#0056b3;margin-bottom:10px;display:flex;justify-content:space-between;"><span>${factory}</span><span>${processes.length} 项</span></div>`;
     processes.forEach(p => {
       const isRecent = (new Date() - new Date(p.updateDate))/(1000 * 60 * 60 * 24) <= 7;
-      const rowClass = isRecent ? "process-item recent-yellow" : "process-item";
-      html += `<div class="${rowClass}" onclick="goDetail('${factory}', '${p.id}')">
+      const cls = isRecent ? 'process-item recent-yellow' : 'process-item';
+      html += `<div class="${cls}" onclick="goProcessDetail('${factory}','${p.id}')">
         <strong>${p.id}</strong>
-        <div class="process-info">
-          <span>版本: ${p.version}</span>
-          <span>更新: ${p.updateDate}</span>
-          ${isRecent ? '<span class="badge">🔴 7日内有更新</span>' : ''}
-        </div>
+        <div class="process-info"><span>版本:${p.version}</span><span>更新:${p.updateDate}</span>${isRecent?'<span class="badge">🔴 7日内</span>':''}</div>
       </div>`;
     });
-    html += `</div>`;
+    html += '</div>';
     content.innerHTML += html;
   });
 }
 
-// 下拉框事件绑定
-document.getElementById('factoryInput').addEventListener('input', function() {
-  updateDropdown('factory');
-  updateDropdown('process'); // 联动更新右边
-  render();
-});
-document.getElementById('factoryInput').addEventListener('focus', function() {
-  updateDropdown('factory');
-});
-document.getElementById('factoryDropdown').addEventListener('click', function(e) {
+// 工艺文档搜索事件
+document.getElementById('factoryInput').addEventListener('input', renderProcessPage);
+document.getElementById('factoryInput').addEventListener('focus', renderProcessPage);
+document.getElementById('factoryDropdown').addEventListener('click', e => {
   if (e.target.dataset.value) {
     document.getElementById('factoryInput').value = e.target.dataset.value;
-    this.style.display = 'none';
-    updateDropdown('process'); // 选中后联动更新右边
-    render();
+    document.getElementById('factoryDropdown').style.display = 'none';
+    renderProcessPage();
   }
 });
-
-document.getElementById('processInput').addEventListener('input', function() {
-  updateDropdown('process');
-  render();
-});
-document.getElementById('processInput').addEventListener('focus', function() {
-  updateDropdown('process');
-});
-document.getElementById('processDropdown').addEventListener('click', function(e) {
+document.getElementById('processInput').addEventListener('input', renderProcessPage);
+document.getElementById('processInput').addEventListener('focus', renderProcessPage);
+document.getElementById('processDropdown').addEventListener('click', e => {
   if (e.target.dataset.value) {
     document.getElementById('processInput').value = e.target.dataset.value;
-    this.style.display = 'none';
-    render();
-  }
-});
-
-// 点击页面其他位置关闭下拉
-document.addEventListener('click', function(e) {
-  if (!document.getElementById('factoryCombobox').contains(e.target)) {
-    document.getElementById('factoryDropdown').style.display = 'none';
-  }
-  if (!document.getElementById('processCombobox').contains(e.target)) {
     document.getElementById('processDropdown').style.display = 'none';
+    renderProcessPage();
   }
 });
 
-// 管理员逻辑
-function toggleAdminDropdown() {
-  if(isAdmin) {
+// ==================== Skill脚本页逻辑 ====================
+function renderSkillPage() {
+  const sInput = document.getElementById('skillInput').value.trim();
+  const dropdown = document.getElementById('skillDropdown');
+  let scripts = SKILL_DATA.scripts || [];
+  let names = scripts.map(s => s.id).sort((a,b) => a.localeCompare(b, 'zh-CN', {numeric:true}));
+  if (sInput) names = names.filter(n => n.toLowerCase().includes(sInput.toLowerCase()));
+  dropdown.innerHTML = names.length ? names.map(n => `<div data-value="${n}">${n}</div>`).join('') : '<div class="no-match">无匹配</div>';
+  
+  const content = document.getElementById('skillContent');
+  content.innerHTML = '';
+  let filtered = scripts.filter(s => !sInput || s.id.toLowerCase().includes(sInput.toLowerCase()));
+  filtered.sort((a,b) => a.id.localeCompare(b.id, 'zh-CN', {numeric:true}));
+  
+  if (filtered.length) {
+    let html = '<div style="margin-bottom:20px;">';
+    filtered.forEach(s => {
+      const isRecent = (new Date() - new Date(s.updateDate))/(1000 * 60 * 60 * 24) <= 7;
+      const cls = isRecent ? 'process-item recent-yellow' : 'process-item';
+      html += `<div class="${cls}" onclick="goSkillDetail('${s.id}')">
+        <strong>${s.id}</strong>
+        <div class="process-info"><span>版本:${s.version}</span><span>更新:${s.updateDate}</span>${isRecent?'<span class="badge">🔴 7日内</span>':''}</div>
+      </div>`;
+    });
+    html += '</div>';
+    content.innerHTML = html;
+  }
+}
+
+document.getElementById('skillInput').addEventListener('input', renderSkillPage);
+document.getElementById('skillInput').addEventListener('focus', renderSkillPage);
+document.getElementById('skillDropdown').addEventListener('click', e => {
+  if (e.target.dataset.value) {
+    document.getElementById('skillInput').value = e.target.dataset.value;
+    document.getElementById('skillDropdown').style.display = 'none';
+    renderSkillPage();
+  }
+});
+
+// ==================== 详情页 ====================
+let detailTarget = null; // { module, factory?, id }
+
+function goProcessDetail(factory, pid) {
+  detailTarget = { module: 'process', factory, id: pid };
+  const p = PROCESS_DATA[factory].find(x => x.id === pid);
+  showDetail(p, factory);
+}
+
+function goSkillDetail(sid) {
+  detailTarget = { module: 'skill', id: sid };
+  const s = SKILL_DATA.scripts.find(x => x.id === sid);
+  showDetail(s);
+}
+
+function showDetail(item, factory) {
+  document.getElementById('detailTitle').innerText = item.id;
+  document.getElementById('detailMeta').innerHTML = `版本：${item.version} | 更新日期：${item.updateDate} ${ (new Date()-new Date(item.updateDate))/(1000 * 60 * 60 * 24)<=7?'<span class="badge">7日内</span>':'' }${factory?' | 厂：'+factory:''}`;
+  document.getElementById('detailText').innerText = item.detail?.text || '暂无内容';
+  document.getElementById('detailImages').innerHTML = (item.detail?.images||[]).map(s=>`<img src="${s}" style="max-width:200px;">`).join('');
+  document.getElementById('editBtn').style.display = isAdmin ? 'block' : 'none';
+  showPage('detailPage');
+}
+
+function goBack() {
+  showPage(currentModule === 'process' ? 'processPage' : 'skillPage');
+}
+
+function openDetailEdit() {
+  if (!isAdmin) return;
+  const t = detailTarget;
+  let item;
+  if (t.module === 'process') item = PROCESS_DATA[t.factory].find(x => x.id === t.id);
+  else item = SKILL_DATA.scripts.find(x => x.id === t.id);
+  
+  document.getElementById('editName').value = item.id;
+  document.getElementById('editVersion').value = item.version;
+  document.getElementById('editDate').value = item.updateDate;
+  document.getElementById('editText').value = item.detail?.text || '';
+  tempImages = item.detail?.images || [];
+  renderImgPreview();
+  document.getElementById('detailEditModal').style.display = 'flex';
+}
+
+function saveEdit() {
+  if (!isAdmin) return;
+  const t = detailTarget;
+  let item;
+  if (t.module === 'process') item = PROCESS_DATA[t.factory].find(x => x.id === t.id);
+  else item = SKILL_DATA.scripts.find(x => x.id === t.id);
+  
+  item.id = document.getElementById('editName').value.trim();
+  item.version = document.getElementById('editVersion').value.trim();
+  item.updateDate = document.getElementById('editDate').value;
+  item.detail = { text: document.getElementById('editText').value, images: tempImages };
+  
+  const now = new Date();
+  const timeStr = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0')+' '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+  
+  if (t.module === 'process') {
+    processLogs.unshift({ time: timeStr, process: item.id, factory: t.factory });
+  } else {
+    skillLogs.unshift({ time: timeStr, process: item.id });
+  }
+  
+  document.getElementById('detailEditModal').style.display = 'none';
+  alert('已保存。可点击"☁️ 保存到云端"同步！');
+  goBack();
+}
+
+// ==================== 管理员 ====================
+function toggleAdminDropdown(module) {
+  if (isAdmin) {
     const dd = document.getElementById('adminDropdown');
     dd.style.display = dd.style.display === 'block' ? 'none' : 'block';
+    // 根据模块设置管理按钮文字
+    document.getElementById('manageBtn').innerText = module === 'process' ? '🛠 管理工艺/厂' : '🛠 管理脚本';
+    document.getElementById('manageBtn').onclick = module === 'process' ? openProcessManage : openSkillManage;
   } else {
     document.getElementById('adminLoginModal').style.display = 'flex';
   }
@@ -399,9 +514,9 @@ function closeAdminLogin() {
 
 function login() {
   const pwd = document.getElementById('adminPwd').value;
-  if(pwd === adminPwd) {
+  const validPwd = currentModule === 'process' ? processAdminPwd : skillAdminPwd;
+  if (pwd === validPwd) {
     isAdmin = true;
-    document.getElementById('adminBtn').innerText = '👤 管理员';
     document.getElementById('adminLoginModal').style.display = 'none';
     document.getElementById('adminDropdown').style.display = 'block';
   } else {
@@ -418,12 +533,12 @@ function openChangePwd() {
 function changePwd() {
   const oldP = document.getElementById('oldPwd').value;
   const newP = document.getElementById('newPwd').value;
-  if(oldP === adminPwd && newP) {
-    adminPwd = newP;
+  const validPwd = currentModule === 'process' ? processAdminPwd : skillAdminPwd;
+  if (oldP === validPwd && newP) {
+    if (currentModule === 'process') processAdminPwd = newP; else skillAdminPwd = newP;
     isAdmin = false;
-    document.getElementById('adminBtn').innerText = '🔑 管理员登录';
     document.getElementById('changePwdModal').style.display = 'none';
-    alert('密码修改成功！请记得点"☁️ 保存到云端"以永久生效。');
+    alert('密码修改成功！请记得保存到云端。');
   } else {
     alert('旧密码错误或新密码为空！');
   }
@@ -431,71 +546,83 @@ function changePwd() {
   document.getElementById('newPwd').value = '';
 }
 
-function openManageModal() {
-  refreshManageSelects();
-  document.getElementById('manageModal').style.display = 'flex';
-  document.getElementById('adminDropdown').style.display = 'none';
-}
-
-function refreshManageSelects() {
+// 工艺管理
+function openProcessManage() {
   const fs = document.getElementById('factorySelect');
-  fs.innerHTML = Object.keys(DATA).sort().map(f => `<option value="${f}">${f}</option>`).join('');
-  const ps = document.getElementById('processSelect');
+  fs.innerHTML = Object.keys(PROCESS_DATA).sort().map(f => `<option value="${f}">${f}</option>`).join('');
   const factory = fs.value;
-  let processes = DATA[factory] || [];
-  processes = [...processes].sort((a, b) => a.id.localeCompare(b.id, 'zh-CN', { numeric: true }));
-  ps.innerHTML = processes.map((p, i) => `<option value="${i}">${p.id}</option>`).join('') || '<option value="">（无工艺）</option>';
+  const ps = document.getElementById('processSelect');
+  let processes = PROCESS_DATA[factory] || [];
+  processes.sort((a,b) => a.id.localeCompare(b.id, 'zh-CN', {numeric:true}));
+  ps.innerHTML = processes.map((p,i) => `<option value="${i}">${p.id}</option>`).join('');
+  document.getElementById('processManageModal').style.display = 'flex';
+  document.getElementById('adminDropdown').style.display = 'none';
 }
 
 function addProcess() {
   const factory = document.getElementById('factorySelect').value;
   const id = prompt('新工艺名：');
-  if(!id || !id.trim()) return;
-  DATA[factory].push({ id: id.trim(), version: '1.0', updateDate: new Date().toISOString().slice(0,10), detail: { text: '', images: [] } });
-  refreshManageSelects(); render();
+  if (id?.trim()) { PROCESS_DATA[factory].push({id: id.trim(), version:'1.0', updateDate: new Date().toISOString().slice(0,10), detail:{text:'',images:[]}}); renderProcessPage(); }
 }
-
 function deleteProcess() {
   const factory = document.getElementById('factorySelect').value;
   const idx = document.getElementById('processSelect').value;
-  if(confirm('确定删除？')) { DATA[factory].splice(idx, 1); refreshManageSelects(); render(); }
+  if (confirm('确定删除？')) { PROCESS_DATA[factory].splice(idx,1); renderProcessPage(); }
 }
-
 function renameProcess() {
   const factory = document.getElementById('factorySelect').value;
   const idx = document.getElementById('processSelect').value;
-  const oldId = DATA[factory][idx].id;
-  const newId = prompt('新工艺名：', oldId);
-  if(newId && newId.trim()) { DATA[factory][idx].id = newId.trim(); refreshManageSelects(); render(); }
+  const newId = prompt('新工艺名：', PROCESS_DATA[factory][idx].id);
+  if (newId?.trim()) { PROCESS_DATA[factory][idx].id = newId.trim(); renderProcessPage(); }
 }
-
 function renameFactory() {
-  const oldFactory = document.getElementById('factorySelect').value;
-  const newFactory = prompt('新工艺厂名：', oldFactory);
-  if(newFactory && newFactory.trim() && newFactory !== oldFactory) {
-    DATA[newFactory.trim()] = DATA[oldFactory];
-    delete DATA[oldFactory];
-    refreshManageSelects(); render();
-  }
+  const oldF = document.getElementById('factorySelect').value;
+  const newF = prompt('新厂名：', oldF);
+  if (newF?.trim() && newF !== oldF) { PROCESS_DATA[newF.trim()] = PROCESS_DATA[oldF]; delete PROCESS_DATA[oldF]; renderProcessPage(); }
 }
-
 function deleteFactory() {
   const factory = document.getElementById('factorySelect').value;
-  if(confirm(`确定删除厂 "${factory}"？其下所有工艺也会被删除！`)) { 
-    delete DATA[factory]; 
-    refreshManageSelects(); render(); 
-  }
+  if (confirm(`删除厂 "${factory}"？`)) { delete PROCESS_DATA[factory]; renderProcessPage(); }
 }
 
-function exportDataJson() {
-  const exportData = { ...DATA, _admin_pwd: adminPwd, _logs: UPDATE_LOGS };
-  const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href = url; a.download = 'data.json';
-  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+// 脚本管理
+function openSkillManage() {
+  const ss = document.getElementById('skillSelect');
+  let names = (SKILL_DATA.scripts||[]).map(s=>s.id).sort((a,b)=>a.localeCompare(b,'zh-CN',{numeric:true}));
+  ss.innerHTML = names.map((n,i) => `<option value="${i}">${n}</option>`).join('') || '<option value="">（无脚本）</option>';
+  document.getElementById('skillManageModal').style.display = 'flex';
+  document.getElementById('adminDropdown').style.display = 'none';
 }
 
-// GitHub 配置与推送
+function addSkill() {
+  const id = prompt('新脚本名：');
+  if (id?.trim()) { SKILL_DATA.scripts.push({id: id.trim(), version:'1.0', updateDate: new Date().toISOString().slice(0,10), detail:{text:'',images:[]}}); renderSkillPage(); }
+}
+function deleteSkill() {
+  const idx = document.getElementById('skillSelect').value;
+  if (confirm('确定删除？')) { SKILL_DATA.scripts.splice(idx,1); renderSkillPage(); }
+}
+function renameSkill() {
+  const idx = document.getElementById('skillSelect').value;
+  const newId = prompt('新脚本名：', SKILL_DATA.scripts[idx].id);
+  if (newId?.trim()) { SKILL_DATA.scripts[idx].id = newId.trim(); renderSkillPage(); }
+}
+
+// 日志
+function openLogModal() {
+  document.getElementById('adminDropdown').style.display = 'none';
+  const logs = currentModule === 'process' ? processLogs : skillLogs;
+  const list = document.getElementById('logList');
+  list.innerHTML = logs.length ? logs.map((l,i) => `<div style="padding:8px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;"><span><strong>${l.process}</strong><br><small>${l.time}</small></span><button class="btn btn-gray" style="padding:4px 8px;font-size:12px;" onclick="deleteLog(${i})">删除</button></div>`).join('') : '<p style="color:#666;">暂无日志</p>';
+  document.getElementById('logModal').style.display = 'flex';
+}
+
+function deleteLog(i) {
+  if (currentModule === 'process') processLogs.splice(i,1); else skillLogs.splice(i,1);
+  openLogModal();
+}
+
+// GitHub配置
 function openGithubConfig() {
   document.getElementById('githubToken').value = localStorage.getItem('github_token') || '';
   document.getElementById('githubBranch').value = localStorage.getItem('github_branch') || 'main';
@@ -504,215 +631,89 @@ function openGithubConfig() {
 }
 
 function saveGithubConfig() {
-  const token = document.getElementById('githubToken').value.trim();
-  const branch = document.getElementById('githubBranch').value.trim();
-  if(!token) { alert('Token 不能为空！'); return; }
-  localStorage.setItem('github_token', token);
-  localStorage.setItem('github_branch', branch || 'main');
+  localStorage.setItem('github_token', document.getElementById('githubToken').value.trim());
+  localStorage.setItem('github_branch', document.getElementById('githubBranch').value.trim() || 'main');
   document.getElementById('githubConfigModal').style.display = 'none';
-  alert('✅ GitHub 配置已保存（仅存于本浏览器）。');
+  alert('✅ 配置已保存');
 }
 
+// 推送
 async function pushToGithub() {
-  if(!isAdmin) { alert('请先登录管理员！'); return; }
+  if (!isAdmin) { alert('请先登录！'); return; }
   const token = localStorage.getItem('github_token');
-  if(!token) { alert('请先在管理员菜单中配置 GitHub Token！'); return; }
+  if (!token) { alert('请先配置 Token！'); return; }
   
-  const owner = 'zhoujb9527';
-  const repo = 'process-docs';
+  const owner = 'zhoujb9527', repo = 'process-docs';
   const branch = localStorage.getItem('github_branch') || 'main';
-  const path = 'data.json';
+  const path = currentModule === 'process' ? 'data.json' : 'skill-data.json';
   const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
-
+  
+  const exportData = currentModule === 'process' 
+    ? { ...PROCESS_DATA, _admin_pwd: processAdminPwd, _logs: processLogs }
+    : { ...SKILL_DATA, _admin_pwd: skillAdminPwd, _logs: skillLogs };
+  
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), 10000);
-
+  
   try {
     let sha = '';
-    try {
-      const getRes = await fetch(apiUrl, {
-        headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' },
-        signal: ctrl.signal
-      });
-      if (getRes.ok) {
-        const getData = await getRes.json();
-        sha = getData.sha || '';
-      } else if (getRes.status !== 404) {
-        throw await ghError(getRes);
-      }
-    } catch (e) {
-      if (e.isGh) throw e;
-      throw new Error('网络错误：无法连接 GitHub（可能断网/被墙/API 不可用）');
-    }
-
-    const exportData = { ...DATA, _admin_pwd: adminPwd, _logs: UPDATE_LOGS };
+    const getRes = await fetch(apiUrl, { headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' }, signal: ctrl.signal });
+    if (getRes.ok) sha = (await getRes.json()).sha || '';
+    
     const content = JSON.stringify(exportData, null, 2);
-    const base64Content = btoa(unescape(encodeURIComponent(content)));
-
+    const base64 = btoa(unescape(encodeURIComponent(content)));
     const putRes = await fetch(apiUrl, {
-      method: 'PUT',
-      headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        message: '更新 data.json (via 网页管理员)',
-        content: base64Content,
-        sha: sha,
-        branch: branch
-      }),
-      signal: ctrl.signal
+      method: 'PUT', headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: `更新 ${path}`, content: base64, sha, branch }), signal: ctrl.signal
     });
-
-    if (putRes.ok) {
-      alert('✅ 已成功推送到 GitHub！EdgeOne 稍后自动部署，刷新即可看到最新数据。');
-    } else {
-      throw await ghError(putRes);
-    }
-  } catch (e) {
-    if (e.name === 'AbortError') {
-      alert('⏱ 推送超时（10秒未响应）：GitHub 连接不稳定。系统将自动导出 data.json 到本地作为备份，你可稍后点"🔄 重试推送"或手动上传。');
-    } else if (e.isGh) {
-      alert('❌ GitHub 返回错误：\n' + e.message + '\n\n系统将自动导出 data.json 到本地作为备份，你可稍后重试。');
-    } else {
-      alert('❌ 推送失败：' + e.message + '\n\n系统将自动导出 data.json 到本地作为备份，你可稍后重试。');
-    }
-    exportDataJson();
+    if (putRes.ok) alert('✅ 推送成功！稍后自动部署。');
+    else throw new Error(`HTTP ${putRes.status}`);
+  } catch(e) {
+    alert('❌ 推送失败：' + e.message);
   } finally {
     clearTimeout(timer);
     document.getElementById('adminDropdown').style.display = 'none';
   }
 }
 
-async function ghError(res) {
-  let msg = `HTTP ${res.status}`;
-  try {
-    const j = await res.json();
-    if (j && j.message) msg += '：' + j.message;
-  } catch (_) {}
-  if (res.status === 401) msg += '（Token 无效/过期）';
-  else if (res.status === 403) msg += '（无权限或限流）';
-  else if (res.status === 404) msg += '（仓库/路径不存在）';
-  else if (res.status === 409) msg += '（文件冲突，重试即可）';
-  else if (res.status === 429) msg += '（限流，稍后重试）';
-  else if (res.status >= 500) msg += '（GitHub 服务端异常）';
-  const err = new Error(msg);
-  err.isGh = true;
-  return err;
+function exportDataJson() {
+  const data = currentModule === 'process' ? { ...PROCESS_DATA, _admin_pwd: processAdminPwd, _logs: processLogs } : { ...SKILL_DATA, _admin_pwd: skillAdminPwd, _logs: skillLogs };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = currentModule === 'process' ? 'data.json' : 'skill-data.json';
+  a.click(); URL.revokeObjectURL(url);
 }
 
-// 更新日志
-function openLogModal() {
-  document.getElementById('adminDropdown').style.display = 'none';
-  const logList = document.getElementById('logList');
-  if (UPDATE_LOGS.length === 0) {
-    logList.innerHTML = '<p style="color:#666;">暂无更新日志</p>';
-  } else {
-    logList.innerHTML = UPDATE_LOGS.map((log, idx) => `
-      <div style="padding: 8px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
-        <span><strong>${log.process}</strong> (${log.factory || ''}) <br><small style="color:#666;">${log.time}</small></span>
-        <button class="btn btn-gray" style="padding: 4px 8px; font-size: 12px;" onclick="deleteLog(${idx})">删除</button>
-      </div>
-    `).join('');
-  }
-  document.getElementById('logModal').style.display = 'flex';
-}
-
-function deleteLog(idx) {
-  UPDATE_LOGS.splice(idx, 1);
-  openLogModal();
-}
-
-// 详情页
-function goDetail(factory, pid) {
-  currentFactory = factory;
-  currentProcess = pid;
-  const p = DATA[factory].find(x => x.id === pid);
-  document.getElementById('detailTitle').innerText = p.id;
-  document.getElementById('detailMeta').innerHTML = `工艺厂：${factory} | 版本：${p.version} | 更新日期：${p.updateDate} ${ (new Date() - new Date(p.updateDate))/(1000 * 60 * 60 * 24) <= 7 ? '<span class="badge">7日内有更新</span>' : '' }`;
-  document.getElementById('detailText').innerText = p.detail?.text || '暂无内容';
-  document.getElementById('detailImages').innerHTML = (p.detail?.images || []).map(src => `<img src="${src}" style="max-width:200px;">`).join('');
-  
-  document.getElementById('mainPage').style.display = 'none';
-  document.getElementById('detailPage').style.display = 'block';
-  document.getElementById('editBtn').style.display = isAdmin ? 'block' : 'none';
-}
-
-function goBack() {
-  document.getElementById('detailPage').style.display = 'none';
-  document.getElementById('mainPage').style.display = 'block';
-  render();
-}
-
-function openDetailEdit() {
-  if(!isAdmin) { alert('请先登录管理员！'); return; }
-  const p = DATA[currentFactory].find(x => x.id === currentProcess);
-  document.getElementById('editName').value = p.id;
-  document.getElementById('editVersion').value = p.version;
-  document.getElementById('editDate').value = p.updateDate;
-  document.getElementById('editText').value = p.detail?.text || '';
-  tempImages = p.detail?.images || [];
-  renderImgPreview();
-  document.getElementById('detailEditModal').style.display = 'flex';
-}
-
-function closeDetailEdit() {
-  document.getElementById('detailEditModal').style.display = 'none';
-}
-
-function saveEdit() {
-  if(!isAdmin) { alert('请先登录管理员！'); return; }
-  const p = DATA[currentFactory].find(x => x.id === currentProcess);
-  p.id = document.getElementById('editName').value.trim();
-  p.version = document.getElementById('editVersion').value.trim();
-  p.updateDate = document.getElementById('editDate').value;
-  p.detail = { text: document.getElementById('editText').value, images: tempImages };
-  
-  const now = new Date();
-  const timeStr = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + ' ' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
-  UPDATE_LOGS.unshift({ time: timeStr, process: p.id, factory: currentFactory });
-  
-  render();
-  closeDetailEdit();
-  goDetail(currentFactory, p.id);
-  alert('已保存。可点击"☁️ 保存到云端"同步到 GitHub！');
-}
-
-// 图片上传
+// 图片
 document.getElementById('fileInput').addEventListener('change', e => {
-  Array.from(e.target.files).forEach(file => {
-    if(!file.type.startsWith('image/')) return;
-    const reader = new FileReader();
-    reader.onload = ev => { tempImages.push(ev.target.result); renderImgPreview(); };
-    reader.readAsDataURL(file);
+  Array.from(e.target.files).forEach(f => {
+    if (!f.type.startsWith('image/')) return;
+    const r = new FileReader();
+    r.onload = ev => { tempImages.push(ev.target.result); renderImgPreview(); };
+    r.readAsDataURL(f);
   });
   e.target.value = '';
 });
 
 function renderImgPreview() {
-  document.getElementById('imgPreview').innerHTML = tempImages.map((src,i) => `<img src="${src}" onclick="tempImages.splice(${i},1);renderImgPreview()" title="点击删除">`).join('');
+  document.getElementById('imgPreview').innerHTML = tempImages.map((s,i) => `<img src="${s}" onclick="tempImages.splice(${i},1);renderImgPreview()" style="max-width:100px;margin:5px;cursor:pointer;">`).join('');
 }
 
-// 点击外部关闭管理员菜单
+// 点击外部关闭
 document.addEventListener('click', e => {
+  if (!e.target.closest('.combobox')) {
+    document.querySelectorAll('.combobox-dropdown').forEach(d => d.style.display = 'none');
+  }
   const dd = document.getElementById('adminDropdown');
-  const btn = document.getElementById('adminBtn');
-  if (!dd.contains(e.target) && !btn.contains(e.target)) {
-    dd.style.display = 'none';
+  if (!dd.contains(e.target) && !e.target.closest('.btn-blue')) dd.style.display = 'none';
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+    document.getElementById('adminDropdown').style.display = 'none';
   }
 });
-
-// ESC关闭
-document.addEventListener('keydown', e => { 
-  if(e.key === 'Escape') { 
-    closeDetailEdit(); 
-    closeAdminLogin();
-    document.getElementById('changePwdModal').style.display = 'none';
-    document.getElementById('manageModal').style.display = 'none';
-    document.getElementById('logModal').style.display = 'none';
-    document.getElementById('githubConfigModal').style.display = 'none';
-    document.getElementById('adminDropdown').style.display = 'none';
-  } 
-});
-
-loadData();
 </script>
 </body>
 </html>
