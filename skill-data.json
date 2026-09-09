@@ -12,6 +12,141 @@
   ],
   "layout": [
     {
+      "id": "addMosM1.il",
+      "version": "1.0",
+      "updateDate": "2026-08-05",
+      "detail": {
+        "text": "选中版图中MOS或者MOS的阵列，可以在该MOS上的S、D端铺上一层 M1金属层。该M1金属线的宽度为PDK中VIA1的宽度",
+        "images": []
+      }
+    },
+    {
+      "id": "AlignMode.il",
+      "version": "1.0",
+      "updateDate": "2026-09-09",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "autoSwitchPathUPorDN.il",
+      "version": "1.0",
+      "updateDate": "2026-09-09",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "changeLayer.il",
+      "version": "1.0",
+      "updateDate": "2026-09-09",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "changeMode.il",
+      "version": "1.0",
+      "updateDate": "2026-09-09",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "changeViaQuantity.il",
+      "version": "1.0",
+      "updateDate": "2026-09-09",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "CreateLogo.il",
+      "version": "1.0",
+      "updateDate": "2026-09-09",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "CreateVias.il",
+      "version": "1.0",
+      "updateDate": "2026-09-09",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "dbcreateVia.il",
+      "version": "1.0",
+      "updateDate": "2026-09-09",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "deletePcellRing.il",
+      "version": "1.0",
+      "updateDate": "2026-09-09",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "layFixOffGrid.il",
+      "version": "1.0",
+      "updateDate": "2026-09-09",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "polycontAll.il",
+      "version": "1.0",
+      "updateDate": "2026-09-09",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "removeBlank.il",
+      "version": "1.0",
+      "updateDate": "2026-09-09",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "transFormCraft.il",
+      "version": "1.0",
+      "updateDate": "2026-09-09",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "trRectToLadder.il",
+      "version": "1.0",
+      "updateDate": "2026-09-09",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
       "id": "zjbmenu.il",
       "version": "1.0",
       "updateDate": "2026-09-09",
@@ -22,5 +157,11 @@
     }
   ],
   "_admin_pwd": "123456",
-  "_logs": []
+  "_logs": [
+    {
+      "time": "2026-09-09 15:03",
+      "process": "addMosM1.il",
+      "category": "layout"
+    }
+  ]
 }
