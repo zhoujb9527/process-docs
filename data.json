@@ -457,9 +457,9 @@
     {
       "id": "90T2_18G3BCD_12in",
       "version": "1.0",
-      "updateDate": "2026-06-06",
+      "updateDate": "2026-09-08",
       "detail": {
-        "text": "",
+        "text": "test 99",
         "images": []
       }
     },
@@ -1528,6 +1528,16 @@
   ],
   "_admin_pwd": "123456",
   "_logs": [
+    {
+      "time": "2026-09-09 09:23:21",
+      "process": "90T2_18G3BCD_12in",
+      "factory": "CSMC"
+    },
+    {
+      "time": "2026-09-09 09:23:09",
+      "process": "90T2_18G3BCD_12in",
+      "factory": "CSMC"
+    },
     {
       "time": "2026-09-08 16:49:27",
       "process": "90T1_C1513enG1_8port12in",
