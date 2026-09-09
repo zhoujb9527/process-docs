@@ -8,7 +8,6 @@
   * { box-sizing: border-box; }
   body { font-family: system-ui, -apple-system, sans-serif; background: #f5f5f5; margin: 0; padding: 20px; color: #333; }
   
-  /* 限制主容器宽度并居中 */
   .container { max-width: 1200px; margin: 0 auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
   
   header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
@@ -20,18 +19,23 @@
   .factory-section { margin-bottom: 20px; }
   .factory-title { font-size: 20px; color: #0056b3; margin-bottom: 10px; display: flex; justify-content: space-between; }
   
-  /* 恢复图一格式：默认粉色背景 */
-  .process-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #fff5f5; border-radius: 4px; margin-bottom: 5px; cursor: pointer; }
+  /* 图一格式：默认粉色背景 */
+  .process-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #fff5f5; border-radius: 4px; margin-bottom: 5px; cursor: pointer; transition: background 0.2s; }
   .process-item:hover { background: #ffe5e5; }
-  /* 7日内更新标黄，优先级高于粉色 */
+  /* 7日内更新标黄 */
   .recent-yellow { background: #fffbe6 !important; }
+  .recent-yellow:hover { background: #fff2b3 !important; }
   
   .process-info { display: flex; gap: 15px; align-items: center; }
   .badge { background: #ffcccc; color: #d00000; padding: 2px 8px; border-radius: 12px; font-size: 12px; display: flex; align-items: center; gap: 4px; }
   
   /* 管理员下拉 */
-  .admin-dropdown { position: absolute; top: 60px; right: 20px; background: #fff; border: 1px solid #ccc; border-radius: 4px; padding: 10px; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.1); z-index: 100; }
-  .admin-dropdown button { display: block; width: 100%; margin: 5px 0; padding: 8px; cursor: pointer; }
+  .admin-dropdown { position: absolute; top: 60px; right: 20px; background: #fff; border: 1px solid #ccc; border-radius: 4px; padding: 10px; display: none; box-shadow: 0 2px 8px rgba(0,0,0,0.1); z-index: 100; min-width: 200px; }
+  .admin-dropdown button { display: block; width: 100%; margin: 5px 0; padding: 8px; cursor: pointer; border: none; border-radius: 4px; color: #fff; text-align: left; }
+  .btn-push { background: #0056b3; }
+  .btn-retry { background: #ff9800; }
+  .btn-backup { background: #28a745; }
+  .btn-normal { background: #6c757d; }
   
   /* 模态框 */
   .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 200; }
@@ -65,7 +69,7 @@
   </header>
   
   <div class="search-row">
-    <input type="text" id="factoryInput" placeholder="搜索 / 选择 fab 厂，如 smic、dongbu...（留空显示全部）" list="factoryList">
+    <input type="text" id="factoryInput" placeholder="搜索 / 选择 fab 厂（留空显示全部）" list="factoryList">
     <datalist id="factoryList"></datalist>
     <input type="text" id="processInput" placeholder="在该厂内搜索工艺名（留空显示全部）" list="processList">
     <datalist id="processList"></datalist>
@@ -88,12 +92,14 @@
 
 <!-- 管理员下拉菜单 -->
 <div class="admin-dropdown" id="adminDropdown">
-  <button onclick="openManageModal()">🛠 管理工艺/厂</button>
-  <button onclick="openChangePwd()">🔒 修改密码</button>
-  <button onclick="openLogModal()">📝 更新日志</button>
-  <button onclick="openGithubConfig()">⚙️ GitHub 配置</button>
-  <button onclick="pushToGithub()">☁️ 保存到云端</button>
-  <button onclick="exportDataJson()">📦 导出 data.json</button>
+  <button class="btn-normal" onclick="openManageModal()">🛠 管理工艺/厂</button>
+  <button class="btn-normal" onclick="openChangePwd()">🔒 修改密码</button>
+  <button class="btn-normal" onclick="openLogModal()">📝 更新日志</button>
+  <button class="btn-normal" onclick="openGithubConfig()">⚙️ GitHub 配置</button>
+  <hr style="margin: 5px 0;">
+  <button class="btn-push" onclick="pushToGithub()">☁️ 保存到云端</button>
+  <button class="btn-retry" onclick="pushToGithub()">🔄 重试推送</button>
+  <button class="btn-backup" onclick="exportDataJson()">📦 导出备份</button>
 </div>
 
 <!-- 登录弹窗 -->
@@ -135,7 +141,6 @@
       <button class="btn btn-blue" onclick="renameProcess()">✏️ 重命名工艺</button>
       <button class="btn btn-blue" onclick="renameFactory()">🏭 重命名厂</button>
       <button class="btn btn-blue" onclick="deleteFactory()">🏭🗑 删除厂</button>
-      <button class="btn btn-green" onclick="exportDataJson()">📦 导出 data.json</button>
     </div>
     <div class="modal-actions">
       <button class="btn btn-gray" onclick="document.getElementById('manageModal').style.display='none'">关闭</button>
@@ -157,8 +162,7 @@
     <textarea id="editText"></textarea>
     <label>图片（可上传多张，点击图片可删除）</label>
     <div class="drop-zone" id="fileDrop">
-      📥 点击选择图片，或拖拽图片到这里<br>
-      支持 jpg / png / gif / webp，单张建议 < 2MB
+      📥 点击选择图片，或拖拽图片到这里<br>支持 jpg / png / gif / webp
       <input type="file" id="fileInput" multiple style="display:none">
     </div>
     <div class="img-preview" id="imgPreview"></div>
@@ -204,28 +208,17 @@ let adminPwd = '123456';
 let currentFactory = '';
 let currentProcess = '';
 let tempImages = [];
-let UPDATE_LOGS = []; // 更新日志数组
+let UPDATE_LOGS = [];
 
 // 初始化加载
 async function loadData() {
   try {
     const res = await fetch('data.json');
     const data = await res.json();
-    // 从 data.json 中读取密码
-    if (data._admin_pwd) {
-      adminPwd = data._admin_pwd;
-      delete data._admin_pwd;
-    } else {
-      adminPwd = '123456';
-    }
-    // 从 data.json 中读取日志
-    if (data._logs) {
-      UPDATE_LOGS = data._logs;
-      delete data._logs;
-    }
+    if (data._admin_pwd) { adminPwd = data._admin_pwd; delete data._admin_pwd; }
+    if (data._logs) { UPDATE_LOGS = data._logs; delete data._logs; }
     DATA = data;
   } catch(e) {
-    // 加载失败不覆盖任何数据，只给空对象
     DATA = {};
     console.warn('无法加载 data.json，请检查网络或云端配置。');
   }
@@ -240,7 +233,7 @@ function render() {
   const factoryList = document.getElementById('factoryList');
   factoryList.innerHTML = Object.keys(DATA).sort().map(f => `<option value="${f}">`).join('');
   
-  // 修复：为第二个搜索框生成排序后的下拉菜单
+  // 第二个搜索框下拉
   const processList = document.getElementById('processList');
   let processOptions = [];
   if (fInput && DATA[fInput]) {
@@ -304,7 +297,6 @@ function login() {
     document.getElementById('adminBtn').innerText = '👤 管理员';
     document.getElementById('adminLoginModal').style.display = 'none';
     document.getElementById('adminDropdown').style.display = 'block';
-    alert('登录成功！');
   } else {
     alert('密码错误！');
   }
@@ -394,7 +386,6 @@ function exportDataJson() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a'); a.href = url; a.download = 'data.json';
   document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
-  alert('✅ 已导出 data.json！请上传覆盖到 GitHub 仓库。');
 }
 
 // GitHub 配置与推送
@@ -419,45 +410,90 @@ async function pushToGithub() {
   if(!isAdmin) { alert('请先登录管理员！'); return; }
   const token = localStorage.getItem('github_token');
   if(!token) { alert('请先在管理员菜单中配置 GitHub Token！'); return; }
+  
+  const owner = 'zhoujb9527';
+  const repo = 'process-docs';
   const branch = localStorage.getItem('github_branch') || 'main';
   const path = 'data.json';
-  const apiUrl = `https://api.github.com/repos/zhoujb9527/process-docs/contents/${path}`;
-  
+  const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+
+  // 10秒超时
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 10000);
+
   try {
-    const res = await fetch(apiUrl, {
-      headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
-    });
-    if(!res.ok) throw new Error('无法读取仓库文件，请检查 Token 权限或仓库名');
-    const fileData = await res.json();
-    const sha = fileData.sha;
-    
+    let sha = '';
+    try {
+      const getRes = await fetch(apiUrl, {
+        headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' },
+        signal: ctrl.signal
+      });
+      if (getRes.ok) {
+        const getData = await getRes.json();
+        sha = getData.sha || '';
+      } else if (getRes.status !== 404) {
+        throw await ghError(getRes);
+      }
+    } catch (e) {
+      if (e.isGh) throw e;
+      throw new Error('网络错误：无法连接 GitHub（可能断网/被墙/API 不可用）');
+    }
+
     const exportData = { ...DATA, _admin_pwd: adminPwd, _logs: UPDATE_LOGS };
     const content = JSON.stringify(exportData, null, 2);
     const base64Content = btoa(unescape(encodeURIComponent(content)));
-    
-    const updateRes = await fetch(apiUrl, {
+
+    const putRes = await fetch(apiUrl, {
       method: 'PUT',
-      headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+      headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
       body: JSON.stringify({
         message: '更新 data.json (via 网页管理员)',
         content: base64Content,
         sha: sha,
         branch: branch
-      })
+      }),
+      signal: ctrl.signal
     });
-    
-    if(updateRes.ok) {
-      alert('✅ 已成功推送到 GitHub！稍等片刻 EdgeOne 会自动重新部署，其他人刷新即可看到更新。');
+
+    if (putRes.ok) {
+      alert('✅ 已成功推送到 GitHub！EdgeOne 稍后自动部署，刷新即可看到最新数据。');
     } else {
-      const err = await updateRes.json();
-      throw new Error(err.message || '推送失败');
+      throw await ghError(putRes);
     }
-  } catch(e) {
-    alert('❌ 推送失败：' + e.message);
+  } catch (e) {
+    if (e.name === 'AbortError') {
+      alert('⏱ 推送超时（10秒未响应）：GitHub 连接不稳定。系统将自动导出 data.json 到本地作为备份，你可稍后点“🔄 重试推送”或手动上传。');
+    } else if (e.isGh) {
+      alert('❌ GitHub 返回错误：\n' + e.message + '\n\n系统将自动导出 data.json 到本地作为备份，你可稍后重试。');
+    } else {
+      alert('❌ 推送失败：' + e.message + '\n\n系统将自动导出 data.json 到本地作为备份，你可稍后重试。');
+    }
+    // 自动导出备份
+    exportDataJson();
+  } finally {
+    clearTimeout(timer);
+    document.getElementById('adminDropdown').style.display = 'none';
   }
 }
 
-// 更新日志功能
+async function ghError(res) {
+  let msg = `HTTP ${res.status}`;
+  try {
+    const j = await res.json();
+    if (j && j.message) msg += '：' + j.message;
+  } catch (_) {}
+  if (res.status === 401) msg += '（Token 无效/过期）';
+  else if (res.status === 403) msg += '（无权限或限流）';
+  else if (res.status === 404) msg += '（仓库/路径不存在）';
+  else if (res.status === 409) msg += '（文件冲突，重试即可）';
+  else if (res.status === 429) msg += '（限流，稍后重试）';
+  else if (res.status >= 500) msg += '（GitHub 服务端异常）';
+  const err = new Error(msg);
+  err.isGh = true;
+  return err;
+}
+
+// 更新日志
 function openLogModal() {
   document.getElementById('adminDropdown').style.display = 'none';
   const logList = document.getElementById('logList');
@@ -479,7 +515,7 @@ function deleteLog(idx) {
   openLogModal();
 }
 
-// 详情页逻辑
+// 详情页
 function goDetail(factory, pid) {
   currentFactory = factory;
   currentProcess = pid;
@@ -487,7 +523,7 @@ function goDetail(factory, pid) {
   document.getElementById('detailTitle').innerText = p.id;
   document.getElementById('detailMeta').innerHTML = `工艺厂：${factory} | 版本：${p.version} | 更新日期：${p.updateDate} ${ (new Date() - new Date(p.updateDate))/(1000 * 60 * 60 * 24) <= 7 ? '<span class="badge">7日内有更新</span>' : '' }`;
   document.getElementById('detailText').innerText = p.detail?.text || '暂无内容';
-  document.getElementById('detailImages').innerHTML = (p.detail?.images || []).map(src => `<img src="${src}" onclick="alert('图片预览')">`).join('');
+  document.getElementById('detailImages').innerHTML = (p.detail?.images || []).map(src => `<img src="${src}" style="max-width:200px;">`).join('');
   
   document.getElementById('mainPage').style.display = 'none';
   document.getElementById('detailPage').style.display = 'block';
@@ -524,7 +560,6 @@ function saveEdit() {
   p.updateDate = document.getElementById('editDate').value;
   p.detail = { text: document.getElementById('editText').value, images: tempImages };
   
-  // 记录更新日志
   const now = new Date();
   const timeStr = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0') + ' ' + String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
   UPDATE_LOGS.unshift({ time: timeStr, process: p.id, factory: currentFactory });
@@ -550,7 +585,7 @@ function renderImgPreview() {
   document.getElementById('imgPreview').innerHTML = tempImages.map((src,i) => `<img src="${src}" onclick="tempImages.splice(${i},1);renderImgPreview()" title="点击删除">`).join('');
 }
 
-// 点击外部关闭下拉
+// 点击外部关闭
 document.addEventListener('click', e => {
   const dd = document.getElementById('adminDropdown');
   const btn = document.getElementById('adminBtn');
@@ -572,11 +607,9 @@ document.addEventListener('keydown', e => {
   } 
 });
 
-// 搜索监听
 document.getElementById('factoryInput').addEventListener('input', render);
 document.getElementById('processInput').addEventListener('input', render);
 
-// 初始化
 loadData();
 </script>
 </body>
