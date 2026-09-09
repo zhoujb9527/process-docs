@@ -14,7 +14,7 @@
   header h1 { margin: 0; font-size: 24px; }
   
   .search-row { display: flex; gap: 10px; margin-bottom: 20px; }
-  .search-row input { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+  .search-row input, .search-row select { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
   
   .factory-section { margin-bottom: 20px; }
   .factory-title { font-size: 20px; color: #0056b3; margin-bottom: 10px; display: flex; justify-content: space-between; }
@@ -42,7 +42,7 @@
   .modal-content { background: #fff; padding: 20px; border-radius: 8px; width: 500px; max-width: 90%; }
   .modal-content h2 { margin-top: 0; }
   .modal-content label { display: block; margin: 10px 0 5px; }
-  .modal-content input[type="text"], .modal-content input[type="date"], .modal-content input[type="password"], .modal-content textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+  .modal-content input[type="text"], .modal-content input[type="date"], .modal-content input[type="password"], .modal-content textarea, .modal-content select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
   .modal-content textarea { min-height: 100px; }
   .modal-actions { margin-top: 20px; display: flex; gap: 10px; }
   .btn { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; color: #fff; }
@@ -69,10 +69,13 @@
   </header>
   
   <div class="search-row">
-    <input type="text" id="factoryInput" placeholder="搜索 / 选择 fab 厂（留空显示全部）" list="factoryList">
+    <input type="text" id="factoryInput" placeholder="搜索 / 选择 fab 厂（留空显示全部）" list="factoryList" style="flex: 0 0 250px;">
     <datalist id="factoryList"></datalist>
-    <input type="text" id="processInput" placeholder="在该厂内搜索工艺名（留空显示全部）" list="processList">
-    <datalist id="processList"></datalist>
+    
+    <!-- 第二个搜索框改为 select 下拉菜单 -->
+    <select id="processInput">
+      <option value="">-- 选择工艺名（留空显示全部） --</option>
+    </select>
   </div>
   
   <div id="content"></div>
@@ -230,11 +233,12 @@ function render() {
   const fInput = document.getElementById('factoryInput').value.toLowerCase();
   const pInput = document.getElementById('processInput').value.toLowerCase();
   
+  // 工厂下拉
   const factoryList = document.getElementById('factoryList');
   factoryList.innerHTML = Object.keys(DATA).sort().map(f => `<option value="${f}">`).join('');
   
-  // 第二个搜索框下拉
-  const processList = document.getElementById('processList');
+  // 工艺名下拉（select）
+  const processSelect = document.getElementById('processInput');
   let processOptions = [];
   if (fInput && DATA[fInput]) {
     processOptions = DATA[fInput].map(p => p.id);
@@ -242,7 +246,11 @@ function render() {
     processOptions = Object.values(DATA).flat().map(p => p.id);
   }
   processOptions = [...new Set(processOptions)].sort((a, b) => a.localeCompare(b, 'zh-CN', { numeric: true }));
-  processList.innerHTML = processOptions.map(p => `<option value="${p}">`).join('');
+  
+  // 保留当前选中的值
+  const currentVal = processSelect.value;
+  processSelect.innerHTML = '<option value="">-- 选择工艺名（留空显示全部） --</option>' + 
+    processOptions.map(p => `<option value="${p}" ${p === currentVal ? 'selected' : ''}>${p}</option>`).join('');
   
   const content = document.getElementById('content');
   content.innerHTML = '';
@@ -417,7 +425,6 @@ async function pushToGithub() {
   const path = 'data.json';
   const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
 
-  // 10秒超时
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), 10000);
 
@@ -468,7 +475,6 @@ async function pushToGithub() {
     } else {
       alert('❌ 推送失败：' + e.message + '\n\n系统将自动导出 data.json 到本地作为备份，你可稍后重试。');
     }
-    // 自动导出备份
     exportDataJson();
   } finally {
     clearTimeout(timer);
@@ -607,8 +613,9 @@ document.addEventListener('keydown', e => {
   } 
 });
 
+// 搜索监听
 document.getElementById('factoryInput').addEventListener('input', render);
-document.getElementById('processInput').addEventListener('input', render);
+document.getElementById('processInput').addEventListener('change', render);
 
 loadData();
 </script>
