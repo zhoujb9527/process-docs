@@ -75,7 +75,6 @@
   .btn-green { background: #00a86b; }
   .btn-gray { background: #ccc; color: #333; }
   
-  /* 修复点1：加 cursor: pointer */
   .drop-zone { border: 2px dashed #ccc; padding: 20px; text-align: center; border-radius: 4px; margin-top: 10px; cursor: pointer; transition: border-color 0.2s, background 0.2s; }
   .drop-zone:hover { border-color: #0056b3; background: #f0f8ff; }
   .drop-zone.dragover { border-color: #0056b3; background: #e0f0ff; }
@@ -235,7 +234,6 @@
     <label>更新日期</label><input type="date" id="editDate">
     <label>文字内容</label><textarea id="editText"></textarea>
     <label>图片/视频</label>
-    <!-- 需求二：修改提示文字和 accept 属性 -->
     <div class="drop-zone" id="dropZone">
       📥 点击选择图片/视频，或拖拽到这里<br>支持 jpg / png / gif / webp / mp4 / webm
       <input type="file" id="fileInput" multiple accept="image/*,video/*" style="display:none">
@@ -261,6 +259,8 @@
 <div class="modal" id="githubConfigModal">
   <div class="modal-content">
     <h2>⚙️ GitHub 配置</h2>
+    <label>仓库所有者（用户名）</label>
+    <input type="text" id="githubOwner" placeholder="zhoujb9527">
     <label>Personal Access Token</label>
     <input type="password" id="githubToken" placeholder="ghp_... 或 github_pat_...">
     <label>仓库分支</label>
@@ -272,7 +272,7 @@
   </div>
 </div>
 
-<!-- 需求一：图片/视频点击放大模态框 -->
+<!-- 图片/视频点击放大模态框 -->
 <div class="modal" id="mediaModal" onclick="this.style.display='none'">
   <div style="display:flex; align-items:center; justify-content:center; width:100%; height:100%;">
     <img id="mediaModalImg" style="max-width:90%; max-height:90%; object-fit:contain; display:none;">
@@ -288,12 +288,10 @@ let currentModule = '';
 let isAdmin = false;
 let tempImages = [];
 
-// 工艺文档数据
 let PROCESS_DATA = {};
 let processAdminPwd = '123456';
 let processLogs = [];
 
-// Skill脚本数据（按线路/版图分类）
 let SKILL_DATA = { line: [], layout: [] };
 let skillAdminPwd = '123456';
 let skillLogs = [];
@@ -453,7 +451,7 @@ function goSkillDetail(catKey, sid) {
   showDetail(s);
 }
 
-// 需求一：图片点击放大（showLargeMedia），图片可点击，视频直接展示控件
+// 图片/视频点击放大
 function showLargeMedia(src) {
   const modal = document.getElementById('mediaModal');
   const img = document.getElementById('mediaModalImg');
@@ -477,7 +475,6 @@ function showDetail(item, factory) {
   document.getElementById('detailMeta').innerHTML = `${versionLabel}：${item.version} | 更新日期：${item.updateDate} ${ (new Date()-new Date(item.updateDate))/(1000 * 60 * 60 * 24)<=7?'<span class="badge">7日内</span>':'' }${factory?' | 厂：'+factory:''}`;
   document.getElementById('detailText').innerText = item.detail?.text || '暂无内容';
   
-  // 渲染图片和视频，图片可点击放大
   document.getElementById('detailImages').innerHTML = (item.detail?.images||[]).map(s => {
     if (s.startsWith('data:video/')) {
       return `<video src="${s}" controls style="max-width:200px; max-height:200px; cursor:pointer;" onclick="showLargeMedia('${s.replace(/'/g, "\\'")}')"></video>`;
@@ -681,6 +678,7 @@ function deleteLog(i) {
 
 // GitHub配置
 function openGithubConfig() {
+  document.getElementById('githubOwner').value = localStorage.getItem('github_owner') || 'zhoujb9527';
   document.getElementById('githubToken').value = localStorage.getItem('github_token') || '';
   document.getElementById('githubBranch').value = localStorage.getItem('github_branch') || 'main';
   document.getElementById('githubConfigModal').style.display = 'flex';
@@ -688,19 +686,21 @@ function openGithubConfig() {
 }
 
 function saveGithubConfig() {
+  localStorage.setItem('github_owner', document.getElementById('githubOwner').value.trim() || 'zhoujb9527');
   localStorage.setItem('github_token', document.getElementById('githubToken').value.trim());
   localStorage.setItem('github_branch', document.getElementById('githubBranch').value.trim() || 'main');
   document.getElementById('githubConfigModal').style.display = 'none';
   alert('✅ 配置已保存');
 }
 
-// 推送
+// 推送（修复超时+硬编码）
 async function pushToGithub() {
   if (!isAdmin) { alert('请先登录！'); return; }
   const token = localStorage.getItem('github_token');
   if (!token) { alert('请先配置 Token！'); return; }
   
-  const owner = 'zhoujb9527', repo = 'process-docs';
+  const owner = localStorage.getItem('github_owner') || 'zhoujb9527';
+  const repo = 'process-docs';
   const branch = localStorage.getItem('github_branch') || 'main';
   const path = currentModule === 'process' ? 'data.json' : 'skill-data.json';
   const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
@@ -710,7 +710,7 @@ async function pushToGithub() {
     : { ...SKILL_DATA, _admin_pwd: skillAdminPwd, _logs: skillLogs };
   
   const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), 10000);
+  const timer = setTimeout(() => ctrl.abort(), 60000); // 延长至60秒
   
   try {
     let sha = '';
@@ -726,7 +726,11 @@ async function pushToGithub() {
     if (putRes.ok) alert('✅ 推送成功！稍后自动部署。');
     else throw new Error(`HTTP ${putRes.status}`);
   } catch(e) {
-    alert('❌ 推送失败：' + e.message);
+    if (e.name === 'AbortError') {
+      alert('❌ 推送超时：网络较慢或图片/视频过大，请稍后重试！');
+    } else {
+      alert('❌ 推送失败：' + e.message);
+    }
   } finally {
     clearTimeout(timer);
     document.getElementById('adminDropdown').style.display = 'none';
@@ -741,13 +745,12 @@ function exportDataJson() {
   a.click(); URL.revokeObjectURL(url);
 }
 
-// ==================== 图片/视频上传（修复点击+拖拽，支持视频） ====================
+// ==================== 图片/视频上传 ====================
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
 
 dropZone.addEventListener('click', () => fileInput.click());
 
-// 需求二：支持处理视频文件
 function handleFiles(files) {
   Array.from(files).forEach(f => {
     if (!f.type.startsWith('image/') && !f.type.startsWith('video/')) return;
@@ -770,7 +773,6 @@ dropZone.addEventListener('drop', e => {
   if (e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
 });
 
-// 需求二：预览时区分图片和视频
 function renderImgPreview() {
   document.getElementById('imgPreview').innerHTML = tempImages.map((s,i) => {
     if (s.startsWith('data:video/')) {
