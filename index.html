@@ -244,17 +244,23 @@ async function loadData() {
   render();
 }
 
-// 更新下拉面板选项
+// 更新下拉面板选项（核心联动逻辑）
 function updateDropdown(type) {
-  const factoryInput = document.getElementById('factoryInput').value.toLowerCase();
-  const processInput = document.getElementById('processInput').value.toLowerCase();
+  const factoryInput = document.getElementById('factoryInput').value.trim();
+  const processInput = document.getElementById('processInput').value.trim();
   
   if (type === 'factory') {
     const dropdown = document.getElementById('factoryDropdown');
+    // 找到与输入匹配的实际厂名key（不区分大小写）
+    let matchedFactory = null;
+    if (factoryInput) {
+      matchedFactory = Object.keys(DATA).find(f => f.toLowerCase() === factoryInput.toLowerCase());
+    }
+    
     let factories = Object.keys(DATA).sort();
     // 按输入过滤
     if (factoryInput) {
-      factories = factories.filter(f => f.toLowerCase().includes(factoryInput));
+      factories = factories.filter(f => f.toLowerCase().includes(factoryInput.toLowerCase()));
     }
     if (factories.length === 0) {
       dropdown.innerHTML = '<div class="no-match">无匹配厂名</div>';
@@ -267,16 +273,26 @@ function updateDropdown(type) {
   if (type === 'process') {
     const dropdown = document.getElementById('processDropdown');
     let processOptions = [];
-    if (factoryInput && DATA[factoryInput]) {
-      processOptions = DATA[factoryInput].map(p => p.id);
+    
+    // 联动：根据左边厂名过滤工艺
+    if (factoryInput) {
+      // 找到匹配的厂名（不区分大小写）
+      const matchedFactory = Object.keys(DATA).find(f => f.toLowerCase() === factoryInput.toLowerCase());
+      if (matchedFactory && DATA[matchedFactory]) {
+        processOptions = DATA[matchedFactory].map(p => p.id);
+      }
+      // 如果左边输入了但没匹配到任何厂，右边显示为空（因为该厂不存在）
     } else {
+      // 左边为空，显示所有工艺
       processOptions = Object.values(DATA).flat().map(p => p.id);
     }
+    
     processOptions = [...new Set(processOptions)].sort((a, b) => a.localeCompare(b, 'zh-CN', { numeric: true }));
-    // 按输入过滤
+    // 按右边输入框内容二次过滤
     if (processInput) {
-      processOptions = processOptions.filter(p => p.toLowerCase().includes(processInput));
+      processOptions = processOptions.filter(p => p.toLowerCase().includes(processInput.toLowerCase()));
     }
+    
     if (processOptions.length === 0) {
       dropdown.innerHTML = '<div class="no-match">无匹配工艺名</div>';
     } else {
@@ -288,16 +304,17 @@ function updateDropdown(type) {
 
 // 渲染主页面列表
 function render() {
-  const fInput = document.getElementById('factoryInput').value.toLowerCase();
-  const pInput = document.getElementById('processInput').value.toLowerCase();
+  const fInput = document.getElementById('factoryInput').value.trim();
+  const pInput = document.getElementById('processInput').value.trim();
   
   const content = document.getElementById('content');
   content.innerHTML = '';
   
   Object.keys(DATA).sort().forEach(factory => {
-    if(fInput && !factory.toLowerCase().includes(fInput)) return;
+    // 如果左边有输入，只显示匹配的厂
+    if(fInput && !factory.toLowerCase().includes(fInput.toLowerCase())) return;
     
-    let processes = DATA[factory].filter(p => !pInput || p.id.toLowerCase().includes(pInput));
+    let processes = DATA[factory].filter(p => !pInput || p.id.toLowerCase().includes(pInput.toLowerCase()));
     if(processes.length === 0) return;
     
     processes = [...processes].sort((a, b) => a.id.localeCompare(b.id, 'zh-CN', { numeric: true }));
@@ -325,6 +342,7 @@ function render() {
 // 下拉框事件绑定
 document.getElementById('factoryInput').addEventListener('input', function() {
   updateDropdown('factory');
+  updateDropdown('process'); // 联动更新右边
   render();
 });
 document.getElementById('factoryInput').addEventListener('focus', function() {
@@ -334,7 +352,7 @@ document.getElementById('factoryDropdown').addEventListener('click', function(e)
   if (e.target.dataset.value) {
     document.getElementById('factoryInput').value = e.target.dataset.value;
     this.style.display = 'none';
-    updateDropdown('process');
+    updateDropdown('process'); // 选中后联动更新右边
     render();
   }
 });
