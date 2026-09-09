@@ -14,7 +14,20 @@
   header h1 { margin: 0; font-size: 24px; }
   
   .search-row { display: flex; gap: 10px; margin-bottom: 20px; }
-  .search-row input, .search-row select { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+  
+  /* 自定义组合框 */
+  .combobox { flex: 1; position: relative; }
+  .combobox input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+  .combobox-dropdown { 
+    display: none; position: absolute; top: 100%; left: 0; right: 0; 
+    background: #fff; border: 1px solid #ccc; border-top: none; 
+    border-radius: 0 0 4px 4px; max-height: 200px; overflow-y: auto; 
+    z-index: 50; box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+  }
+  .combobox-dropdown div { padding: 8px 10px; cursor: pointer; }
+  .combobox-dropdown div:hover { background: #e8f0fe; }
+  .combobox-dropdown .no-match { color: #999; cursor: default; }
+  .combobox-dropdown .no-match:hover { background: #fff; }
   
   .factory-section { margin-bottom: 20px; }
   .factory-title { font-size: 20px; color: #0056b3; margin-bottom: 10px; display: flex; justify-content: space-between; }
@@ -69,13 +82,16 @@
   </header>
   
   <div class="search-row">
-    <input type="text" id="factoryInput" placeholder="搜索 / 选择 fab 厂（留空显示全部）" list="factoryList" style="flex: 0 0 250px;">
-    <datalist id="factoryList"></datalist>
-    
-    <!-- 第二个搜索框改为 select 下拉菜单 -->
-    <select id="processInput">
-      <option value="">-- 选择工艺名（留空显示全部） --</option>
-    </select>
+    <!-- 第一个搜索框：fab厂 -->
+    <div class="combobox" id="factoryCombobox">
+      <input type="text" id="factoryInput" placeholder="输入或选择 fab 厂（留空显示全部）" autocomplete="off">
+      <div class="combobox-dropdown" id="factoryDropdown"></div>
+    </div>
+    <!-- 第二个搜索框：工艺名 -->
+    <div class="combobox" id="processCombobox">
+      <input type="text" id="processInput" placeholder="输入或选择工艺名（留空显示全部）" autocomplete="off">
+      <div class="combobox-dropdown" id="processDropdown"></div>
+    </div>
   </div>
   
   <div id="content"></div>
@@ -228,29 +244,52 @@ async function loadData() {
   render();
 }
 
-// 渲染主页面
+// 更新下拉面板选项
+function updateDropdown(type) {
+  const factoryInput = document.getElementById('factoryInput').value.toLowerCase();
+  const processInput = document.getElementById('processInput').value.toLowerCase();
+  
+  if (type === 'factory') {
+    const dropdown = document.getElementById('factoryDropdown');
+    let factories = Object.keys(DATA).sort();
+    // 按输入过滤
+    if (factoryInput) {
+      factories = factories.filter(f => f.toLowerCase().includes(factoryInput));
+    }
+    if (factories.length === 0) {
+      dropdown.innerHTML = '<div class="no-match">无匹配厂名</div>';
+    } else {
+      dropdown.innerHTML = factories.map(f => `<div data-value="${f}">${f}</div>`).join('');
+    }
+    dropdown.style.display = 'block';
+  }
+  
+  if (type === 'process') {
+    const dropdown = document.getElementById('processDropdown');
+    let processOptions = [];
+    if (factoryInput && DATA[factoryInput]) {
+      processOptions = DATA[factoryInput].map(p => p.id);
+    } else {
+      processOptions = Object.values(DATA).flat().map(p => p.id);
+    }
+    processOptions = [...new Set(processOptions)].sort((a, b) => a.localeCompare(b, 'zh-CN', { numeric: true }));
+    // 按输入过滤
+    if (processInput) {
+      processOptions = processOptions.filter(p => p.toLowerCase().includes(processInput));
+    }
+    if (processOptions.length === 0) {
+      dropdown.innerHTML = '<div class="no-match">无匹配工艺名</div>';
+    } else {
+      dropdown.innerHTML = processOptions.map(p => `<div data-value="${p}">${p}</div>`).join('');
+    }
+    dropdown.style.display = 'block';
+  }
+}
+
+// 渲染主页面列表
 function render() {
   const fInput = document.getElementById('factoryInput').value.toLowerCase();
   const pInput = document.getElementById('processInput').value.toLowerCase();
-  
-  // 工厂下拉
-  const factoryList = document.getElementById('factoryList');
-  factoryList.innerHTML = Object.keys(DATA).sort().map(f => `<option value="${f}">`).join('');
-  
-  // 工艺名下拉（select）
-  const processSelect = document.getElementById('processInput');
-  let processOptions = [];
-  if (fInput && DATA[fInput]) {
-    processOptions = DATA[fInput].map(p => p.id);
-  } else {
-    processOptions = Object.values(DATA).flat().map(p => p.id);
-  }
-  processOptions = [...new Set(processOptions)].sort((a, b) => a.localeCompare(b, 'zh-CN', { numeric: true }));
-  
-  // 保留当前选中的值
-  const currentVal = processSelect.value;
-  processSelect.innerHTML = '<option value="">-- 选择工艺名（留空显示全部） --</option>' + 
-    processOptions.map(p => `<option value="${p}" ${p === currentVal ? 'selected' : ''}>${p}</option>`).join('');
   
   const content = document.getElementById('content');
   content.innerHTML = '';
@@ -282,6 +321,48 @@ function render() {
     content.innerHTML += html;
   });
 }
+
+// 下拉框事件绑定
+document.getElementById('factoryInput').addEventListener('input', function() {
+  updateDropdown('factory');
+  render();
+});
+document.getElementById('factoryInput').addEventListener('focus', function() {
+  updateDropdown('factory');
+});
+document.getElementById('factoryDropdown').addEventListener('click', function(e) {
+  if (e.target.dataset.value) {
+    document.getElementById('factoryInput').value = e.target.dataset.value;
+    this.style.display = 'none';
+    updateDropdown('process');
+    render();
+  }
+});
+
+document.getElementById('processInput').addEventListener('input', function() {
+  updateDropdown('process');
+  render();
+});
+document.getElementById('processInput').addEventListener('focus', function() {
+  updateDropdown('process');
+});
+document.getElementById('processDropdown').addEventListener('click', function(e) {
+  if (e.target.dataset.value) {
+    document.getElementById('processInput').value = e.target.dataset.value;
+    this.style.display = 'none';
+    render();
+  }
+});
+
+// 点击页面其他位置关闭下拉
+document.addEventListener('click', function(e) {
+  if (!document.getElementById('factoryCombobox').contains(e.target)) {
+    document.getElementById('factoryDropdown').style.display = 'none';
+  }
+  if (!document.getElementById('processCombobox').contains(e.target)) {
+    document.getElementById('processDropdown').style.display = 'none';
+  }
+});
 
 // 管理员逻辑
 function toggleAdminDropdown() {
@@ -469,7 +550,7 @@ async function pushToGithub() {
     }
   } catch (e) {
     if (e.name === 'AbortError') {
-      alert('⏱ 推送超时（10秒未响应）：GitHub 连接不稳定。系统将自动导出 data.json 到本地作为备份，你可稍后点“🔄 重试推送”或手动上传。');
+      alert('⏱ 推送超时（10秒未响应）：GitHub 连接不稳定。系统将自动导出 data.json 到本地作为备份，你可稍后点"🔄 重试推送"或手动上传。');
     } else if (e.isGh) {
       alert('❌ GitHub 返回错误：\n' + e.message + '\n\n系统将自动导出 data.json 到本地作为备份，你可稍后重试。');
     } else {
@@ -591,7 +672,7 @@ function renderImgPreview() {
   document.getElementById('imgPreview').innerHTML = tempImages.map((src,i) => `<img src="${src}" onclick="tempImages.splice(${i},1);renderImgPreview()" title="点击删除">`).join('');
 }
 
-// 点击外部关闭
+// 点击外部关闭管理员菜单
 document.addEventListener('click', e => {
   const dd = document.getElementById('adminDropdown');
   const btn = document.getElementById('adminBtn');
@@ -612,10 +693,6 @@ document.addEventListener('keydown', e => {
     document.getElementById('adminDropdown').style.display = 'none';
   } 
 });
-
-// 搜索监听
-document.getElementById('factoryInput').addEventListener('input', render);
-document.getElementById('processInput').addEventListener('change', render);
 
 loadData();
 </script>
