@@ -818,8 +818,8 @@
     },
     {
       "id": "Dongbu1830bd18ba",
-      "version": "1.0",
-      "updateDate": "2026-06-06",
+      "version": "DPDK_IC6p1_1830bd18ba_Rev3p6p1_1",
+      "updateDate": "2026-09-11",
       "detail": {
         "text": "",
         "images": []
@@ -1528,6 +1528,11 @@
   ],
   "_admin_pwd": "123456",
   "_logs": [
+    {
+      "time": "2026-09-11 14:03",
+      "process": "Dongbu1830bd18ba",
+      "factory": "Dongbu"
+    },
     {
       "time": "2026-09-09 09:29:48",
       "process": "605SPTM-ATXXXX(Temporary)",
