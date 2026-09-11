@@ -12,6 +12,15 @@
   ],
   "layout": [
     {
+      "id": "版图总菜单（ZJB_Menu.il）",
+      "version": "/home/share/ZJB_skill/ZJB_menu.il",
+      "updateDate": "2026-09-02",
+      "detail": {
+        "text": "总菜单，load下来之后 包含版图栏所有脚本。",
+        "images": []
+      }
+    },
+    {
       "id": "层次替换",
       "version": "/home/share/ZJB_skill/ZJB_menu.il",
       "updateDate": "2026-08-09",
@@ -177,19 +186,15 @@
         "text": "AlignMode.il\n绑定快捷键4 使用Align对齐时（快捷键a），可以切换offset的对齐距离(0或者你设置的space)，即使用快捷键4切换F3属性下的这两种模式（当前只能在VNC下的系统使用，老系统用不了）",
         "images": []
       }
-    },
-    {
-      "id": "ZJB_Menu.il",
-      "version": "/home/share/ZJB_skill/ZJB_menu.il",
-      "updateDate": "2026-09-09",
-      "detail": {
-        "text": "总菜单，load下来之后 包含版图栏所有脚本。",
-        "images": []
-      }
     }
   ],
   "_admin_pwd": "123456",
   "_logs": [
+    {
+      "time": "2026-09-11 08:37",
+      "process": "版图总菜单（ZJB_Menu.il）",
+      "category": "layout"
+    },
     {
       "time": "2026-09-10 14:15",
       "process": "去环、bulk",
