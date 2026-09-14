@@ -727,7 +727,7 @@
       }
     },
     {
-      "id": "Dongbu1233ii09sa",
+      "id": "Dongbu1233il09sa",
       "version": "1.0",
       "updateDate": "2026-06-06",
       "detail": {
@@ -737,8 +737,8 @@
     },
     {
       "id": "Dongbu1233ts09sa",
-      "version": "1.0",
-      "updateDate": "2026-06-06",
+      "version": "DPDK_IC6p1_1233ts09sa_Rev2p12p2_0",
+      "updateDate": "2026-09-10",
       "detail": {
         "text": "",
         "images": []
@@ -1528,6 +1528,21 @@
   ],
   "_admin_pwd": "123456",
   "_logs": [
+    {
+      "time": "2026-09-14 14:28",
+      "process": "Dongbu1233ts09sa",
+      "factory": "Dongbu"
+    },
+    {
+      "time": "2026-09-14 14:22",
+      "process": "Dongbu1233il09sa",
+      "factory": "Dongbu"
+    },
+    {
+      "time": "2026-09-14 14:16",
+      "process": "Dongbu1233ts09sa",
+      "factory": "Dongbu"
+    },
     {
       "time": "2026-09-11 14:03",
       "process": "Dongbu1830bd18ba",
