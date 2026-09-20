@@ -1319,7 +1319,7 @@
     },
     {
       "id": "HL18GFL",
-      "version": "1.0",
+      "version": "S4.5",
       "updateDate": "2026-06-06",
       "detail": {
         "text": "",
@@ -1328,7 +1328,7 @@
     },
     {
       "id": "HL18P06",
-      "version": "1.0",
+      "version": "S0.9",
       "updateDate": "2026-06-06",
       "detail": {
         "text": "",
@@ -1337,7 +1337,7 @@
     },
     {
       "id": "HM13EW",
-      "version": "1.0",
+      "version": "S0.9h_b",
       "updateDate": "2026-06-06",
       "detail": {
         "text": "",
@@ -1346,7 +1346,7 @@
     },
     {
       "id": "HM13EWP",
-      "version": "1.0",
+      "version": "S1.0",
       "updateDate": "2026-06-06",
       "detail": {
         "text": "",
@@ -1355,7 +1355,7 @@
     },
     {
       "id": "HM18EW",
-      "version": "1.0",
+      "version": "S4.1",
       "updateDate": "2026-06-06",
       "detail": {
         "text": "",
@@ -1364,7 +1364,7 @@
     },
     {
       "id": "HP13M40GEN2",
-      "version": "1.0",
+      "version": "S0.9g",
       "updateDate": "2026-06-06",
       "detail": {
         "text": "",
@@ -1373,7 +1373,7 @@
     },
     {
       "id": "HP18E40GEN3",
-      "version": "1.0",
+      "version": "S0.8",
       "updateDate": "2026-06-06",
       "detail": {
         "text": "",
@@ -1382,7 +1382,7 @@
     },
     {
       "id": "HP18E40GEN4",
-      "version": "1.0",
+      "version": "S0.8f",
       "updateDate": "2026-06-06",
       "detail": {
         "text": "",
@@ -1391,7 +1391,7 @@
     },
     {
       "id": "HP18E80",
-      "version": "1.0",
+      "version": "S1.9h",
       "updateDate": "2026-06-06",
       "detail": {
         "text": "",
@@ -1400,7 +1400,7 @@
     },
     {
       "id": "HP18EP100",
-      "version": "1.0",
+      "version": "S1.9b",
       "updateDate": "2026-06-06",
       "detail": {
         "text": "",
@@ -1409,7 +1409,7 @@
     },
     {
       "id": "HP18O200",
-      "version": "1.0",
+      "version": "S0.9b",
       "updateDate": "2026-06-06",
       "detail": {
         "text": "",
@@ -1524,6 +1524,61 @@
   ],
   "_admin_pwd": "123456",
   "_logs": [
+    {
+      "time": "2026-09-20 16:23",
+      "process": "HP18O200",
+      "factory": "IFOUNDRY"
+    },
+    {
+      "time": "2026-09-20 16:22",
+      "process": "HP18EP100",
+      "factory": "IFOUNDRY"
+    },
+    {
+      "time": "2026-09-20 16:22",
+      "process": "HP18E80",
+      "factory": "IFOUNDRY"
+    },
+    {
+      "time": "2026-09-20 16:22",
+      "process": "HP18E40GEN4",
+      "factory": "IFOUNDRY"
+    },
+    {
+      "time": "2026-09-20 16:21",
+      "process": "HP18E40GEN3",
+      "factory": "IFOUNDRY"
+    },
+    {
+      "time": "2026-09-20 16:21",
+      "process": "HP13M40GEN2",
+      "factory": "IFOUNDRY"
+    },
+    {
+      "time": "2026-09-20 16:20",
+      "process": "HM18EW",
+      "factory": "IFOUNDRY"
+    },
+    {
+      "time": "2026-09-20 16:19",
+      "process": "HM13EWP",
+      "factory": "IFOUNDRY"
+    },
+    {
+      "time": "2026-09-20 16:17",
+      "process": "HM13EW",
+      "factory": "IFOUNDRY"
+    },
+    {
+      "time": "2026-09-20 16:16",
+      "process": "HL18P06",
+      "factory": "IFOUNDRY"
+    },
+    {
+      "time": "2026-09-20 16:15",
+      "process": "HL18GFL",
+      "factory": "IFOUNDRY"
+    },
     {
       "time": "2026-09-20 15:53",
       "process": "HL13W",
