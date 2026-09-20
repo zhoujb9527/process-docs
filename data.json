@@ -1309,8 +1309,8 @@
       }
     },
     {
-      "id": "GPG",
-      "version": "1.0",
+      "id": "HL13W",
+      "version": "S1.2",
       "updateDate": "2026-06-06",
       "detail": {
         "text": "",
@@ -1318,7 +1318,7 @@
       }
     },
     {
-      "id": "HL13W",
+      "id": "HL18GFL",
       "version": "1.0",
       "updateDate": "2026-06-06",
       "detail": {
@@ -1328,15 +1328,6 @@
     },
     {
       "id": "HL18P06",
-      "version": "1.0",
-      "updateDate": "2026-06-06",
-      "detail": {
-        "text": "",
-        "images": []
-      }
-    },
-    {
-      "id": "HL18GFL",
       "version": "1.0",
       "updateDate": "2026-06-06",
       "detail": {
@@ -1459,8 +1450,8 @@
   ],
   "GTA": [
     {
-      "id": "GTA(30V)_PDK",
-      "version": "V1.2",
+      "id": "12in_LD090E40_1v5_5v_40v",
+      "version": "V0P5",
       "updateDate": "2026-06-06",
       "detail": {
         "text": "",
@@ -1486,6 +1477,24 @@
       }
     },
     {
+      "id": "CD15_1.8V_5V_HV40V",
+      "version": "V1p2_V8",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
+      "id": "CD18_1.8V_5V_HV30V",
+      "version": "V1.2",
+      "updateDate": "2026-06-06",
+      "detail": {
+        "text": "",
+        "images": []
+      }
+    },
+    {
       "id": "CD18_1.8V_5V_HV85V",
       "version": "V1.0",
       "updateDate": "2026-06-06",
@@ -1504,26 +1513,8 @@
       }
     },
     {
-      "id": "12in_LD090E40_1v5_5v_40v",
-      "version": "V0P5",
-      "updateDate": "2026-06-06",
-      "detail": {
-        "text": "",
-        "images": []
-      }
-    },
-    {
-      "id": "CD18_1.8V_5V_HV30V",
+      "id": "GTA(30V)_PDK",
       "version": "V1.2",
-      "updateDate": "2026-06-06",
-      "detail": {
-        "text": "",
-        "images": []
-      }
-    },
-    {
-      "id": "CD15_1.8V_5V_HV40V",
-      "version": "V1p2_V8",
       "updateDate": "2026-06-06",
       "detail": {
         "text": "",
@@ -1533,6 +1524,11 @@
   ],
   "_admin_pwd": "123456",
   "_logs": [
+    {
+      "time": "2026-09-20 15:53",
+      "process": "HL13W",
+      "factory": "IFOUNDRY"
+    },
     {
       "time": "2026-09-20 15:30",
       "process": "AP18EP200",
