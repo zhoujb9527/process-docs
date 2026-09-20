@@ -368,10 +368,10 @@ function renderProcessPage() {
     processes.forEach(p => {
       const isRecent = (new Date() - new Date(p.updateDate))/(1000 * 60 * 60 * 24) <= 7;
       const cls = isRecent ? 'process-item recent-yellow' : 'process-item';
-      // 需求二：PDK版本后加2个空格，版本号加粗标红
+      // 需求二：PDK版本后加1个空格，版本号加粗标红
       html += `<div class="${cls}" onclick="goProcessDetail('${factory}','${p.id}')">
         <strong>${p.id}</strong>
-        <div class="process-info"><span>PDK版本：&nbsp;&nbsp;<span style="font-weight:bold;color:red;">${p.version}</span></span><span>更新:${p.updateDate}</span>${isRecent?'<span class="badge">🔴 7日内</span>':''}</div>
+        <div class="process-info"><span>PDK版本：&nbsp;<span style="font-weight:bold;color:red;">${p.version}</span></span><span>更新:${p.updateDate}</span>${isRecent?'<span class="badge">🔴 7日内</span>':''}</div>
       </div>`;
     });
     html += '</div>';
