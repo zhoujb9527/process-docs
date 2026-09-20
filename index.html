@@ -368,9 +368,10 @@ function renderProcessPage() {
     processes.forEach(p => {
       const isRecent = (new Date() - new Date(p.updateDate))/(1000 * 60 * 60 * 24) <= 7;
       const cls = isRecent ? 'process-item recent-yellow' : 'process-item';
+      // 需求二：PDK版本后加三个空格，版本号加粗标红
       html += `<div class="${cls}" onclick="goProcessDetail('${factory}','${p.id}')">
         <strong>${p.id}</strong>
-        <div class="process-info"><span>PDK版本:${p.version}</span><span>更新:${p.updateDate}</span>${isRecent?'<span class="badge">🔴 7日内</span>':''}</div>
+        <div class="process-info"><span>PDK版本：&nbsp;&nbsp;&nbsp;<span style="font-weight:bold;color:red;">${p.version}</span></span><span>更新:${p.updateDate}</span>${isRecent?'<span class="badge">🔴 7日内</span>':''}</div>
       </div>`;
     });
     html += '</div>';
@@ -591,39 +592,69 @@ function changePwd() {
 function openProcessManage() {
   const fs = document.getElementById('factorySelect');
   fs.innerHTML = Object.keys(PROCESS_DATA).sort().map(f => `<option value="${f}">${f}</option>`).join('');
-  const factory = fs.value;
+  // 需求一：绑定工厂切换事件，实现二级联动
+  fs.onchange = updateProcessSelect;
+  
+  updateProcessSelect(); // 初始化加载工艺下拉框
+  
+  document.getElementById('processManageModal').style.display = 'flex';
+  document.getElementById('adminDropdown').style.display = 'none';
+}
+
+// 需求一：新增更新工艺下拉框函数（修复排序BUG与联动）
+function updateProcessSelect() {
+  const factory = document.getElementById('factorySelect').value;
   const ps = document.getElementById('processSelect');
   let processes = PROCESS_DATA[factory] || [];
   processes.sort((a,b) => a.id.localeCompare(b.id, 'zh-CN', {numeric:true}));
   ps.innerHTML = processes.map((p,i) => `<option value="${i}">${p.id}</option>`).join('');
-  document.getElementById('processManageModal').style.display = 'flex';
-  document.getElementById('adminDropdown').style.display = 'none';
 }
 
 function addProcess() {
   const factory = document.getElementById('factorySelect').value;
   const id = prompt('新工艺名：');
-  if (id?.trim()) { PROCESS_DATA[factory].push({id: id.trim(), version:'1.0', updateDate: new Date().toISOString().slice(0,10), detail:{text:'',images:[]}}); renderProcessPage(); }
+  if (id?.trim()) { 
+    PROCESS_DATA[factory].push({id: id.trim(), version:'1.0', updateDate: new Date().toISOString().slice(0,10), detail:{text:'',images:[]}}); 
+    updateProcessSelect(); 
+    renderProcessPage(); 
+  }
 }
 function deleteProcess() {
   const factory = document.getElementById('factorySelect').value;
   const idx = document.getElementById('processSelect').value;
-  if (confirm('确定删除？')) { PROCESS_DATA[factory].splice(idx,1); renderProcessPage(); }
+  if (confirm('确定删除？')) { 
+    PROCESS_DATA[factory].splice(idx,1); 
+    updateProcessSelect(); 
+    renderProcessPage(); 
+  }
 }
 function renameProcess() {
   const factory = document.getElementById('factorySelect').value;
   const idx = document.getElementById('processSelect').value;
   const newId = prompt('新工艺名：', PROCESS_DATA[factory][idx].id);
-  if (newId?.trim()) { PROCESS_DATA[factory][idx].id = newId.trim(); renderProcessPage(); }
+  if (newId?.trim()) { 
+    PROCESS_DATA[factory][idx].id = newId.trim(); 
+    updateProcessSelect(); 
+    renderProcessPage(); 
+  }
 }
 function renameFactory() {
   const oldF = document.getElementById('factorySelect').value;
   const newF = prompt('新厂名：', oldF);
-  if (newF?.trim() && newF !== oldF) { PROCESS_DATA[newF.trim()] = PROCESS_DATA[oldF]; delete PROCESS_DATA[oldF]; renderProcessPage(); }
+  if (newF?.trim() && newF !== oldF) { 
+    PROCESS_DATA[newF.trim()] = PROCESS_DATA[oldF]; 
+    delete PROCESS_DATA[oldF]; 
+    updateProcessSelect(); 
+    renderProcessPage(); 
+  }
 }
 function deleteFactory() {
   const factory = document.getElementById('factorySelect').value;
-  if (confirm(`删除厂 "${factory}"？`)) { delete PROCESS_DATA[factory]; renderProcessPage(); }
+  if (confirm(`删除厂 "${factory}"？`)) { 
+    delete PROCESS_DATA[factory]; 
+    updateProcessSelect(); 
+    renderProcessPage(); 
+  }
 }
 
 // 脚本管理
@@ -637,7 +668,7 @@ function updateSkillSelect() {
   const cat = document.getElementById('skillCategorySelect').value;
   const ss = document.getElementById('skillSelect');
   let scripts = SKILL_DATA[cat] || [];
-  scripts.sort((a,b) => a.id.localeCompare(b, 'zh-CN', {numeric:true}));
+  scripts.sort((a,b) => a.id.localeCompare(b.id, 'zh-CN', {numeric:true}));
   ss.innerHTML = scripts.map((s,i) => `<option value="${i}">${s.id}</option>`).join('') || '<option value="">（无脚本）</option>';
 }
 
@@ -653,13 +684,21 @@ function addSkill() {
 function deleteSkill() {
   const cat = document.getElementById('skillCategorySelect').value;
   const idx = document.getElementById('skillSelect').value;
-  if (confirm('确定删除？')) { SKILL_DATA[cat].splice(idx,1); updateSkillSelect(); renderSkillPage(); }
+  if (confirm('确定删除？')) { 
+    SKILL_DATA[cat].splice(idx,1); 
+    updateSkillSelect(); 
+    renderSkillPage(); 
+  }
 }
 function renameSkill() {
   const cat = document.getElementById('skillCategorySelect').value;
   const idx = document.getElementById('skillSelect').value;
   const newId = prompt('新脚本名：', SKILL_DATA[cat][idx].id);
-  if (newId?.trim()) { SKILL_DATA[cat][idx].id = newId.trim(); updateSkillSelect(); renderSkillPage(); }
+  if (newId?.trim()) { 
+    SKILL_DATA[cat][idx].id = newId.trim(); 
+    updateSkillSelect(); 
+    renderSkillPage(); 
+  }
 }
 
 // 日志
