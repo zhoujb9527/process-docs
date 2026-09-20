@@ -371,7 +371,7 @@ function renderProcessPage() {
       // 需求二：PDK版本后加1个空格，版本号加粗标红
       html += `<div class="${cls}" onclick="goProcessDetail('${factory}','${p.id}')">
         <strong>${p.id}</strong>
-        <div class="process-info"><span>PDK版本：&nbsp;<span style="font-weight:bold;color:red;">${p.version}</span></span><span>更新:${p.updateDate}</span>${isRecent?'<span class="badge">🔴 7日内</span>':''}</div>
+        <div class="process-info"><span>PDK版本：&nbsp;<span style="font-weight:bold;color:red;">${p.version}</span></span><span>更新:&nbsp;${p.updateDate}</span>${isRecent?'<span class="badge">🔴 7日内</span>':''}</div>
       </div>`;
     });
     html += '</div>';
@@ -422,7 +422,7 @@ function renderSkillPage() {
         const cls = isRecent ? 'process-item recent-yellow' : 'process-item';
         html += `<div class="${cls}" onclick="goSkillDetail('${catKey}','${s.id}')">
           <strong>${s.id}</strong>
-          <div class="process-info"><span>load路径:${s.version}</span><span>更新:${s.updateDate}</span>${isRecent?'<span class="badge">🔴 7日内</span>':''}</div>
+          <div class="process-info"><span>load路径:&nbsp;${s.version}</span><span>更新:&nbsp;${s.updateDate}</span>${isRecent?'<span class="badge">🔴 7日内</span>':''}</div>
         </div>`;
       });
       html += '</div>';
