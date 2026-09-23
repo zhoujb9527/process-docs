@@ -775,10 +775,10 @@
     },
     {
       "id": "Dongbu1830an18ba",
-      "version": "Rev3p10p1_0",
-      "updateDate": "2026-06-06",
+      "version": "Rev3p10p1_1",
+      "updateDate": "2026-09-23",
       "detail": {
-        "text": "",
+        "text": "\n\n更新PDK",
         "images": []
       }
     },
@@ -812,9 +812,9 @@
     {
       "id": "Dongbu1840bd15ba",
       "version": "Rev1p3p1_0",
-      "updateDate": "2026-06-06",
+      "updateDate": "2026-09-23",
       "detail": {
-        "text": "",
+        "text": "\n\n\n\n更新IP",
         "images": []
       }
     },
@@ -883,10 +883,10 @@
     },
     {
       "id": "Dongbu5045bd18ba",
-      "version": "Rev3p6p0_1",
-      "updateDate": "2026-06-06",
+      "version": "Rev3p6p0_2",
+      "updateDate": "2026-09-23",
       "detail": {
-        "text": "",
+        "text": "\n\n\n更新PDK",
         "images": []
       }
     }
@@ -1501,6 +1501,21 @@
   ],
   "_admin_pwd": "123456",
   "_logs": [
+    {
+      "time": "2026-09-23 13:45",
+      "process": "Dongbu1840bd15ba",
+      "factory": "Dongbu"
+    },
+    {
+      "time": "2026-09-23 13:44",
+      "process": "Dongbu5045bd18ba",
+      "factory": "Dongbu"
+    },
+    {
+      "time": "2026-09-23 13:44",
+      "process": "Dongbu1830an18ba",
+      "factory": "Dongbu"
+    },
     {
       "time": "2026-09-21 14:54",
       "process": "R018S6D0",
